@@ -60,7 +60,7 @@ public class FileBoardController {
 		//할일
 		//글쓰기 폼을 보여줄 거야
 		//인터셉터를 이용하여 로그인처리했기 때문에 딱히 할일이 없다
-		System.out.println("writeForm.sun요청컨트롤러~~~");
+		System.out.println("writeForm요청컨트롤러~~~");
 		return "/fileBoard/writeForm";
 	}
 	
