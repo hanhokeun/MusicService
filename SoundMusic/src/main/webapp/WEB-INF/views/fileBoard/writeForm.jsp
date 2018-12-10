@@ -7,108 +7,93 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript">
-  	$(document).ready(function(){
-  		
-  		var count=1; //업로드할 파일의 개수	
-  	 //id="sBtn" value="글쓰기"
-  	 
-  	 //글쓰기버튼 클릭
-  	 $("#sBtn").click(function(){
-  		
-  		 alert("sBtn을 클릭하였습니다.")
-  		 $("#wForm").submit();
-  	 })
-  	 
-  	 
-  	 // 첨부파일추가버튼 id="aBtn" value="추가"
-  	 $("#aBtn").click(function(){
-  		 //할일
-  		 // 옵로드할 파일의 개수제한
-  		 count++;
-  		 if(count==6){
-  			 alert("5개 이상은 추가 할 수 없습니다")
-  			 count=5;
-  			 return false;
-  		 }
-  		 
-  		 // 추가할 폼
-  		 var tr="<tr><th>첨부파일</th><td><input type='file' name='files' id='files"+count+"'></td></tr>"
-  		 //원하는 위치에 추가한다.
-  		 // id가 copy인 element => <tr>~~</tr>
-  		 $("#copy").before(tr);
-  	 });
-  	 
-  	 // 첨부파일삭제버튼 id="dBtn" value="삭제"
-  	$("#dBtn").click(function(){
-  		if(count==1){
-			alert("한개는 반드시 있어야 합니다");
-			return;
-		}
-		
-		//현재 마지막count번호를 가진 tr를 구한다
-		var tr = $("#files"+count).parents("tr");
-		tr.remove();
-		count--;
-  	 });	
-  		
-  	});
-  </script>
-</head>
-<body>
-	<%-- 글쓰기 폼을 보여주자. 파일 업로드가 포함.. 스트림방식으로 처리할 수 있도록
-		enctype="multipart/form-data"를 지정해야 한다.
-	 --%>
+	<script>
+	$(function(){
+		var count=1;
+		//id="sBtn" value ="글쓰기"
+		$('#sBtn').click(function(){
+			if(title==null||len(title)==0){
+				alert('제목을 입력해 주세요.')
+			}
+			$('#wForm').submit();
+		})
 
-<div class="container">
-  <h1>글쓰기폼(writeForm.jsp)</h1>
-  <form id="wForm" method="post" action="../fileBoard/writeProc.sm" enctype="multipart/form-data">
-  	<table class="table table-bordered">
+		//첨부파일 추가버튼 id = 'aBtn'value =추가 
+		//e동적 추가 버튼
+		$("#aBtn").click(function(){
+			//할일
+			count++;// 추가할 때 마다 1씩 증가
+			//업로드 파일 최대 갯수 제한 걸거임
+			if(count==6){
+				alert("더 이상 파일을 첨부할 수 없습니다.")
+				count=5;
+				return;
+			}
+			//추가할 폼
+			var tr = "<tr><th>첨부파일</th><td><input type='file' name='files"+count+"' id='files"+count+"'/></td></tr>"
+			//원하는 위치에 추가한다.
+			$("#copy").before(tr);
+			//원하는 위치를 먼저 찾고 ( id가 copy인 element => <tr></tr>)
+			//추가하는 기능 을 추가한다.
+			
+		})
+		
+		//첨부파일 삭제 버튼 dBtn , 삭제 동적 제거
+		$("#dBtn").click(function(){
+			$('#files'+count).parents('tr').remove()
+                count--;
+                if(count==0){
+                    alert('제거할 수 있는 첨부 파일이 없습니다.')
+                    count=1;
+                    return;
+                }
+		})
+	
+			
+	})
+	!function(t){t.fn.snowit=function(a){var e=t('<div class="lis-flake" />').css({top:"-50px",position:"fixed"}).html("&eacute;"),n=t(document).height();documentWidth=t(document).width(),defaults={minSize:10,maxSize:20,total:25,speed:n/105,flakeColor:"#FFFFFF"},a=t.extend({},defaults,a),inStyle="<style>body { position: relative; }.lis-flake { position: absolute; color:#ff0000;}.lis-flake:nth-child(odd) {-moz-animation:snow1 "+a.speed+"s linear infinite;-webkit-animation:snow1 "+a.speed+"s linear infinite;animation:snow1 "+a.speed+"s linear infinite}.lis-flake:nth-child(even) {-moz-animation:snow2 "+(a.speed-a.speed/8)+"s linear infinite;-webkit-animation:snow2 "+(a.speed-a.speed/8)+"s linear infinite;animation:snow2 "+(a.speed-a.speed/8)+"s linear infinite}@-moz-keyframes snow1{0%{-moz-transform:translate(-250, 0);opacity:1}100%{-moz-transform:translate(250px, "+n+"px);opacity:0}}@-webkit-keyframes snow1{0%{-webkit-transform:translate(-250, 0);opacity:1}100%{-webkit-transform:translate(250px, "+n+"px);opacity:0}}@keyframes snow1{0%{transform:translate(-250, 0);opacity:1}100%{transform:translate(250px, "+n+"px);opacity:0}}@-moz-keyframes snow2{0%{-moz-transform:translate(0, 0);opacity:1}100%{-moz-transform:translate(0, "+n+"px);opacity:0.2}}@-webkit-keyframes snow2{0%{-webkit-transform:translate(0, 0);opacity:1}100%{-webkit-transform:translate(0, "+n+"px);opacity:0.2}}@keyframes snow2{0%{transform:translate(0, 0);opacity:1}100%{transform:translate(0, "+n+"px);opacity:0.2}}</style>";var i=function(){var i=Math.random()*documentWidth-250,o=0-(Math.random()*n-40);startOpacity=.8*Math.random(),num=parseInt(t(".lis-flake").length)+1,sizeFlake=a.minSize+Math.random()*a.maxSize,e.attr("num",num).clone().appendTo("body").css({left:i,top:o,opacity:startOpacity,"font-size":sizeFlake,color:a.flakeColor})};t("head").append(inStyle);for(var o=1;o<=a.total;o++)i()}}(jQuery);
+	</script>
+	</head>
+<body>
+<%-- 글쓰기 폼을 보여주자 파일업로드가 포함 .. 스트림방식으로 처리할 수 있도록
+	encType="multipart/form-data를 지정해야한다. --%>
+  <h1>글쓰기 폼이다</h1>
+  <script>
+        $.fn.snowit({ flakeColor:'#F00',minSize:12,maxSize:22,total:100 });//total 숫자 높을수록 폭설, 숫자 1000을 넘기지마세요
+    </script>
+  <form id="wForm" method="post" action="../notice/noticeProc.sm" encType="multipart/form-data">
+  	<table border="1"width="700"align="center">
   		<tr>
-  			<th>제목</th>
-  			<td>
-  				<input type="text" name="title" id="title" style="margin: 0px; width: 360px;"/>
-  			</td>
-  		</tr>
-  		<tr>
-  			<th>내용</th>
-  			<td>
-  				<textarea type="text" name="body" id="body" style="margin: 0px; width: 840px; height: 203px;"></textarea>
-  			</td>
-  		</tr>
-  		<tr>
-  			<th>작성자</th>
+  			<th>글쓴이</th>
   			<td>${sessionScope.UNICK}</td>
   		</tr>
   		<tr>
-  			<th>비밀번호</th>
-  			<td>
-  				<input type="password" name="pw" id="pw"/>
-  			</td>
+  			<th>제목</th>
+  			<td><input type='text' name ="title" id="title"></td>
   		</tr>
   		<tr>
-  			<th>첨부파일</th>  			
-  			<td>
-  				<input type="button" id="aBtn" value="추가"/>
-  				<input type="button" id="dBtn" value="삭제"/>
+  			<th>본문</th>
+  			<td><textarea rows="10" cols="20"></textarea></td>
+  		</tr>
+  		<tr>
+  			<th>비밀번호</th>
+  			<td><input type='password' name="pw"id="pw"></td>
+  		</tr>
+  		<tr>
+  			<th>첨부파일</th>
+  			<td><input type='button' id="aBtn" value="추가">
+  				<input type='button' id="dBtn" value="삭제">
   			</td>
   		</tr>
   		<tr>
   			<th>첨부파일</th>
-  			<td>
-  				<input type="file" name="files" id="files" />  				
-  			</td>  			
+  			<td><input type='file' name="files" id="files"></td>
   		</tr>
   		<tr id="copy">
-  			<td colspan="2">
-	  		<input type="button" id="sBtn" class="btn btn-info" value="글쓰기"/>  			
-  			</td>
-  		</tr>  		  		
+  			<td colspan="2"><input type="button" id="sBtn" value="글쓰기"></td>
+  		</tr>	
   	</table>
   </form>
-</div>  
+  
 </body>
 </html>
