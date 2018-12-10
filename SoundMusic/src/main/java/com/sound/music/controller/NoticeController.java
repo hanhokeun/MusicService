@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sound.music.service.CommonBoardService;
+import com.sound.music.service.NoticeServiceimpl;
 import com.sound.music.vo.NoticeVO;
 
 @Controller
@@ -21,8 +23,8 @@ public class NoticeController {
 	// 스프링은 하나의 컨트롤러에 여러 개의 요청처리함수를 만들 수 있다.
 	// 요청처리함수를 알려주기 위해서 @RequestMapping() 처리를 해주어야 한다.
 	// 반환값 void, String, ModelAndView 중 택일 => 뷰 호출방식 결정
-	@Inject
-	CommonBoardService noticeService;
+	@Autowired
+	NoticeServiceimpl noticeService;
 	
 	//01. 게시글 목록 
 	@RequestMapping("noticeList.sm")

@@ -8,13 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sound.music.dao.CommonBoardDAO;
+import com.sound.music.dao.NoticeDAOimpl;
 import com.sound.music.vo.NoticeVO;
 
 @Service
 public class NoticeServiceimpl implements CommonBoardService {
 	
 	@Autowired
-	CommonBoardDAO noticeDao;
+	NoticeDAOimpl noticeDao;
 	//01. 게시글 쓰기
 	@Override
 	public void create(NoticeVO vo) throws Exception {
@@ -40,10 +41,10 @@ public class NoticeServiceimpl implements CommonBoardService {
 		
 	}
 	//02. 게시글 상세보기
-	@Override
+	
 	public NoticeVO read(int no) throws Exception {
 		
-		return noticeDao.read(no);
+		return  noticeDao.read(no);
 	}
 	//03.게시글 수정
 	@Override
@@ -58,10 +59,10 @@ public class NoticeServiceimpl implements CommonBoardService {
 		
 	}
 	//05. 게시글 전체 목록
-	@Override
+	
 	public List<NoticeVO> listAll() throws Exception {
 		
-		return noticeDao.listAll();
+		return  noticeDao.listAll();
 	}
 	//06. 게시글 조회수 증가.
 	@Override
