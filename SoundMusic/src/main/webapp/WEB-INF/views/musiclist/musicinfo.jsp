@@ -9,11 +9,11 @@
 	<title>Document</title>
 </head>
 <script>
-//$(document).ready(){
-	//$('#goList').onclick(function(){
-		
-	//})
-//}
+$(document).ready(function(){
+	$('#goList').click(function(){
+		$(location).attr('href',"../musiclist/musiclist.sm")
+	})
+})
 </script>
 <body>
   	<!-- 이곳은 음악의 상세 정보를 표시하는 창
