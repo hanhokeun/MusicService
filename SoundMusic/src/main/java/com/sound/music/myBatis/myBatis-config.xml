@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	
 	<!-- 타입 별칭은 자바 타입에 대한 좀더 짧은 이름이다.
-	 오직 XML 설정에서만 사용되며, 타핑을 줄이기 위해 존재한다.
+	 오직 XML 설정에서만 사용되며, 타이핑을 줄이기 위해 존재한다.
 	 	같은 타입에 두 개 이상의 별칭을 부여해도 된다. 하지만 같은 별칭은 중복되면 안된다.
 	 		대소문자 구분가능 -->
 	 
@@ -29,6 +29,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- SQL용 xml파일을 만들었으면 그 파일을 사용하기전에 반드시 mappers의 element에
 		등록을 해놨는지 반드시 확인해야 한다. -->	
 	<mappers>		
-		<mapper resource="com/sound/music/sql/MemberSQL.xml"/>
+		<mapper resource="com/sound/music/sql/NoticeSQL.xml"/>
 	</mappers>
 </configuration>
