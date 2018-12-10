@@ -46,7 +46,7 @@ public class NoticeController {
 	@RequestMapping(value="noticeProc.sm",method=RequestMethod.POST)
 	public String noticeProc(@ModelAttribute NoticeVO vo) throws Exception{
 		noticeService.create(vo);
-		return "redirect:noticeList.sm";
+		return "notice/noticeList.sm";
 	}
 	//03. 게시글 상세내용 조회, 게시글 조회수 증가처리
 	//@RequestParam : get/post 방식으로 전달된 변수 1개

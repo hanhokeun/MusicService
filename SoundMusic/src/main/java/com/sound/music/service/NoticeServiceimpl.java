@@ -8,14 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sound.music.dao.CommonBoardDAO;
-import com.sound.music.dao.NoticeDAOimpl;
 import com.sound.music.vo.NoticeVO;
 
 @Service
 public class NoticeServiceimpl implements CommonBoardService {
 	
 	@Autowired
-	CommonBoardService noticeDao;
+	CommonBoardDAO noticeDao;
 	//01. 게시글 쓰기
 	@Override
 	public void create(NoticeVO vo) throws Exception {
@@ -79,7 +78,7 @@ public class NoticeServiceimpl implements CommonBoardService {
 		//일정시간이 경과후 조회수 증가 처리 24*60*60*1000(24시간)
 		//시스템 현재 시간 -열람시간 > 일정시간(조회수 증가가 가능하도록 지정한 시간)
 		if(current_time - update_time > 5*1000) {
-			noticeDao.increaseViewcnt(no, session);
+			noticeDao.increaseViewcnt(no);
 			//세션에 시간을 저장 : "update_time_"+no는 다른 변수와 중복되지 않게 명명
 			session.setAttribute("update_time_"+no, current_time);
 		}
