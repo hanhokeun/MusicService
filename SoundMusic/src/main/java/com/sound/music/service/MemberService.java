@@ -7,8 +7,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sound.music.dao.MemberDAO;
 import com.sound.music.vo.MemberVO;
+import com.sound.music.dao.MemberDAO;
+
 
 // 이 클래스는 서비스 기능을 담당하는 클래스
 	// 서비스 클래스를 따로 만들어서 처리하는 이유?

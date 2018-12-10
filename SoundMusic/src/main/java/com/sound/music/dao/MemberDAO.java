@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 // 이 클래스는 myBatis 를 이용해서 필요한 질의명령을 실행
 	// 그결과를 알려줄 DAO 클래스
