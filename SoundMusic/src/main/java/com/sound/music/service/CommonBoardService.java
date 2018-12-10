@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import com.sound.music.vo.NoticeVO;
 
-public interface NoticeService {
+public interface CommonBoardService {
 	//01. 게시글 작성
 	public void create(NoticeVO vo)throws Exception;
 	//02. 게시글 상세보기

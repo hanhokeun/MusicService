@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sound.music.vo.NoticeVO;
 
-public interface NoticeDAO {
+public interface CommonBoardDAO{
 	
 		//01. 게시글 작성
 		public void create(NoticeVO vo)throws Exception;

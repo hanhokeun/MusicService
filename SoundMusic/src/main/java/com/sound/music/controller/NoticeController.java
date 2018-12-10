@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sound.music.service.NoticeService;
+import com.sound.music.service.CommonBoardService;
 import com.sound.music.vo.NoticeVO;
 
 @Controller
@@ -22,7 +22,7 @@ public class NoticeController {
 	// 요청처리함수를 알려주기 위해서 @RequestMapping() 처리를 해주어야 한다.
 	// 반환값 void, String, ModelAndView 중 택일 => 뷰 호출방식 결정
 	@Inject
-	NoticeService noticeService;
+	CommonBoardService noticeService;
 	
 	//01. 게시글 목록 
 	@RequestMapping("noticeList.sm")

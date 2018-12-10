@@ -2,16 +2,15 @@ package com.sound.music.dao;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sound.music.vo.NoticeVO;
 
-@Repository		//현재 클래스를 DAO bean으로 등록
-public class NoticeDAOimpl implements NoticeDAO {
-	@Inject
+@Service		//현재 클래스를 DAO bean으로 등록
+public class NoticeDAOimpl implements CommonBoardDAO {
+	@Autowired
 	SqlSession SqlSession;
 	//01.게시글 작성
 	@Override

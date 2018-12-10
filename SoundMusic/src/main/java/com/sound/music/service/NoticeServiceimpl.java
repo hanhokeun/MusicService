@@ -2,19 +2,19 @@ package com.sound.music.service;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sound.music.dao.NoticeDAO;
+import com.sound.music.dao.CommonBoardDAO;
 import com.sound.music.vo.NoticeVO;
 
 @Service
-public class NoticeServiceimpl implements NoticeService {
+public class NoticeServiceimpl implements CommonBoardService {
 	
-	@Inject
-	NoticeDAO noticeDao;
+	@Autowired
+	CommonBoardDAO noticeDao;
 	//01. 게시글 쓰기
 	@Override
 	public void create(NoticeVO vo) throws Exception {
