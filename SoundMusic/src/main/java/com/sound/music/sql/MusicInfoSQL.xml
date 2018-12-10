@@ -4,7 +4,7 @@
 				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="musicinfo">
 	<!-- 01. 음악 상세정보조회  -->
-	<select id="minfo" resultType="com.sound.music.vo.MusicInfoVO">
+	<select id="minfo" parameterType="int" resultType="com.sound.music.vo.MusicInfoVO">
 		SELECT 
 			MU_NO as no,
 			MU_TITLE as title,

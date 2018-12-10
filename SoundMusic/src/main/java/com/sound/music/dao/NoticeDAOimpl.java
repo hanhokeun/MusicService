@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sound.music.vo.MusicInfoVO;
 import com.sound.music.vo.NoticeVO;
 
 @Service		//현재 클래스를 DAO bean으로 등록
@@ -44,6 +45,11 @@ public class NoticeDAOimpl implements CommonBoardDAO {
 	public void increaseViewcnt(int no) throws Exception {
 		SqlSession.update("notice.increaseViewcon", no);
 		
+	}
+	@Override
+	public MusicInfoVO mRead(int no) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
