@@ -12,7 +12,7 @@
 		var count=1;
 		//id="sBtn" value ="글쓰기"
 		$('#sBtn').click(function(){
-			if(title==null||len(title)==0){
+			if(title==null||length.title==0){
 				alert('제목을 입력해 주세요.')
 			}
 			$('#wForm').submit();
@@ -48,6 +48,9 @@
                     return;
                 }
 		})
+		$("#hBtn").click(function(){
+				$(location).attr("href","../index.html");
+			})
 	
 			
 	})
@@ -90,7 +93,10 @@
   			<td><input type='file' name="files" id="files"></td>
   		</tr>
   		<tr id="copy">
-  			<td colspan="2"><input type="button" id="sBtn" value="글쓰기"></td>
+  			<td colspan="2"><input type="button" id="sBtn" value="글쓰기">
+  					<input type="button" name="hBtn" id="hBtn" value="홈으로"/>
+  			</td>
+  			
   		</tr>	
   	</table>
   </form>
