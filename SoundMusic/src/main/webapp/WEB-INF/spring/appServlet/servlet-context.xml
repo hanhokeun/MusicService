@@ -50,16 +50,8 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
-		
+	<!-- DAO등록하기 -->
 	<bean id = "member" class = "com.sound.music.dao.MemberDAO">
-		<property name ="sqlSessionTemplate" ref = "sqlSession"/> 
+		<property name ="sqlSessionTemplate" ref ="sqlSession"/> 
 	</bean>
 </beans>
-
-	
-
-
-
-
-
-

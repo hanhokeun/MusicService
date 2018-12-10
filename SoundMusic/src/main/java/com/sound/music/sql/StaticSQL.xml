@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+				"-//mybatis.org//DTD Mapper 3.0//EN" 
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fileBoard">
+	<!-- 게시물 개수 구하기 -->
+	<select id="`totalCount" resultType="int">
+		select count(*) as cnt from FileBoard where upper(fb_IsShow)='Y'
+	</select>
+	<!-- 게시물 등록 -->
+	<insert id="insertStatic" parameterType="Static">
+		<selectKey order="BEFORE" resultType="int"  keyProperty="no">
+			select NVL(max(s_No),0)+1 from StaticMusic where s_IsShow='Y'
+		</selectKey>
+		insert into StaticMusic values(#{no}, #{title}, #{body}, 'Y', 0, SYSDATE)
+	</insert>
+	<!-- 업로드된 파일 정보 등록-->
+	<insert id="insertFile" parameterType="Static">
+		<selectKey order="BEFORE" resultType="int"  keyProperty="no">
+			select NVL(max(sf_No,0)+1 from StaticFile
+		</selectKey>
+		insert into StaticFile values(#{no}, #{oriNo},#{path},#{oriName},#{saveName},#{len},0)
+	</insert>
+</mapper>

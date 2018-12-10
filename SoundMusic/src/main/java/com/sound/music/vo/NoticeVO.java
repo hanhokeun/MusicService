@@ -11,7 +11,6 @@ public class NoticeVO {
 	private int viewcnt;	//조회수
 	
 	
-	
 	public int getNo() {
 		return no;
 	}
