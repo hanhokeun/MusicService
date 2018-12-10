@@ -15,17 +15,18 @@ public class MusicListDAOimpl implements MusicDAO {
 	
 	@Autowired
 	private SqlSessionTemplate session;
-
+	
+	//음악상세정보
 	@Override
 	public MusicInfoVO info(int no) throws Exception {
 
 		return session.selectOne("musicinfo.minfo",no);
 	}
-
+	
+	//음악 리스트
 	@Override
-	public MusicInfoVO allList(ArrayList list) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<MusicInfoVO> allList() throws Exception {
+		return session.selectList("musicinfo.listinfo");
 	}
 
 	@Override

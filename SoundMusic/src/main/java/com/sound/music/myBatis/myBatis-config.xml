@@ -30,5 +30,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		등록을 해놨는지 반드시 확인해야 한다. -->	
 	<mappers>		
 		<mapper resource="com/sound/music/sql/NoticeSQL.xml"/>
+		<mapper resource="com/sound/music/sql/MusicInfoSQL.xml"/>
 	</mappers>
 </configuration>

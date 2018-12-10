@@ -8,19 +8,45 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<title>Document</title>
 </head>
+<script>
+//$(document).ready(){
+	//$('#goList').onclick(function(){
+		
+	//})
+//}
+</script>
 <body>
   	<!-- 이곳은 음악의 상세 정보를 표시하는 창
   	VO로부터 파라미터를 가져와서 표시할 예정  -->
-<table border="1" width="60%">
+
+<span class="title">
+	<h1>${INFO.title}</h1>
+</span>
+<table  border="1" width="60%">	
 	<tr>
-		<td colspan="4"><b>곡 제목</b></td>
-	</tr>
-	<tr>
-		<td rowspan="3">
-			<img src="#">이미지
+		<td rowspan="3" width="200px" height="200px">
+			<img src="${INFO.path}" width="200px" height="200px">
 		</td>
 		<td>아티스트</td>
+		<td>${INFO.artist}</td>
+	</tr>
+	<tr>
+		<td>앨범</td>
+		<td>${INFO.album}</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<input type="button" id="goList" name="goList" value="목록으로">
+			<input type="button" id="like" name="like" value="추천하기 ${INFO.star}">
+			<input type="button" id="mBtn" name="mBtn" value="수정하기">
+		</td>
 	</tr>
 </table>
+<div class="lyrics">
+	<h2>가사</h2>
+	<hr>
+	${INFO.lyrics}
+</div>
+<hr>
 </body>
 </html>

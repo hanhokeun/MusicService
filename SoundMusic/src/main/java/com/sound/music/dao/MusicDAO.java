@@ -11,7 +11,7 @@ public interface MusicDAO {
 		//음악 상세보기
 		public MusicInfoVO info(int no) throws Exception;
 		//전체 음악리스트
-		public MusicInfoVO allList(ArrayList list) throws Exception;
+		public List<MusicInfoVO> allList() throws Exception;
 		//음악 추가
 		public void create(MusicInfoVO vo)throws Exception;
 		//음악 수정
