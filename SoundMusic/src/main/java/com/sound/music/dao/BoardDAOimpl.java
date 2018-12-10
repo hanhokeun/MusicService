@@ -1,5 +1,7 @@
 package com.sound.music.dao;
 
+import java.util.List;
+
 import com.sound.music.vo.NoticeVO;
 
 public class BoardDAOimpl implements CommonBoardDAO {
@@ -26,6 +28,18 @@ public class BoardDAOimpl implements CommonBoardDAO {
 	public void increaseViewcnt(int no) throws Exception {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<NoticeVO> listAll() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NoticeVO read(int no) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

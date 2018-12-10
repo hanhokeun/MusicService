@@ -14,7 +14,7 @@ public class BoardServiceimpl implements CommonBoardService {
 		
 	}
 
-	
+	@Override
 	public NoticeVO read(int no) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
@@ -32,7 +32,7 @@ public class BoardServiceimpl implements CommonBoardService {
 		
 	}
 
-	
+	@Override
 	public List<NoticeVO> listAll() throws Exception {
 		// TODO Auto-generated method stub
 		return null;

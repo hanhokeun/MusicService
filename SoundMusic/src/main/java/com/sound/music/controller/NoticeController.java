@@ -18,13 +18,13 @@ import com.sound.music.service.NoticeServiceimpl;
 import com.sound.music.vo.NoticeVO;
 
 @Controller
-@RequestMapping("/notice/*")
+@RequestMapping("notice/**")
 public class NoticeController {
 	// 스프링은 하나의 컨트롤러에 여러 개의 요청처리함수를 만들 수 있다.
 	// 요청처리함수를 알려주기 위해서 @RequestMapping() 처리를 해주어야 한다.
 	// 반환값 void, String, ModelAndView 중 택일 => 뷰 호출방식 결정
 	@Autowired
-	NoticeServiceimpl noticeService;
+	CommonBoardService noticeService;
 	
 	//01. 게시글 목록 
 	@RequestMapping("noticeList.sm")

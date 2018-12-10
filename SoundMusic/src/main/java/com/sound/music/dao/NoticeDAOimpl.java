@@ -18,7 +18,7 @@ public class NoticeDAOimpl implements CommonBoardDAO {
 		SqlSession.insert("notice.insert",vo);
 	}
 	//02. 게시글 상세
-	
+	@Override
 	public NoticeVO read(int no) throws Exception {
 		
 		return SqlSession.selectOne("notice.view",no);
@@ -34,7 +34,7 @@ public class NoticeDAOimpl implements CommonBoardDAO {
 				SqlSession.delete("notice.deleteArticle",no);
 	}
 	//05.게시글 전체 목록
-	
+	@Override
 	public List<NoticeVO> listAll() throws Exception {
 		
 		return SqlSession.selectList("notice.lisAll");

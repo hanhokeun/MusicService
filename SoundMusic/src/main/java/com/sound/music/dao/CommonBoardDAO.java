@@ -1,5 +1,7 @@
 package com.sound.music.dao;
 
+import java.util.List;
+
 import com.sound.music.vo.NoticeVO;
 
 public interface CommonBoardDAO{
@@ -12,6 +14,10 @@ public interface CommonBoardDAO{
 		public void delete(int no)throws Exception;
 		//04. 게시글 조회수
 		public void increaseViewcnt(int no) throws Exception;
+		//05. 게시글 전체 목록보기
+		public List<NoticeVO> listAll() throws Exception;
+		//06. 게시글 상세보기
+		public NoticeVO read(int no) throws Exception;
 
 		
 
