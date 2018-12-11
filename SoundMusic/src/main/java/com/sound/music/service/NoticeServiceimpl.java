@@ -23,15 +23,15 @@ public class NoticeServiceimpl implements CommonBoardService {
 		String writer = vo.getWriter();
 		//* 태그문자 처리 (< ->&lt; > -> &gt;)
 		// replace(A,B) A를 B로 변경
-		title =title.replace("<", "&lt");
-		title =title.replace(">", "&gt");
-		writer =writer.replace("<", "&lt");
-		writer =writer.replace(">", "&gt");
+//		title =title.replace("<", "&lt");
+//		title =title.replace(">", "&gt");
+//		writer =writer.replace("<", "&lt");
+//		writer =writer.replace(">", "&gt");
 		//* 공백 문자 처리
-		title =title.replace(" ", "&nbsp;&nbsp;");
-		writer =writer.replace(" ", "&nbsp;&nbsp;");
-		//* 줄바꿈 문자 처리 
-		content = content.replaceAll("\n", "<br>");
+//		title =title.replace(" ", "&nbsp;&nbsp;");
+//		writer =writer.replace(" ", "&nbsp;&nbsp;");
+//		//* 줄바꿈 문자 처리 
+//		content = content.replaceAll("\n", "<br>");
 		vo.setTitle(title);
 		vo.setContent(content);
 		vo.setWriter(writer);
@@ -69,6 +69,7 @@ public class NoticeServiceimpl implements CommonBoardService {
 		long update_time = 0;
 		//세션에 저장된 조회시간 검색
 		// 최초로 조회할 경우 세션에 저장된 값이 없기 때문에 if문은 실행되지 않음
+		
 		if(session.getAttribute("update_time_"+no)!= null) {
 			//세션에서 읽어오기
 			update_time = (Long) session.getAttribute("update_time_"+no);

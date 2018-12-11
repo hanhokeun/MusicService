@@ -14,7 +14,7 @@
 		$(function(){
 			$("#sBtn").click(function(){
 				//무결성검사하고..
-				if(word==null||word.length()==0){
+				if(word==''){
 					alert('검색어를 입력하세요.')
 				}
 				//넘기기
@@ -75,14 +75,16 @@
   		</tr>
   	</thead>
   	<tbody>
+  		<c:forEach var="temp" items="${LIST}">
   		<tr>
-  			<td>{}</td>
-  			<td>{}</td>
-  			<td>{}</td>
-  			<td>{}</td>
-  			<td>{}</td>
+  			<td>${temp.no}</td>
+  			<td>${temp.title}</td>
+  			<td>${temp.writer}</td>
+  			<td>${temp.regdate}</td>
+  			<td>${temp.viewcnt}</td>
   			<td>{}</td>
   		</tr>
+  	</c:forEach>
   	</tbody>
   </table>
   <%-- 페이지 이동기능 --%>
