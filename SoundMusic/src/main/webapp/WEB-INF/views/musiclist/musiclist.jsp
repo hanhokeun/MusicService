@@ -22,6 +22,9 @@ function getView(nowPage,no){
 </head>
 <body>
   <h1>음악 전체 리스트</h1>
+  ${PINFO.startPage}<br/>
+  ${PINFO.getEndPage()}<br/>
+  
   <!-- 검색창  -->
 <form id="sForm" method="get" action="#">
 
@@ -63,6 +66,30 @@ function getView(nowPage,no){
  		<td>${test.star}</td>
  	</tr>
  	</c:forEach>
+ 	<table border="1" width="45%" align="center">
+		<tr>
+			<td align="center">
+			<%-- 이전 링크 만들기 --%>
+			<c:if test="${PINFO.startPage eq 1}">
+				[이전]
+			</c:if>
+			<c:if test="${PINFO.startPage ne 1}">
+				<a href="../musiclist/musiclist.sm?nowPage=${PINFO.startPage-1}">[이전]</a>
+			</c:if>
+			<%-- [1][2][3]링크만들기 --%>
+			<c:forEach var="page" begin="${PINFO.startPage}" end="${PINFO.endPage}">
+				<a href="../musiclist/musiclist.sm?nowPage=${page}">[${page}]</a>
+			</c:forEach>	
+			<%-- 다음 링크 만들기 --%>
+			<c:if test="${PINFO.endPage eq PINFO.totalPage}">
+				[다음]
+			</c:if>
+			<c:if test="${PINFO.endPage ne PINFO.totalPage}">
+				<a href="../musiclist/musiclist.sm?nowPage=${PINFO.endPage+1}">[다음]</a>
+			</c:if>
+			</td>		
+		</tr>
+	</table>	
  </table>
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sound.music.util.PageUtil;
 import com.sound.music.vo.MusicInfoVO;
 import com.sound.music.vo.NoticeVO;
 
@@ -45,6 +46,12 @@ public class MusicListDAOimpl implements MusicDAO {
 	public void delete(int no) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int getPageInfo() throws Exception {
+		int result = session.selectOne("musicinfo.totalCount");
+		return result;
 	}
 
 	

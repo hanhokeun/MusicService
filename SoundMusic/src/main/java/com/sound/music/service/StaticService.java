@@ -6,11 +6,12 @@ import java.util.HashMap;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sound.music.dao.StaticDAO;
-import com.sound.music.service.StaticServiceInter;
 import com.sound.music.vo.StaticVO;
 
+@Service
 public class StaticService implements StaticServiceInter {
 
 	@Autowired
