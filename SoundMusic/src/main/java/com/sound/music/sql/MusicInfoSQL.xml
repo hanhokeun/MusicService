@@ -15,6 +15,8 @@
 			MU_STAR as star
 		FROM
 			MUSIC
+		WHERE
+			MU_ISSHOW='Y'	
 		ORDER BY
 			MU_STAR
 	</select>			
@@ -36,4 +38,13 @@
 		AND 
 			MU_NO = #{no}	
 	</select>
+	<!-- 03. 페이징처리를 위한 음악 개수 구하기 -->
+	<select id ="totalCount" resultType="int">
+		SELECT
+			COUNT(*) as cnt
+		FROM
+			MUSIC
+		WHERE 
+			MU_ISSHOW='Y'	
+		</select>	
 </mapper>				

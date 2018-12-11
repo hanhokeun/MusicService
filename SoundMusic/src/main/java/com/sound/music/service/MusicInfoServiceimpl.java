@@ -1,12 +1,13 @@
 package com.sound.music.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sound.music.dao.MusicDAO;
+import com.sound.music.util.PageUtil;
 import com.sound.music.vo.MusicInfoVO;
 
 @Service
@@ -42,6 +43,17 @@ public class MusicInfoServiceimpl implements MusicInfoService {
 	public void delete(int no) throws Exception {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public PageUtil getPageInfo(@RequestParam(value="nowPage",defaultValue="1") int nowPage) throws Exception {
+		//할일
+				//게시물 총 개수 구하기
+				int totalCount= musicDAO.getPageInfo();
+				
+				//한페이지당 3개의 게시물을 뿌리고, 5페이지씩 보여주자
+				PageUtil pInfo= new PageUtil(nowPage, totalCount, 50, 5);
+				return pInfo;
 	}
 
 }
