@@ -65,6 +65,7 @@ public class StaticController {
 			map.put("saveName",saveName);
 			map.put("len",file.length());
 			list.add(map);
+
 		}
 		//서비스위임
 		//한개의 파일 정보를 Map으로 묶고 여러 개의 파일 정보들이 담긴 Map을 List로 묶어 전달
