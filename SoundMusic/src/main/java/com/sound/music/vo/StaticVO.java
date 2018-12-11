@@ -1,21 +1,27 @@
 package com.sound.music.vo;
 
+import java.sql.Date;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class StaticVO {
 
 	//글의 상세 보기
-	private String title;
-	private String body;
-	private String pw;
-	private MultipartFile[] files;
 	private int no;
 	private int oriNo;
+	private String title;
+	private String body;
+	private MultipartFile[] files;
+	private int hit;
+	private Date wday;
 	//파일의 정보
 	private String path;
 	private String oriName;
 	private String saveName;
 	private long len;
+	//댓글 정보
+	private String pw;
+	private int like;
 	public String getTitle() {
 		return title;
 	}
@@ -75,5 +81,23 @@ public class StaticVO {
 	}
 	public void setLen(long len) {
 		this.len = len;
+	}
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
+	public Date getWday() {
+		return wday;
+	}
+	public void setWday(Date wday) {
+		this.wday = wday;
+	}
+	public int getLike() {
+		return like;
+	}
+	public void setLike(int like) {
+		this.like = like;
 	}
 }

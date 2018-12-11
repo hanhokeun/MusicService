@@ -15,6 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.sound.music.service.StaticService;
 import com.sound.music.util.FileUtil;
+import com.sound.music.util.PageUtil;
 import com.sound.music.vo.StaticVO;
 
 @Controller
@@ -25,18 +26,20 @@ public class StaticController {
 	private StaticService sService; 
 	//목록보기
 	@RequestMapping("/staticList.sm")
-	public void staticList(@RequestParam(value="nowPage",defaultValue="1")int nowPage) {
-		//PageUtil pInfo = fService.getPageInfo(nowPage);
+	public void staticList(@RequestParam(value="nowPage",defaultValue="1")int nowPage) throws Exception{
+			PageUtil pInfo = sService.getPageInfo(nowPage);
+
 	}
 	
 	//글쓰기 폼보기
 	@RequestMapping("/staticWriteForm.sm")
 	public String staticWriteForm() {
 		//관리자에게 글쓰기 폼을 보여준다
+		
 		return "/static/staticWriteForm";
 	}
 	@RequestMapping("/staticWriteProc.sm")
-	public ModelAndView staticWriteProc(StaticVO vo, HttpSession session ) {
+	public ModelAndView staticWriteProc(StaticVO vo, HttpSession session ) throws Exception {
 		//StaticVO클래스 이용해 파일의 정보를 받고
 		//업로드된 파일을 원하는 폴더에 실제 업로드를 실행시켜줌
 		String path="E:\\upload";
