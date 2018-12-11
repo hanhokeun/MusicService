@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.sound.music.vo.StaticVO;
 
 @Service("staticDAO")
-public class StaticDAO implements StaticInter {
+public class StaticDAO implements StaticDAOInter {
 
 	@Autowired
 	private SqlSessionTemplate session;

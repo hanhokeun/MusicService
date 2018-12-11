@@ -8,10 +8,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sound.music.dao.StaticDAO;
-import com.sound.music.dao.StaticInter;
+import com.sound.music.service.StaticServiceInter;
 import com.sound.music.vo.StaticVO;
 
-public class StaticService implements StaticInter {
+public class StaticService implements StaticServiceInter {
 
 	@Autowired
 	private StaticDAO sDAO;
@@ -49,6 +49,5 @@ public class StaticService implements StaticInter {
 	public void delete(int no) throws Exception {
 
 	}
-	
 
 }

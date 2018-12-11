@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.sound.music.service.StaticService;
 import com.sound.music.util.FileUtil;
@@ -34,7 +36,7 @@ public class StaticController {
 		return "/static/staticWriteForm";
 	}
 	@RequestMapping("/staticWriteProc.sm")
-	public void staticWriteProc(StaticVO vo, HttpSession session ) {
+	public ModelAndView staticWriteProc(StaticVO vo, HttpSession session ) {
 		//StaticVO클래스 이용해 파일의 정보를 받고
 		//업로드된 파일을 원하는 폴더에 실제 업로드를 실행시켜줌
 		String path="E:\\upload";
@@ -64,5 +66,11 @@ public class StaticController {
 		//서비스위임
 		//한개의 파일 정보를 Map으로 묶고 여러 개의 파일 정보들이 담긴 Map을 List로 묶어 전달
 		sService.insertStatic(vo, session, list);
+		//모델,뷰
+		//목록보기를 호출하기 위해서 Redirect시킨다
+		ModelAndView mv = new ModelAndView();
+		RedirectView view = new RedirectView("../static/staticList.sm");
+		mv.setView(view);
+		return mv;
 	}
 }
