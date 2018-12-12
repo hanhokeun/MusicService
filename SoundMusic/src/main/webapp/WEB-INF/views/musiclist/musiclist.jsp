@@ -12,19 +12,30 @@ $(document).ready(function(){
 	$('#sValue').click(function(){
 		$('#sValue').val("");
 	})
+
 })
-function getView(nowPage,no){
+function getView(nowPage,no,genre){
 	$('#no').val(no);
 	$('#nowPage').val(nowPage);
+	$('#genre').val(genre)
 	$('#mView').submit();
 }
-</script>	
+
+</script>
+<style>
+a {text-decoration:none;}
+a.genre:link{color:white;}
+a.genre:visited{color:blue;}
+a.music:link{color:brown;}
+a.music:visited{color:blue;}
+a.genre:hover{color:pink;}
+a.music:hover{color:black;}
+
+</style>	
 </head>
 <body>
   <h1>음악 전체 리스트</h1>
-  ${PINFO.startPage}<br/>
-  ${PINFO.getEndPage()}<br/>
-  
+<% String path = "http://localhost:80/music/musiclist";	 %>
   <!-- 검색창  -->
 <form id="sForm" method="get" action="#">
 
@@ -43,9 +54,40 @@ function getView(nowPage,no){
 		</tr>
 	</table>
 </form>
+
+<!-- 장르 선택 테이블 -->
+  <table class="genre" border="1" align="center" width="70%">
+  	<tr>
+  		<td width="12.5%" align="center" style="background-color:red;color:white;">
+  			<a class="genre" href="<%=path%>/musiclist.sm?genre=">전체</a>
+  		</td>
+		<td width="12.5%" align="center" style="background-color:orange;color:white;">
+			<a class="genre" href="<%=path%>/musiclist.sm?genre=발라드/댄스/팝">발라드/댄스/팝</a>
+		</td>
+		<td width="12.5%" align="center" style="background-color:yellow;color:white;">
+			<a class="genre" href="<%=path%>/musiclist.sm?genre=랩/힙합">랩/힙합</a>
+		</td>  
+		<td width="12.5%" align="center" style="background-color:green;color:white;">
+			<a class="genre" href="<%=path%>/musiclist.sm?genre=알앤비/소울">알앤비/소울</a>
+		</td>  
+		<td width="12.5%" align="center" style="background-color:blue;color:white;">
+			<a class="genre" href="<%=path%>/musiclist.sm?genre=일렉트로닉">일렉트로닉</a>
+		</td>  
+		<td width="12.5%" align="center" style="background-color:navy;color:white;">
+			<a class="genre" href="<%=path%>/musiclist.sm?genre=락/메탈">락/메탈</a>
+		</td>  
+		<td width="12.5%" align="center" style="background-color:purple;color:white;">
+			<a class="genre" href="<%=path%>/musiclist.sm?genre=재즈">재즈</a>
+		</td>
+		<td width="12.5%" align="center" style="background-color:black;color:white;">
+			<a class="genre" href="<%=path%>/musiclist.sm?genre=인디">인디</a>
+		</td>      
+  	</tr>
+  </table>
 <form id="mView" method="get" action="../musiclist/musicinfo.sm">
 	<input type="hidden" id="nowPage" name="nowPage"/>
 	<input type="hidden" id="no" name="no" />
+	<input type="hidden" id="genre" name="genre"/>
 </form>
   <!-- 리스트  -->
  <table border="1" width="70%" align="center">
@@ -55,16 +97,16 @@ function getView(nowPage,no){
  		<td><b>앨범</b></td>
  		<td><b>추천수</b></td>
  	</tr>
- 	<c:forEach var="test" items="${LIST}" begin="0" end="100" step="1">
- 	<tr>
- 		<td><img src="${test.path}" width="50px" height="50px"></td>
- 		<td>
- 			<a href="javascript:void(0);" onclick="javascript:getView('1','${test.no}')">${test.title}</a>
- 		</td>
- 		<td>${test.artist}</td>
- 		<td>${test.album}</td>
- 		<td>${test.star}</td>
- 	</tr>
+ 	<c:forEach var="test" items="${LIST}">
+ 	 	<tr>
+	 		<td><img src="${test.path}" width="50px" height="50px">   </td>
+	 		<td>
+	 			<a class="music" href="javascript:void(0);" onclick="javascript:getView('${PINFO.nowPage}','${test.no}','${GENRE}')">${test.title}</a>
+	 		</td>
+	 		<td>${test.artist}</td>
+	 		<td>${test.album}</td>
+	 		<td>${test.star}</td>
+ 		</tr> 
  	</c:forEach>
  	<table border="1" width="45%" align="center">
 		<tr>
@@ -74,18 +116,18 @@ function getView(nowPage,no){
 				[이전]
 			</c:if>
 			<c:if test="${PINFO.startPage ne 1}">
-				<a href="../musiclist/musiclist.sm?nowPage=${PINFO.startPage-1}">[이전]</a>
+				<a href="<%=path%>/musiclist.sm?nowPage=${PINFO.nowPage-1}&genre=${GENRE}">[이전]</a>
 			</c:if>
 			<%-- [1][2][3]링크만들기 --%>
 			<c:forEach var="page" begin="${PINFO.startPage}" end="${PINFO.endPage}">
-				<a href="../musiclist/musiclist.sm?nowPage=${page}">[${page}]</a>
+				<a href="<%=path%>/musiclist.sm?nowPage=${page}&genre=${GENRE}">[${page}]</a>
 			</c:forEach>	
 			<%-- 다음 링크 만들기 --%>
 			<c:if test="${PINFO.endPage eq PINFO.totalPage}">
 				[다음]
 			</c:if>
 			<c:if test="${PINFO.endPage ne PINFO.totalPage}">
-				<a href="../musiclist/musiclist.sm?nowPage=${PINFO.endPage+1}">[다음]</a>
+				<a href="<%=path%>/musiclist.sm?nowPage=${PINFO.nowPage+1}&genre=${GENRE}">[다음]</a>
 			</c:if>
 			</td>		
 		</tr>
