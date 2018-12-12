@@ -54,7 +54,7 @@ public class PageUtil {
 			//				6, 7, 8, 9, 10) / 5) + 1		2그룹
 			//				11, 12, 13, 14, 15) / 5) + 1	3그룹
 			//				...
-			totalCount = (totalCount % listCount == 0) ? (totalCount / listCount) : 
+			totalPage = (totalCount % listCount == 0) ? (totalCount / listCount) : 
 																		(totalCount / listCount) + 1;
 	}
 	

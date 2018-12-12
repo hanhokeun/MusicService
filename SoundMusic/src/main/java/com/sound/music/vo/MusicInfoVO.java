@@ -10,8 +10,29 @@ public class MusicInfoVO {
 	private String genre;
 	private String lyrics;
 	private int star;
+	private int rno;
+	private int start;
+	private int end;
 	
 	
+	public int getRno() {
+		return rno;
+	}
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
+	}
+	public int getEnd() {
+		return end;
+	}
+	public void setEnd(int end) {
+		this.end = end;
+	}
 	public int getNo() {
 		return no;
 	}

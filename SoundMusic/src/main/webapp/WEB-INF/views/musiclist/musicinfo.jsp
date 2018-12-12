@@ -11,7 +11,7 @@
 <script>
 $(document).ready(function(){
 	$('#goList').click(function(){
-		$(location).attr('href',"../musiclist/musiclist.sm")
+		$(location).attr('href',"../musiclist/musiclist.sm?nowPage=${NOWPAGE}&genre=${GENRE}")
 	})
 })
 </script>
