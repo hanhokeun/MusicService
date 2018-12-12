@@ -24,8 +24,8 @@
 		WHERE 
 			N_ISSHOW='Y'
 		ORDER BY
-			no desc,
-			regdate desc
+			no desc
+			
 		
 		</select>
 	<!--  02. 게시글 작성 -->

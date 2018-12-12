@@ -49,7 +49,7 @@
                 }
 		})
 		$("#hBtn").click(function(){
-				$(location).attr("href","../index.html");
+				$(location).attr("href","../index.sm");
 			})
 	
 			

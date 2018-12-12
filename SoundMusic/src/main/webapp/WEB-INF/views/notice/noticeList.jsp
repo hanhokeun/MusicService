@@ -35,7 +35,7 @@
 				
 			}) 
 			$("#hBtn").click(function(){
-				$(location).attr("href","../index.html");
+				$(location).attr("href","../index.sm");
 			})
 		})
 	</script>
@@ -75,7 +75,7 @@
   		</tr>
   	</thead>
   	<tbody>
-  		<c:forEach var="temp" items="${LIST}">
+  		<c:forEach var="temp" items="${list}">
   		<tr>
   			<td>${temp.no}</td>
   			<td>${temp.title}</td>
