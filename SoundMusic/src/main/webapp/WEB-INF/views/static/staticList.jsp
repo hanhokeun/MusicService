@@ -26,7 +26,7 @@
 		//글쓰기 버튼
 		$('#wBtn').click(function(){
 			//글쓰기(폼보여주기)요청
-			$(location).attr("href","../fileBoard/writeForm.sun");
+			$(location).attr("href","../static/staticWriteForm.sm");
 		});
 	})
 </script>
@@ -58,21 +58,27 @@
   			<tr>
   				<th>번호</th>
 				<th>제목</th>
-				<th>작성자</th>
 				<th>작성일</th>
 				<th>조회수</th>
 				<th>첨부파일</th>
+				<th>첨부파일이미지</th>
   			</tr>
   		</thead>
   		<tbody>
-  		  	<tr>
-  				<td>-</td>
-				<td>-</td>
-				<td>-</td>
-				<td>-</td>
-				<td>-</td>
-				<td>-</td>
-  			</tr>
+	  		<c:forEach var="data" items="${LIST}">
+	  		  	<tr>
+	  				<td>${data.no}</td>
+	  				<td>
+	  					<a href="../static/staticHit.sm?oriNo=${data.no}&nowPage=${PINFO.nowPage}">${data.title}</a>
+	  				</td>
+					<td>${data.wday}</td>
+					<td>${data.hit}</td>
+					<td>${data.fileCount}</td>
+	  				<td>
+	  					<img src="${data.path}\${data.saveName}"/>
+	  				</td>
+	  			</tr>
+	  		</c:forEach>
   		</tbody>
   	</table>
   	<%-- 페이지 이동기능 --%>
@@ -95,14 +101,16 @@
   		</tr>
   	</table>
   	<%-- 글쓰기(기타기능) 관리자만 가능하게 한다--%>
-  	<form id="wForm"  method="get">
-	  	<table border="1" width="700" align="center">
-	  		<tr>
-	  			<td align="center">
-	  				<input type="button" id="wBtn" value="글쓰기"/>
-	  			</td>
-	  		</tr>
-	  	</table>
-	 </form>
+  	<%-- <c:if test="${sessionScope.UID eq 'admin'}">--%>
+	  	<form id="wForm"  method="get">
+		  	<table border="1" width="700" align="center">
+		  		<tr>
+		  			<td align="center">
+		  				<input type="button" id="wBtn" value="글쓰기"/>
+		  			</td>
+		  		</tr>
+		  	</table>
+		 </form>
+	<%--</c:if>--%>
 </body>
 </html>

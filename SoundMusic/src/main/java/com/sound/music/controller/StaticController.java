@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,13 @@ public class StaticController {
 	private StaticService sService; 
 	//목록보기
 	@RequestMapping("/staticList.sm")
-	public void staticList(@RequestParam(value="nowPage",defaultValue="1")int nowPage) throws Exception{
-			PageUtil pInfo = sService.getPageInfo(nowPage);
-
+	public void staticList(@RequestParam(value="nowPage",
+	defaultValue="1")int nowPage,HttpServletRequest req) throws Exception{
+		PageUtil pInfo = sService.getPageInfo(nowPage);
+		//모델: 페이지정보 전달, 목록리스트 전달
+		ArrayList list = sService.List(pInfo);
+		req.setAttribute("PINFO",pInfo);
+		req.setAttribute("LIST",list);
 	}
 	
 	//글쓰기 폼보기
