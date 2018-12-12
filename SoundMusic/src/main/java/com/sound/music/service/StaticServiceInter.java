@@ -22,7 +22,9 @@ public interface StaticServiceInter {
 	//통계 게시글 삭제
 	public void delete(int no)throws Exception;
 	//통계 게시글 조회수 증가
-	public void increaseHit(int no) throws Exception;
+	public void increaseHit(int no,HttpSession session) throws Exception;
+	//통계 게시글 파일정보 검색
+	public ArrayList<StaticVO> selectFileInfo(int no) throws Exception;
 	//댓글 보기
 	public StaticVO insertReply(int oriNo) throws Exception;
 	//댓글 수정

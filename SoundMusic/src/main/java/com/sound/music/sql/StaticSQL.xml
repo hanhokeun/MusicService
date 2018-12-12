@@ -3,6 +3,15 @@
 				"-//mybatis.org//DTD Mapper 3.0//EN" 
 				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="static">
+	<sql id="isShow">
+		UPPER(s_IsShow)='Y'
+	</sql>
+	<sql id="selectField">
+		 s_Title AS TITLE, s_Date AS WDAY, s_Hit AS HIT
+	</sql>
+	<sql id="selectFileInfo">
+		sf_OriName AS oriName, sf_SaveName AS saveName, sf_FilePath AS path
+	</sql>
 	<!-- 게시물 개수 구하기 -->
 	<select id="totalCount" resultType="int">
 		select count(*) as cnt from StaticMusic where upper(s_IsShow)='Y'
@@ -24,13 +33,30 @@
 	<!-- 게시물 목록보기 -->
 	<select id="selectList" resultType="Static" parameterType="Static">
 		SELECT * FROM 
-		 (SELECT StaticMusic.s_No AS NO, s_Title AS TITLE, s_Date AS WDAY, s_Hit AS HIT, 
+		 (SELECT StaticMusic.s_No AS NO, <include refid="selectField"/>, 
 	 	 ROW_NUMBER() OVER(ORDER BY StaticFile.s_NO ASC) AS RNO, 
-	 	 sf_OriName AS oriName, sf_SaveName AS saveName, sf_FilePath AS path,	 	 
+	 	 <include refid="selectFileInfo"/>, 	 
 		 NVL(t1.CNT, 0) AS FILECOUNT FROM StaticMusic, StaticFile,
 		(SELECT COUNT(*) AS CNT, StaticFile.s_No FROM staticFile GROUP BY StaticFile.s_No) t1
 		 WHERE UPPER(s_IsShow) = 'Y' AND 
 		 StaticMusic.s_No = t1.s_No(+)) 
 		WHERE RNO BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 조회수 증가 질의 명령 -->
+	<update id="updateHit" parameterType="int">
+		update staticMusic set s_Hit=s_Hit+1 where s_No=#{no}
+	</update>
+	<resultMap id="clobDetail" type="static">
+		<result property="body" column="s_Body" jdbcType="CLOB" javaType="java.lang.String"/>
+	</resultMap>
+	<!-- 상세보기 질의 명령 -->
+	<select id="selectDetail" resultMap="clobDetail" parameterType="int">
+		select s_body, <include refid="selectField"/> from StaticMusic
+		where s_No=#{no}
+	</select>
+	<!-- 첨부파일 검색 질의 -->
+	<select id="fileInfo" parameterType="int" resultType="static">
+		select sf_No as no, s_No as oriNo, <include refid="selectFileInfo"/>, sf_Length as len
+		from staticFile where s_No=#{oriNo}
 	</select>
 </mapper>

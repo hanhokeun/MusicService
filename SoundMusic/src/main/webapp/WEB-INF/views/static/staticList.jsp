@@ -71,11 +71,11 @@
 	  				<td>
 	  					<a href="../static/staticHit.sm?oriNo=${data.no}&nowPage=${PINFO.nowPage}">${data.title}</a>
 	  				</td>
-					<td>${data.wday}</td>
+					<td>${data.date}</td>
 					<td>${data.hit}</td>
 					<td>${data.fileCount}</td>
 	  				<td>
-	  					<img src="${data.path}\${data.saveName}"/>
+	  					${data.path}, ${data.saveName}
 	  				</td>
 	  			</tr>
 	  		</c:forEach>
@@ -86,16 +86,16 @@
   		<tr>
   			<td align="center">
 	  			<%--이전링크 만들기--%>
-	  			<c:if test="${PINFO.startPage eq 1}">[이전]</c:if>
+	  			<c:if test="${PINFO.startPage eq 1}">[<]</c:if>
 	  			<c:if test="${PINFO.startPage ne 1}">
-	  				<a href="../static/staticList.sm?nowPage=${page}">[이전]</a></c:if>
+	  				<a href="../static/staticList.sm?nowPage=${PINFO.nowPage-1}">[<]</a></c:if>
 	  			<c:forEach var="page" begin="${PINFO.startPage}" end="${PINFO.endPage}">
 	  				<a href="../static/staticList.sm?nowPage=${page}">[${page}]</a>
 	  			</c:forEach>
 	  			<%--다음링크 만들기--%>
-	  			<c:if test="${PINFO.endPage eq PINFO.totalPage}">[다음]</c:if>
+	  			<c:if test="${PINFO.endPage eq PINFO.totalPage}">[>]</c:if>
 	  			<c:if test="${PINFO.endPage ne PINFO.totalPage}">
-	  				<a href="../static/staticList.sm?nowPage=${PINFO.endPage+1}">[다음]</a>
+	  				<a href="../static/staticList.sm?nowPage=${PINFO.endPage+1}">[>]</a>
 	  			</c:if>
 	  		</td>
   		</tr>

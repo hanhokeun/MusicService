@@ -14,8 +14,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<!-- 기본 질의 실행 방식 -->
 		<setting name="defaultExecutorType" value="REUSE" />		
 	</settings>
-	
-	
 	<!-- 타입 별칭은 자바 타입에 대한 좀더 짧은 이름이다.
 	 오직 XML 설정에서만 사용되며, 타이핑을 줄이기 위해 존재한다.
 	 	같은 타입에 두 개 이상의 별칭을 부여해도 된다. 하지만 같은 별칭은 중복되면 안된다.

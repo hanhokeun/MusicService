@@ -1,6 +1,7 @@
 package com.sound.music.vo;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +28,10 @@ public class StaticVO {
 	//댓글 정보
 	private String pw;
 	private int like;
+	public String getDate() {
+		SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd");
+		return form.format(wday);
+	}
 	public int getStart() {
 		return start;
 	}

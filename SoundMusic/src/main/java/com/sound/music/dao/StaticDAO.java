@@ -14,6 +14,8 @@ import com.sound.music.vo.StaticVO;
 @Service
 public class StaticDAO implements StaticDAOInter {
 
+
+
 	@Autowired
 	private SqlSessionTemplate session;
 	//게시글 총 개수 구하기
@@ -40,19 +42,24 @@ public class StaticDAO implements StaticDAOInter {
 	//게시글 조회수 증가
 	@Override
 	public void increaseHit(int no) throws Exception {
-		
+		session.update("static.updateHit",no);
+	}
+	//게시글의 파일정보 보기
+	@Override
+	public ArrayList selectFileInfo(int oriNo) throws Exception {
+		return (ArrayList)session.selectList("static.fileInfo",oriNo);
 	}
 	//게시글 답글 달기
 	@Override
 	public StaticVO insertReply(int oriNo) throws Exception {
 		return null;
 	}
-
+	//게시글 댓글 수정하기
 	@Override
 	public void updateReply(StaticVO vo) throws Exception {
 		
 	}
-
+	//게시글 댓글 삭제하기
 	@Override
 	public void deleteReply(int no) throws Exception {
 	
@@ -61,7 +68,7 @@ public class StaticDAO implements StaticDAOInter {
 	//글쓰기 상세 글보기
 	@Override
 	public StaticVO detail(int no) throws Exception {
-		return null;
+		return (StaticVO)session.selectOne("static.selectDetail",no);
 	}
 
 	//통계 글 수정하기
