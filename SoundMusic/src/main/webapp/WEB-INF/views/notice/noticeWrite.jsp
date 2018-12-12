@@ -12,7 +12,7 @@
 		var count=1;
 		//id="sBtn" value ="글쓰기"
 		$('#sBtn').click(function(){
-			if(title==null||length.title==0){
+			if(title==''){
 				alert('제목을 입력해 주세요.')
 			}
 			$('#wForm').submit();
@@ -54,7 +54,7 @@
 	
 			
 	})
-	!function(t){t.fn.snowit=function(a){var e=t('<div class="lis-flake" />').css({top:"-50px",position:"fixed"}).html("&eacute;"),n=t(document).height();documentWidth=t(document).width(),defaults={minSize:10,maxSize:20,total:25,speed:n/105,flakeColor:"#FFFFFF"},a=t.extend({},defaults,a),inStyle="<style>body { position: relative; }.lis-flake { position: absolute; color:#ff0000;}.lis-flake:nth-child(odd) {-moz-animation:snow1 "+a.speed+"s linear infinite;-webkit-animation:snow1 "+a.speed+"s linear infinite;animation:snow1 "+a.speed+"s linear infinite}.lis-flake:nth-child(even) {-moz-animation:snow2 "+(a.speed-a.speed/8)+"s linear infinite;-webkit-animation:snow2 "+(a.speed-a.speed/8)+"s linear infinite;animation:snow2 "+(a.speed-a.speed/8)+"s linear infinite}@-moz-keyframes snow1{0%{-moz-transform:translate(-250, 0);opacity:1}100%{-moz-transform:translate(250px, "+n+"px);opacity:0}}@-webkit-keyframes snow1{0%{-webkit-transform:translate(-250, 0);opacity:1}100%{-webkit-transform:translate(250px, "+n+"px);opacity:0}}@keyframes snow1{0%{transform:translate(-250, 0);opacity:1}100%{transform:translate(250px, "+n+"px);opacity:0}}@-moz-keyframes snow2{0%{-moz-transform:translate(0, 0);opacity:1}100%{-moz-transform:translate(0, "+n+"px);opacity:0.2}}@-webkit-keyframes snow2{0%{-webkit-transform:translate(0, 0);opacity:1}100%{-webkit-transform:translate(0, "+n+"px);opacity:0.2}}@keyframes snow2{0%{transform:translate(0, 0);opacity:1}100%{transform:translate(0, "+n+"px);opacity:0.2}}</style>";var i=function(){var i=Math.random()*documentWidth-250,o=0-(Math.random()*n-40);startOpacity=.8*Math.random(),num=parseInt(t(".lis-flake").length)+1,sizeFlake=a.minSize+Math.random()*a.maxSize,e.attr("num",num).clone().appendTo("body").css({left:i,top:o,opacity:startOpacity,"font-size":sizeFlake,color:a.flakeColor})};t("head").append(inStyle);for(var o=1;o<=a.total;o++)i()}}(jQuery);
+	!function(t){t.fn.snowit=function(a){var e=t('<div class="lis-flake" />').css({top:"-50px",position:"fixed"}).html("&#9836;"),n=t(document).height();documentWidth=t(document).width(),defaults={minSize:10,maxSize:20,total:25,speed:n/105,flakeColor:"#FFFFFF"},a=t.extend({},defaults,a),inStyle="<style>body { position: relative; }.lis-flake { position: absolute; color:#ff0000;}.lis-flake:nth-child(odd) {-moz-animation:snow1 "+a.speed+"s linear infinite;-webkit-animation:snow1 "+a.speed+"s linear infinite;animation:snow1 "+a.speed+"s linear infinite}.lis-flake:nth-child(even) {-moz-animation:snow2 "+(a.speed-a.speed/8)+"s linear infinite;-webkit-animation:snow2 "+(a.speed-a.speed/8)+"s linear infinite;animation:snow2 "+(a.speed-a.speed/8)+"s linear infinite}@-moz-keyframes snow1{0%{-moz-transform:translate(-250, 0);opacity:1}100%{-moz-transform:translate(250px, "+n+"px);opacity:0}}@-webkit-keyframes snow1{0%{-webkit-transform:translate(-250, 0);opacity:1}100%{-webkit-transform:translate(250px, "+n+"px);opacity:0}}@keyframes snow1{0%{transform:translate(-250, 0);opacity:1}100%{transform:translate(250px, "+n+"px);opacity:0}}@-moz-keyframes snow2{0%{-moz-transform:translate(0, 0);opacity:1}100%{-moz-transform:translate(0, "+n+"px);opacity:0.2}}@-webkit-keyframes snow2{0%{-webkit-transform:translate(0, 0);opacity:1}100%{-webkit-transform:translate(0, "+n+"px);opacity:0.2}}@keyframes snow2{0%{transform:translate(0, 0);opacity:1}100%{transform:translate(0, "+n+"px);opacity:0.2}}</style>";var i=function(){var i=Math.random()*documentWidth-250,o=0-(Math.random()*n-40);startOpacity=.8*Math.random(),num=parseInt(t(".lis-flake").length)+1,sizeFlake=a.minSize+Math.random()*a.maxSize,e.attr("num",num).clone().appendTo("body").css({left:i,top:o,opacity:startOpacity,"font-size":sizeFlake,color:a.flakeColor})};t("head").append(inStyle);for(var o=1;o<=a.total;o++)i()}}(jQuery);
 	</script>
 	</head>
 <body>
@@ -62,13 +62,13 @@
 	encType="multipart/form-data를 지정해야한다. --%>
   <h1>글쓰기 폼이다</h1>
   <script>
-        $.fn.snowit({ flakeColor:'#F00',minSize:12,maxSize:22,total:100 });//total 숫자 높을수록 폭설, 숫자 1000을 넘기지마세요
+        $.fn.snowit({ flakeColor:'#F00',minSize:12,maxSize:22,total:200 });//total 숫자 높을수록 폭설, 숫자 1000을 넘기지마세요
     </script>
   <form id="wForm" method="post" action="../notice/noticeProc.sm" encType="multipart/form-data">
-  	<table border="1"width="700"align="center">
+  	<table border="1" width="700"align="center">
   		<tr>
   			<th>글쓴이</th>
-  			<td>${sessionScope.UNICK}</td>
+  			<td><input type='text' name ="writer" id="writer"></td>
   		</tr>
   		<tr>
   			<th>제목</th>
@@ -76,11 +76,10 @@
   		</tr>
   		<tr>
   			<th>본문</th>
-  			<td><textarea rows="10" cols="20"></textarea></td>
+  			<td><textarea rows="10" cols="20" name="content" id ="content"></textarea></td>
   		</tr>
   		<tr>
-  			<th>비밀번호</th>
-  			<td><input type='password' name="pw"id="pw"></td>
+  			
   		</tr>
   		<tr>
   			<th>첨부파일</th>

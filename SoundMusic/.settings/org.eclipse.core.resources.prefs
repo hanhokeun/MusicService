@@ -2,4 +2,5 @@ eclipse.preferences.version=1
 encoding//src/main/java/com/sound/music/controller/FileBoardController.java=UTF-8
 encoding//src/main/java/com/sound/music/controller/MemberController.java=UTF-8
 encoding//src/main/java/com/sound/music/dao/MemberDAO.java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
 encoding/<project>=UTF-8
