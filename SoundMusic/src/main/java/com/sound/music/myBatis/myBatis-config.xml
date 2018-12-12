@@ -33,6 +33,5 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="com/sound/music/sql/NoticeSQL.xml"/>
 		<mapper resource="com/sound/music/sql/MusicInfoSQL.xml"/>
 		<mapper resource="com/sound/music/sql/StaticSQL.xml"/>
-		<mapper resource="com/sound/music/sql/FileBoardSQL.xml"/>
 	</mappers>
 </configuration>
