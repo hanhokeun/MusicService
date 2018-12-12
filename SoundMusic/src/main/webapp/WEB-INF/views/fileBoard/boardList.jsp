@@ -3,94 +3,122 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>Document</title>
+  <title>Document</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script>
-		$(function(){
+		$(document).ready(function(){
+			var count=1; //업로드할 파일의 개수
+			
+			//id="sBtn" value="글쓰기" 
 			$("#sBtn").click(function(){
-				//무결성검사하고..
-				if(word==null||word.length()==0){
-					alert('제목을 작성하시오.')
+				//무결성검사하고
+				
+				$("#wForm").submit();
+			});
+			
+			//첨부파일추가버튼.. 동적추가
+			$("#aBtn").click(function(){
+				//할일
+				//업로드할 파일의 개수제한
+				count++; //추가할 때 마다 증가
+				if(count==6){
+					alert("5개 이상은 추가할 수 없습니다");
+					count=5;
+					return;
 				}
-				//넘기기
-				//"#sForm"
-				$("#sForm").submit();
-			})
-			//글쓰기 버튼
-			$("#wBtn").click(function(){
-				//글쓰기(폼보여줘)요청
-				$(location).attr("href","../fileBoard/writeForm.sm");
 				
-				//(글쓰기, 수정하기,삭제하기등등..)
-				//로그인한 user만 글쓰기를 할 수 있도록 하겠다.
-				//인터셉터를 이용하여 자동으로 로그인 기능으로 유도하고자 한다.
+				//추가할 폼
+				var tr = "<tr><th>첨부파일</th>"+
+											"<td><input type='file' name='files' id='files"+count+"'/>"+
+											"</td></tr>";
 				
+				//원하는 위치에 추가한다
+				// 원하는 위치 -> id가 copy인 element => <tr>~~</tr>
+				// 추가
+				$("#copy").before(tr);
+			});
+			
+			
+	  	//첨부파일삭제버튼.. 동적제거
+			$("#dBtn").click(function(){
 				
-			})
-			$("#hBtn").click(function(){
-				$(location).attr("href","../index.html");
-			})
-		})
+				if(count==1){
+					alert("한개는 반드시 있어야 합니다");
+					return;
+				}
+				
+				//현재 마지막count번호를 가진 tr를 구한다
+				var tr = $("#files"+count).parents("tr");
+				tr.remove();
+				count--;
+			});
+			
+		});
 	</script>
-	</head>
+</head>
 <body>
-  <h1> 여기에 내가 boardList를 뿌릴 것이다. 언젠가는</h1>
-  <%-- 검색기능 --%>
-  <form id="sForm" method="post" action="">
-  	<table border="1"width="700"align="center">
-  		<tr>
-  			<td align="center">
-  			<%-- 검색 대상 --%>
-  			<select name="target" id="target">
-  				<option value="title">제목</option>
-  				<option value="body">내용</option>
-  				<option value="writer">작성자</option>
-  				<option value="both">제목+내용</option>
-  			</select>
-  			<!-- 검색 단어 -->
-  			<input type="text" name="word" id="word"/>
-  			<!-- 검색 버튼 -->
-  			<input type="button" id="sBtn" value="search"/>
-  			</td>
-  		</tr>
-  	</table>
+	<%-- 글쓰기 폼을 보여주자 
+			파일 업로드가 포함.. 스트림방식으로 처리할 수 있도록
+			encType="multipart/form-data"를 지정해야 한다
+	--%>
+  <h1>글쓰기 폼(wirteForm.jsp)</h1>
+  <form id="wForm" method="POST" action="../fileBoard/writeProc.sun"
+  			encType="multipart/form-data">
+  	<table border="1" width="700" align="center">
+	  	<tr>
+	  		<th>작성자</th>
+	  		<td>${sessionScope.UNICK}</td>
+	  	</tr>
+	  	<tr>
+	  		<th>제목</th>
+	  		<td>
+	  			<input type="text" name="title" id="title" />
+	  		</td>
+	  	</tr>
+	  	<tr>
+	  		<th>내용</th>
+	  		<td>
+	  			<textarea name="body" id="body" cols="80" rows="5"></textarea>
+	  		</td>
+	  	</tr>
+	  	<tr>
+	  		<th>비밀번호</th>
+	  		<td>
+	  				<input type="password" name="pw" id="pw" />
+	  		</td>
+	  	</tr>
+	  	<tr>
+	  		<th>첨부파일</th>
+	  		<td>
+	  			<input type="button" id="aBtn" value="추가" />
+	  			<input type="button" id="dBtn" value="삭제" />
+	  		</td>
+	  	</tr>
+	  	<tr>
+	  		<th>첨부파일</th>
+	  		<td>
+	  			<input type="file" name="files" id="files"/>
+	  		</td>
+	  	</tr>
+	  	<tr id="copy">
+	  		<td colspan="2" align="center">
+	  			<input type="button" id="sBtn" value="글쓰기" />
+	  		</td>
+	  	</tr>
+	  </table>		
   </form>
-  <%-- 게시판 목록보기 --%>
-  <table border="1"width="700"align="center">
-  	<thead>
-  		<tr>
-  			<th>번호</th>
-  			<th>제목</th>
-  			<th>작성자</th>
-  			<th>작성일</th>
-  			<th>조회수</th>
-  			<th>첨부파일</th>
-  		</tr>
-  	</thead>
-  	<tbody>
-  		<tr>
-  			<td>-</td>
-  			<td>-</td>
-  			<td>-</td>
-  			<td>-</td>
-  			<td>-</td>
-  			<td>-</td>
-  		</tr>
-  	</tbody>
-  </table>
-  <%-- 페이지 이동기능 --%>
-  <%-- 글쓰기 (기타기능)--%>
-  <form id="wForm" method="get" action="">
-		<table border="1" width="700" align="center">
-			<tr>
-				<td align="center">
-					<input type="button" id="wBtn" value="글쓰기" />
-					<input type="button" name="hBtn" id="hBtn" value="홈으로"/>
-				</td>
-			</tr>
-		</table>
-	</form>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
