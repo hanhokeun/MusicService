@@ -14,7 +14,7 @@
 		$(function(){
 			$("#sBtn").click(function(){
 				//무결성검사하고..
-				if(word==''){
+				if($('#word'.val()=='')){
 					alert('검색어를 입력하세요.')
 				}
 				//넘기기

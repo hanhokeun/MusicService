@@ -10,6 +10,6 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	</head>
 <body>
-  <c:redirect>/notice/noticeList.sm</c:redirect>
+  <c:redirect href="../notice/noticeList.sm"/>
 </body>
 </html>
