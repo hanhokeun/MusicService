@@ -74,9 +74,6 @@
 					<td>${data.date}</td>
 					<td>${data.hit}</td>
 					<td>${data.fileCount}</td>
-	  				<td>
-	  					${data.path}, ${data.saveName}
-	  				</td>
 	  			</tr>
 	  		</c:forEach>
   		</tbody>

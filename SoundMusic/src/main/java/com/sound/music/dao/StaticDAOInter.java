@@ -25,8 +25,8 @@ public interface StaticDAOInter {
 	public void increaseHit(int no) throws Exception;
 	//통계 게시글 파일정보 검색
 	public ArrayList<StaticVO> selectFileInfo(int no) throws Exception;
-	//댓글 보기
-	public StaticVO insertReply(int oriNo) throws Exception;
+	//댓글 등록
+	public void insertReply(StaticVO vo) throws Exception;
 	//댓글 수정
 	public void updateReply(StaticVO vo) throws Exception;
 	//댓글 삭제

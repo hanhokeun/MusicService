@@ -49,20 +49,20 @@ public class StaticDAO implements StaticDAOInter {
 	public ArrayList selectFileInfo(int oriNo) throws Exception {
 		return (ArrayList)session.selectList("static.fileInfo",oriNo);
 	}
-	//게시글 답글 달기
+	//게시글 댓글 등록
 	@Override
-	public StaticVO insertReply(int oriNo) throws Exception {
-		return null;
+	public void insertReply(StaticVO vo) throws Exception {
+		session.insert("static.insertReply",vo);
 	}
 	//게시글 댓글 수정하기
 	@Override
 	public void updateReply(StaticVO vo) throws Exception {
-		
+		session.update("static.updateReply", vo);
 	}
 	//게시글 댓글 삭제하기
 	@Override
 	public void deleteReply(int no) throws Exception {
-	
+		session.update("static.deleteReply", no);
 	}
 	
 	//글쓰기 상세 글보기

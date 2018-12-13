@@ -65,12 +65,60 @@ public class StaticController {
 		mv.setView(rv);
 		return mv;
 	}
+	//댓글 등록하기
+	@RequestMapping("/staticReplyWrite.sm")
+	public ModelAndView staticReplyWrite(HttpServletRequest req, 
+			ModelAndView mv,HttpSession session,StaticVO vo) throws Exception {
+		int oriNo=vo.getOriNo();
+		System.out.println("oriNo"+oriNo);
+		String nowPage=req.getParameter("nowPage");
+		session = req.getSession();
+		String mId = (String)session.getAttribute("UID");
+		//VO에 id값 담아주기
+		vo.setmId(mId);
+		vo.setOriNo(oriNo);
+		//비즈니스로직-댓글등록
+		sService.insertReply(vo);
+		RedirectView rv = new RedirectView("../static/staticDetail.sm");
+		rv.addStaticAttribute("nowPage", nowPage);
+		rv.addStaticAttribute("oriNo", oriNo);
+		mv.setView(rv);
+		return mv;
+	}
+	//댓글 수정하기
+	@RequestMapping("/staticReplyModify.sm")
+	public ModelAndView staticReplyModify(StaticVO vo, HttpServletRequest req) throws Exception {
+		String nowPage=req.getParameter("nowPage");
+		int oriNo = vo.getOriNo();
+		sService.updateReply(vo);
+		ModelAndView mv = new ModelAndView();
+		RedirectView rv=new RedirectView("../static/staticDetail.sm");
+		rv.addStaticAttribute("nowPage", nowPage);
+		rv.addStaticAttribute("oriNo", oriNo);
+		mv.setView(rv);
+		return mv;
+	}
+	//댓글 삭제하기
+	@RequestMapping("/staticReplyDelete.sm")
+	public ModelAndView staticReplyDelete(StaticVO vo,
+			HttpServletRequest req, ModelAndView mv) throws Exception {
+		String nowPage=req.getParameter("nowPage");
+		int no = vo.getNo();
+		int oriNo = vo.getOriNo();
+		sService.deleteReply(no);
+		RedirectView rv = new RedirectView("../static/staticDetail.sm");
+		rv.addStaticAttribute("nowPage", nowPage);
+		rv.addStaticAttribute("oriNo", oriNo);
+		mv.setView(rv);
+		return mv;
+	}
 	//글쓰기 폼보기
 	@RequestMapping("/staticWriteForm.sm")
 	public String staticWriteForm() {
 		//관리자에게 글쓰기 폼을 보여주기		
 		return "/static/staticWriteForm";
 	}
+	//글등록하기
 	@RequestMapping("/staticWriteProc.sm")
 	public ModelAndView staticWriteProc(StaticVO vo, HttpSession session ) throws Exception {
 		//StaticVO클래스 이용해 파일의 정보를 받고

@@ -28,9 +28,23 @@ public class StaticVO {
 	//댓글 정보
 	private String pw;
 	private int like;
+	private String mId;
+	public String getmId() {
+		return mId;
+	}
+	public void setmId(String mId) {
+		this.mId = mId;
+	}
 	public String getDate() {
 		SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd");
 		return form.format(wday);
+	}
+	public String getBrBody() {
+		String temp=body;
+		if(temp!=null && temp.length()!=0) {
+			temp=temp.replaceAll("\n", "<br/>");
+		}
+		return temp;
 	}
 	public int getStart() {
 		return start;

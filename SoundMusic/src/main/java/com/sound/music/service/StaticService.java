@@ -27,7 +27,7 @@ public class StaticService implements StaticServiceInter {
 		int totalCount = sDAO.totalCount(); //총 페이지개수 구하기
 		System.out.println(totalCount);
 		//페이지 정보구하기
-		PageUtil pInfo = new PageUtil(nowPage,totalCount,3,3);
+		PageUtil pInfo = new PageUtil(nowPage,totalCount,10,3);
 		return pInfo;
 	}
 	//통계 글 목록보여주기
@@ -72,20 +72,18 @@ public class StaticService implements StaticServiceInter {
 	}
 	//댓글 등록
 	@Override
-	public StaticVO insertReply(int oriNo) throws Exception {
-		return null;
+	public void insertReply(StaticVO vo) throws Exception {
+		sDAO.insertReply(vo);
 	}
 	//댓글 수정
 	@Override
 	public void updateReply(StaticVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		
+		sDAO.updateReply(vo);
 	}
 	//댓글 삭제
 	@Override
 	public void deleteReply(int no) throws Exception {
-		// TODO Auto-generated method stub
-		
+		sDAO.deleteReply(no);
 	}
 	//글쓰기 정보 등록처리
 	@Override

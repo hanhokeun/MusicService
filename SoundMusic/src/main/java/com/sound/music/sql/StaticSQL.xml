@@ -34,12 +34,11 @@
 	<select id="selectList" resultType="Static" parameterType="Static">
 		SELECT * FROM 
 		 (SELECT StaticMusic.s_No AS NO, <include refid="selectField"/>, 
-	 	 ROW_NUMBER() OVER(ORDER BY StaticFile.s_NO ASC) AS RNO, 
-	 	 <include refid="selectFileInfo"/>, 	 
-		 NVL(t1.CNT, 0) AS FILECOUNT FROM StaticMusic, StaticFile,
-		(SELECT COUNT(*) AS CNT, StaticFile.s_No FROM staticFile GROUP BY StaticFile.s_No) t1
-		 WHERE UPPER(s_IsShow) = 'Y' AND 
-		 StaticMusic.s_No = t1.s_No(+)) 
+	 	 ROW_NUMBER() OVER(ORDER BY StaticMusic.s_NO ASC) AS RNO, 
+		 NVL(t1.CNT, 0) AS FILECOUNT FROM StaticMusic, 
+		(SELECT COUNT(*) AS CNT, s_No as no FROM staticFile GROUP BY s_No) t1
+		 WHERE <include refid="isShow"/> AND 
+		 StaticMusic.s_No = t1.no(+)) 
 		WHERE RNO BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 조회수 증가 질의 명령 -->
@@ -51,7 +50,7 @@
 	</resultMap>
 	<!-- 상세보기 질의 명령 -->
 	<select id="selectDetail" resultMap="clobDetail" parameterType="int">
-		select s_body, <include refid="selectField"/> from StaticMusic
+		select s_No as no, s_body, <include refid="selectField"/> from StaticMusic
 		where s_No=#{no}
 	</select>
 	<!-- 첨부파일 검색 질의 -->
@@ -59,4 +58,19 @@
 		select sf_No as no, s_No as oriNo, <include refid="selectFileInfo"/>, sf_Length as len
 		from staticFile where s_No=#{oriNo}
 	</select>
+	<!-- 댓글등록 질의 -->
+	<insert id="insertReply" parameterType="static">
+		<selectKey order="BEFORE" resultType="int"  keyProperty="no">
+			select NVL(max(sr_No),0)+1 from StaticReply where sr_IsShow='Y'
+		</selectKey>
+		insert into StaticReply values (#{no},#{oriNo},#{mId},#{body},#{pw}, sysdate,‘Y’)
+	</insert>
+	<!-- 댓글수정 질의 -->
+	<update id="updateReply" parameterType="static">
+		update StaticReply set sr_Body=#{body}, sr_Pw=#{pw} where sr_No=#{no}
+	</update>
+	<!-- 댓글삭제 질의 -->
+	<update id="deleteReply" parameterType="int">
+		update StaticReply set sr_IsShow='N' where sr_No=#{no}
+	</update>
 </mapper>
