@@ -26,7 +26,7 @@
 		//글쓰기 버튼
 		$('#wBtn').click(function(){
 			//글쓰기(폼보여주기)요청
-			$(location).attr("href","../fileBoard/writeForm.sun");
+			$(location).attr("href","../static/staticWriteForm.sm");
 		});
 	})
 </script>
@@ -58,21 +58,27 @@
   			<tr>
   				<th>번호</th>
 				<th>제목</th>
-				<th>작성자</th>
 				<th>작성일</th>
 				<th>조회수</th>
 				<th>첨부파일</th>
+				<th>첨부파일이미지</th>
   			</tr>
   		</thead>
   		<tbody>
-  		  	<tr>
-  				<td>-</td>
-				<td>-</td>
-				<td>-</td>
-				<td>-</td>
-				<td>-</td>
-				<td>-</td>
-  			</tr>
+	  		<c:forEach var="data" items="${LIST}">
+	  		  	<tr>
+	  				<td>${data.no}</td>
+	  				<td>
+	  					<a href="../static/staticHit.sm?oriNo=${data.no}&nowPage=${PINFO.nowPage}">${data.title}</a>
+	  				</td>
+					<td>${data.date}</td>
+					<td>${data.hit}</td>
+					<td>${data.fileCount}</td>
+	  				<td>
+	  					${data.path}, ${data.saveName}
+	  				</td>
+	  			</tr>
+	  		</c:forEach>
   		</tbody>
   	</table>
   	<%-- 페이지 이동기능 --%>
@@ -80,29 +86,31 @@
   		<tr>
   			<td align="center">
 	  			<%--이전링크 만들기--%>
-	  			<c:if test="${PINFO.startPage eq 1}">[이전]</c:if>
+	  			<c:if test="${PINFO.startPage eq 1}">[<]</c:if>
 	  			<c:if test="${PINFO.startPage ne 1}">
-	  				<a href="../static/staticList.sm?nowPage=${page}">[이전]</a></c:if>
+	  				<a href="../static/staticList.sm?nowPage=${PINFO.nowPage-1}">[<]</a></c:if>
 	  			<c:forEach var="page" begin="${PINFO.startPage}" end="${PINFO.endPage}">
 	  				<a href="../static/staticList.sm?nowPage=${page}">[${page}]</a>
 	  			</c:forEach>
 	  			<%--다음링크 만들기--%>
-	  			<c:if test="${PINFO.endPage eq PINFO.totalPage}">[다음]</c:if>
+	  			<c:if test="${PINFO.endPage eq PINFO.totalPage}">[>]</c:if>
 	  			<c:if test="${PINFO.endPage ne PINFO.totalPage}">
-	  				<a href="../static/staticList.sm?nowPage=${PINFO.endPage+1}">[다음]</a>
+	  				<a href="../static/staticList.sm?nowPage=${PINFO.endPage+1}">[>]</a>
 	  			</c:if>
 	  		</td>
   		</tr>
   	</table>
   	<%-- 글쓰기(기타기능) 관리자만 가능하게 한다--%>
-  	<form id="wForm"  method="get">
-	  	<table border="1" width="700" align="center">
-	  		<tr>
-	  			<td align="center">
-	  				<input type="button" id="wBtn" value="글쓰기"/>
-	  			</td>
-	  		</tr>
-	  	</table>
-	 </form>
+  	<%-- <c:if test="${sessionScope.UID eq 'admin'}">--%>
+	  	<form id="wForm"  method="get">
+		  	<table border="1" width="700" align="center">
+		  		<tr>
+		  			<td align="center">
+		  				<input type="button" id="wBtn" value="글쓰기"/>
+		  			</td>
+		  		</tr>
+		  	</table>
+		 </form>
+	<%--</c:if>--%>
 </body>
 </html>

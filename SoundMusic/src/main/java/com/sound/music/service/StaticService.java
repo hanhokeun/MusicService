@@ -23,25 +23,56 @@ public class StaticService implements StaticServiceInter {
 	//페이지정보 구하기
 	@Override
 	public PageUtil getPageInfo(int nowPage)throws Exception {
-		//sDAO.
-		return null;
+		//비즈니스로직 수행
+		int totalCount = sDAO.totalCount(); //총 페이지개수 구하기
+		System.out.println(totalCount);
+		//페이지 정보구하기
+		PageUtil pInfo = new PageUtil(nowPage,totalCount,3,3);
+		return pInfo;
 	}
 	//통계 글 목록보여주기
 	@Override
-	public ArrayList<StaticVO> List() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<StaticVO> List(PageUtil pInfo) throws Exception {
+		//목록에 보여줄 시작과 끝 게시글 설정해서 vo에 담아 DAO로 넘겨주기
+		int start = (pInfo.getNowPage()-1)*pInfo.getListCount()+1;
+		int end = start+pInfo.getListCount()-1;
+		StaticVO vo = new StaticVO();
+		vo.setStart(start);
+		vo.setEnd(end);
+		
+		ArrayList list=sDAO.List(vo);
+		return list;
 	}
 	//통계 글 조회수 증가하기
 	@Override
-	public void increaseHit(int no) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void increaseHit(int oriNo,HttpSession session) throws Exception {
+		boolean isHit=false;
+		ArrayList hitList = (ArrayList)session.getAttribute("HIT");
+		if(hitList==null||hitList.size()==0) { //글 한번도 안본사람
+			isHit=true;
+			hitList = new ArrayList();
+			hitList.add(oriNo);
+			session.setAttribute("HIT",hitList);
+		}else if(!hitList.contains(oriNo)) { //다른 글만 본사람
+			isHit=true;
+			hitList.add(oriNo);
+			session.setAttribute("HIT",hitList);
+		}else { //해당 글을 본 사람
+			isHit=false;
+		}
+		if(isHit==true) { //글을 보지 않은 사람만
+			sDAO.increaseHit(oriNo); //조회수 증가
+		}
+	}
+	//게시글의 파일정보 보기
+	@Override
+	public ArrayList selectFileInfo(int oriNo) throws Exception {
+		ArrayList list = sDAO.selectFileInfo(oriNo);
+		return list;
 	}
 	//댓글 등록
 	@Override
 	public StaticVO insertReply(int oriNo) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	//댓글 수정
@@ -56,7 +87,6 @@ public class StaticService implements StaticServiceInter {
 		// TODO Auto-generated method stub
 		
 	}
-
 	//글쓰기 정보 등록처리
 	@Override
 	public void insertStatic(StaticVO vo, HttpSession session,ArrayList list)throws Exception {
@@ -77,8 +107,9 @@ public class StaticService implements StaticServiceInter {
 	}
 	//글쓰기 상세 글보기
 	@Override
-	public StaticVO detail(int no) throws Exception {
-		return null;
+	public StaticVO detail(int oriNo) throws Exception {
+		StaticVO vo = sDAO.detail(oriNo);
+		return vo;
 	}
 
 	//통계 글 수정하기

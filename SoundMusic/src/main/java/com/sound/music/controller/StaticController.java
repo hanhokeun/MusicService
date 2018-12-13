@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +27,48 @@ public class StaticController {
 	private StaticService sService; 
 	//목록보기
 	@RequestMapping("/staticList.sm")
-	public void staticList(@RequestParam(value="nowPage",defaultValue="1")int nowPage) throws Exception{
-			PageUtil pInfo = sService.getPageInfo(nowPage);
-
+	public void staticList(@RequestParam(value="nowPage",
+	defaultValue="1")int nowPage,HttpServletRequest req) throws Exception{
+		PageUtil pInfo = sService.getPageInfo(nowPage);
+		//모델: 페이지정보 전달, 목록리스트 전달
+		ArrayList list = sService.List(pInfo);
+		req.setAttribute("PINFO",pInfo);
+		req.setAttribute("LIST",list);
 	}
-	
+	//상세보기
+	@RequestMapping("/staticDetail.sm")
+	public ModelAndView staticDetail(@RequestParam(value="oriNo")int oriNo,
+			@RequestParam(value="nowPage")int nowPage) throws Exception {
+		StaticVO vo = sService.detail(oriNo); //글 내용
+		ArrayList list = sService.selectFileInfo(oriNo); //파일 정보
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("VIEW", vo);
+		mv.addObject("nowPage", nowPage);
+		mv.addObject("LIST", list);
+		mv.setViewName("static/staticDetail");
+		return mv;
+	}
+	//조회수 증가
+	@RequestMapping("/staticHit.sm")
+	public ModelAndView staticHit(HttpServletRequest req,
+			ModelAndView mv, HttpSession session) throws Exception {
+		String strNo=req.getParameter("oriNo");
+		int oriNo = Integer.parseInt(strNo);
+		String nowPage = req.getParameter("nowPage");
+		
+		//조회수증가처리
+			sService.increaseHit(oriNo, session);
+		//모델,뷰 상세보기로 Redirect
+		RedirectView rv = new RedirectView("../static/staticDetail.sm");
+		rv.addStaticAttribute("oriNo", oriNo);
+		rv.addStaticAttribute("nowPage", nowPage);
+		mv.setView(rv);
+		return mv;
+	}
 	//글쓰기 폼보기
 	@RequestMapping("/staticWriteForm.sm")
 	public String staticWriteForm() {
-		//관리자에게 글쓰기 폼을 보여준다
-		
+		//관리자에게 글쓰기 폼을 보여주기		
 		return "/static/staticWriteForm";
 	}
 	@RequestMapping("/staticWriteProc.sm")
@@ -47,9 +80,8 @@ public class StaticController {
 		for(int i =0; i<vo.getFiles().length;i++) {
 			//파일의 실제이름
 			String oriName=vo.getFiles()[i].getOriginalFilename();
-			//파일 업로드되지 않은 부분 건너뛰기
 			if(oriName==null||oriName.length()==0) {
-				continue;
+				continue; //파일 업로드되지 않은 부분 건너뛰기
 			}
 			String saveName=FileUtil.renameTo(path,oriName);
 			File file = new File(path,saveName);
@@ -64,15 +96,12 @@ public class StaticController {
 			map.put("oriName",oriName);
 			map.put("saveName",saveName);
 			map.put("len",file.length());
-			list.add(map);
-
-			
+			list.add(map);			
 		}
 		//서비스위임
 		//한개의 파일 정보를 Map으로 묶고 여러 개의 파일 정보들이 담긴 Map을 List로 묶어 전달
 		sService.insertStatic(vo, session, list);
-		//모델,뷰
-		//목록보기를 호출하기 위해서 Redirect시킨다
+		//모델,뷰 -> 목록보기를 호출하기 위해서 Redirect
 		ModelAndView mv = new ModelAndView();
 		RedirectView view = new RedirectView("../static/staticList.sm");
 		mv.setView(view);

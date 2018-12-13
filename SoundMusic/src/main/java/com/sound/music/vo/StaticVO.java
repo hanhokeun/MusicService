@@ -1,6 +1,7 @@
 package com.sound.music.vo;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,6 +15,11 @@ public class StaticVO {
 	private MultipartFile[] files;
 	private int hit;
 	private Date wday;
+	//게시글 목록보기
+	private int start;
+	private int end;
+	private int rno;
+	private int fileCount;
 	//파일의 정보
 	private String path;
 	private String oriName;
@@ -22,6 +28,34 @@ public class StaticVO {
 	//댓글 정보
 	private String pw;
 	private int like;
+	public String getDate() {
+		SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd");
+		return form.format(wday);
+	}
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
+	}
+	public int getEnd() {
+		return end;
+	}
+	public void setEnd(int end) {
+		this.end = end;
+	}
+	public int getRno() {
+		return rno;
+	}
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
+	public int getFileCount() {
+		return fileCount;
+	}
+	public void setFileCount(int fileCount) {
+		this.fileCount = fileCount;
+	}
 	public String getTitle() {
 		return title;
 	}

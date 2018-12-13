@@ -70,20 +70,12 @@
   			encType="multipart/form-data">
   	<table border="1" width="700" align="center">
   		<tr>
-  			<th>글쓴이</th>
-  			<td>${sessionScope.UNICK}</td>
-  		</tr>
-  		<tr>
   			<th>제목</th>
   			<td><input type="text" name="title" id="title"/></td>
   		</tr>
   		<tr>
   			<th>본문</th>
   			<td><textarea name="body" id="body" cols="80" rows="5"></textarea></td>
-  		</tr>
-  		<tr>
-  			<th>비밀번호</th>
-  			<td><input type="text" id="pw" name="pw" /></td>
   		</tr>
   		<tr>
   			<th>첨부파일</th>
