@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!--  <?xml version="1.0" encoding="UTF-8"?>-->
 <!DOCTYPE configuration 
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
 "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
-<!-- 무슨에러인지 모르겠다. -->
+
 <configuration>
 	<!-- 이 부분에서 myBatis에 관련된 환경설정을 한다 -->
 	<!-- 기본 동작에 대한 환경 설정을 한다. -->
