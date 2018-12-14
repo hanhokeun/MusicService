@@ -20,5 +20,5 @@ public interface MusicDAO {
 		//음악 삭제
 		public void delete(int no)throws Exception;
 		//페이징 처리
-		public int getPageInfo() throws Exception;
+		public int getPageInfo(MusicInfoVO mvo) throws Exception;
 }

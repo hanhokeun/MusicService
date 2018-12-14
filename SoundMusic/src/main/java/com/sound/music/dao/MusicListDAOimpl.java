@@ -46,8 +46,8 @@ public class MusicListDAOimpl implements MusicDAO {
 	
 	//전체 데이터개수
 	@Override
-	public int getPageInfo() throws Exception {
-		int result = session.selectOne("musicinfo.totalCount");
+	public int getPageInfo(MusicInfoVO mvo) throws Exception {
+		int result = session.selectOne("musicinfo.totalCount",mvo);
 		return result;
 	}
 

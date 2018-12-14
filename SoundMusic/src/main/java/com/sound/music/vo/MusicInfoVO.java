@@ -13,8 +13,24 @@ public class MusicInfoVO {
 	private int rno;
 	private int start;
 	private int end;
+	private int sub;
+	private String svalue;
 	
 	
+	
+	
+	public int getSub() {
+		return sub;
+	}
+	public void setSub(int sub) {
+		this.sub = sub;
+	}
+	public String getSvalue() {
+		return svalue;
+	}
+	public void setSvalue(String svalue) {
+		this.svalue = svalue;
+	}
 	public int getRno() {
 		return rno;
 	}
