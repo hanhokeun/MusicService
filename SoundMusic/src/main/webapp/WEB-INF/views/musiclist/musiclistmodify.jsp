@@ -7,25 +7,26 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h1 align="center">음악리스트 수정</h1>
 <form id=aForm method="POST" action="#">
-	<table border="1">
+	<table border="1" align="center" width="450">
 		<tr>
 			<th>곡명</th>
-			<td>
-				<input type="text" id="aTitle" name="aTitle" />			
+			<td width="30%">
+				<input type="text" id="aTitle" name="aTitle" size="45"/>			
 			</td>
 		</tr>
 		<tr>
 			<th>아티스트</th>
-			<td><input type="text" id="aArtist" name="aArtist" /></td>
+			<td><input type="text" id="aArtist" name="aArtist" size="45" /></td>
 		</tr>
 		<tr>
 			<th>앨범</th>
-			<td><input type="text" id="aAlbum" name="aAlbum" /></td>
+			<td><input type="text" id="aAlbum" name="aAlbum" size="45" /></td>
 		</tr>
 		<tr>
 			<th>이미지</th>
-			<td><input type="text" id="aImgpath" name="aImgpath" /></td>
+			<td><input type="text" id="aImgpath" name="aImgpath" size="45" /></td>
 		</tr>
 		<tr>
 			<th>장르</th>
@@ -45,7 +46,13 @@
 		<tr>
 			<th>가사</th>
 			<td>
-				<textarea cols="20"></textarea>
+				<textarea cols="46"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="button" id="mBtn" value="수정하기"/>
+				<input type="reset" id="rBtn" value="취소"/>
 			</td>
 		</tr>
 	</table>

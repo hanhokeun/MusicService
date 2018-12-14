@@ -37,9 +37,10 @@ public class MusicInfoServiceimpl implements MusicInfoService {
 		//MusicInfoVO result=musicDAO.info(no);
 		return musicDAO.info(no);
 	}
-
+	//음악 추가
 	@Override
 	public void create(MusicInfoVO vo) throws Exception {
+		musicDAO.create(vo);
 	}
 
 	@Override

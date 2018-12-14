@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.sound.music.service.MusicInfoService;
 import com.sound.music.util.PageUtil;
@@ -79,4 +80,35 @@ public class MusicListController {
 		return mv2;
 	}
 	
+	//음악 추가 폼 보여주기
+	@RequestMapping("/musiclistadd")
+	public String musicListAdd() {
+		return"musiclist/musiclistadd";
+	}
+	
+	//음악 추가
+	@RequestMapping("/musiclistaddproc")
+	public ModelAndView musicListAddProc(ModelAndView mv, HttpServletRequest req, MusicInfoVO vo ) throws Exception {
+		//파라미터
+		String title = req.getParameter("aTitle");
+		String artist = req.getParameter("aArtist");
+		String album = req.getParameter("aAlbum");
+		String path = req.getParameter("aImgpath");
+		String genre = req.getParameter("aGenre");
+		String lyrics = req.getParameter("aLyrics");
+		vo.setGenre(genre);
+		vo.setTitle(title);
+		vo.setArtist(artist);
+		vo.setAlbum(album);
+		vo.setPath(path);
+		vo.setLyrics(lyrics);
+		System.out.println(vo.getGenre());
+		//서비스
+		musicInfoService.create(vo);
+		//모델
+		//뷰
+		RedirectView rv = new RedirectView("../musiclist/musiclist.sm");
+		mv.setView(rv);
+		return mv;
+	}
 }	
