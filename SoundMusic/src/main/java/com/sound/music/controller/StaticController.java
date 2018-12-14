@@ -144,6 +144,7 @@ public class StaticController {
 			}
 			//파일 업로드 완료 -> 업로드된 파일의 정보를 Map으로 묶어보내기
 			HashMap map = new HashMap();
+			//주석
 			map.put("path", path);
 			map.put("oriName",oriName);
 			map.put("saveName",saveName);
