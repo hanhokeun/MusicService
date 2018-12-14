@@ -14,10 +14,13 @@ import com.sound.music.vo.StaticVO;
 @Service
 public class StaticDAO implements StaticDAOInter {
 
-
-
 	@Autowired
 	private SqlSessionTemplate session;
+	//댓글 조회하기
+	@Override
+	public ArrayList<StaticVO> selectReply(int oriNo) throws Exception {
+		return (ArrayList)session.selectList("static.selectReply",oriNo);
+	}
 	//게시글 총 개수 구하기
 	@Override
 	public int totalCount() throws Exception{
@@ -61,8 +64,8 @@ public class StaticDAO implements StaticDAOInter {
 	}
 	//게시글 댓글 삭제하기
 	@Override
-	public void deleteReply(int no) throws Exception {
-		session.update("static.deleteReply", no);
+	public void deleteReply(StaticVO vo) throws Exception {
+		session.update("static.deleteReply", vo);
 	}
 	
 	//글쓰기 상세 글보기

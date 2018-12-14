@@ -70,6 +70,12 @@ public class StaticService implements StaticServiceInter {
 		ArrayList list = sDAO.selectFileInfo(oriNo);
 		return list;
 	}
+	//댓글 조회하기
+	@Override
+	public ArrayList selectReply(int oriNo) throws Exception {
+		ArrayList list = sDAO.selectReply(oriNo);
+		return list;
+	}
 	//댓글 등록
 	@Override
 	public void insertReply(StaticVO vo) throws Exception {
@@ -82,8 +88,8 @@ public class StaticService implements StaticServiceInter {
 	}
 	//댓글 삭제
 	@Override
-	public void deleteReply(int no) throws Exception {
-		sDAO.deleteReply(no);
+	public void deleteReply(StaticVO vo) throws Exception {
+		sDAO.deleteReply(vo);
 	}
 	//글쓰기 정보 등록처리
 	@Override
@@ -121,5 +127,6 @@ public class StaticService implements StaticServiceInter {
 	public void delete(int no) throws Exception {
 
 	}
+
 
 }

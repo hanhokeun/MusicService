@@ -37,14 +37,17 @@ public class StaticController {
 	}
 	//상세보기
 	@RequestMapping("/staticDetail.sm")
-	public ModelAndView staticDetail(@RequestParam(value="oriNo")int oriNo,
+	public ModelAndView staticDetail(StaticVO vo,
 			@RequestParam(value="nowPage")int nowPage) throws Exception {
-		StaticVO vo = sService.detail(oriNo); //글 내용
-		ArrayList list = sService.selectFileInfo(oriNo); //파일 정보
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("VIEW", vo);
+		StaticVO svo = new StaticVO();
+		svo= sService.detail(vo.getOriNo()); //글 내용
+		ArrayList fileList = sService.selectFileInfo(vo.getOriNo()); //파일 정보
+		ArrayList replyList = sService.selectReply(vo.getOriNo()); //댓글 정보
+		ModelAndView mv = new ModelAndView(); 
+		mv.addObject("VIEW", svo);
 		mv.addObject("nowPage", nowPage);
-		mv.addObject("LIST", list);
+		mv.addObject("FILE", fileList);
+		mv.addObject("REPLY",replyList);
 		mv.setViewName("static/staticDetail");
 		return mv;
 	}
@@ -73,10 +76,11 @@ public class StaticController {
 		System.out.println("oriNo"+oriNo);
 		String nowPage=req.getParameter("nowPage");
 		session = req.getSession();
-		String mId = (String)session.getAttribute("UID");
+		//String mId = (String)session.getAttribute("UID");
+		String mId="hongid";
 		//VO에 id값 담아주기
 		vo.setmId(mId);
-		vo.setOriNo(oriNo);
+		//vo.setOriNo(oriNo);
 		//비즈니스로직-댓글등록
 		sService.insertReply(vo);
 		RedirectView rv = new RedirectView("../static/staticDetail.sm");
@@ -103,9 +107,8 @@ public class StaticController {
 	public ModelAndView staticReplyDelete(StaticVO vo,
 			HttpServletRequest req, ModelAndView mv) throws Exception {
 		String nowPage=req.getParameter("nowPage");
-		int no = vo.getNo();
 		int oriNo = vo.getOriNo();
-		sService.deleteReply(no);
+		sService.deleteReply(vo);
 		RedirectView rv = new RedirectView("../static/staticDetail.sm");
 		rv.addStaticAttribute("nowPage", nowPage);
 		rv.addStaticAttribute("oriNo", oriNo);
@@ -120,10 +123,11 @@ public class StaticController {
 	}
 	//글등록하기
 	@RequestMapping("/staticWriteProc.sm")
-	public ModelAndView staticWriteProc(StaticVO vo, HttpSession session ) throws Exception {
+	public ModelAndView staticWriteProc(StaticVO vo, HttpSession session,
+			HttpServletRequest req) throws Exception {
 		//StaticVO클래스 이용해 파일의 정보를 받고
 		//업로드된 파일을 원하는 폴더에 실제 업로드를 실행시켜줌
-		String path="E:\\upload";
+		String path=req.getSession().getServletContext().getRealPath("/upload/");
 		ArrayList list=new ArrayList(); //파일 정보를 하나로 묶는 list
 		for(int i =0; i<vo.getFiles().length;i++) {
 			//파일의 실제이름

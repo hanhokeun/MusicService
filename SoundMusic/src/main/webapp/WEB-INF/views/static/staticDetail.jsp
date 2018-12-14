@@ -51,7 +51,7 @@
 				var pw = prompt('비밀번호를 입력해주세요')
 				$('#tempReOriNo').val("${VIEW.no}");
 				$('#tempRePw').val(pw);
-				$('#tempReNo').val(no);
+				$('#tempReNo').val(reNo);
 				$('#tempRenowPage').val("${nowPage}");
 				$('#tempReFrm').submit();
 			});
@@ -76,31 +76,35 @@
   <%--상세보기 내용 출력 --%>
   <table border="1" width="700" align="center">
   	<tbody>
-  		<tr>
+  		<tr align="center">
   			<th width="100">글번호</th>
-  			<td width="600">${VIEW.no}</td>
-  			<th>조회수</th>
-  			<td>${VIEW.hit}</td>
+  			<td width="50">${VIEW.no}</td>
+  			<th width="100">조회수</th>
+  			<td width="50">${VIEW.hit}</td>
+  			<th>작성일</th>
+  			<td>${VIEW.date}</td>
   		</tr>
   		<tr>
-  			<th>작성일</th>
-  			<td colspan="3">${VIEW.date}</td>
+  			<th>노래 제목</th>
+  			<td colspan="3">${VIEW.song}</td>
+  			<th>가수 이름</th>
+  			<td>${VIEW.artist}</td>
   		</tr>
   		<tr>
   			<th>제목</th>
-  			<td colspan="3">${VIEW.title}</td>
+  			<td colspan="5">${VIEW.title}</td>
   		</tr>
   		<tr>
   			<th>내용</th>
-  			<td colspan="3" width="500">${VIEW.brBody}</td>
+  			<td colspan="5" width="500">${VIEW.brBody}</td>
   		</tr>
   	</tbody>
   </table>
  <%-- 첨부파일 내용 출력 --%>
   <table width="700" border="1" align="center">
-  	<c:forEach items="${LIST}" var="info">
+  	<c:forEach items="${FILE}" var="info">
   		<tr>
-  			<td></td>
+  			<td><img src="../upload/${info.saveName}"/></td>
   			<td>${info.oriName}( ${info.len}Byte )</td>
   		</tr>
   	</c:forEach>
@@ -131,30 +135,28 @@
   <%--댓글이 존재하는 경우 댓글 수만큼 반복 출력 --%>
   <c:if test="${not empty REPLY}">
   	<c:forEach var="reply" items="${REPLY}">
-  		<table id="${reply.no}"  width="700" align="center" >
+  		<table border="1" id="${reply.no}"  width="700" align="center">
   			<tr>
-  				<th width="50">댓글번호</th>
-  				<td width="50">${reply.no}</td>
-  				<th width="50">글쓴이</th>
-  				<td width="150">${reply.writer}</td>
-  				<th width="50">작성일</th>
-  				<th width="300">${reply.date}</th>
-  				<button type="button" class="button_like" width="50">
+  				<th width="100">글쓴이</th>
+  				<td width="150">${reply.mId}</td>
+  				<th width="100" >작성일</th>
+  				<th width="200">${reply.date}</th>
+  				<td><button type="button" class="button_like" width="50">
   					<i class="fa fa-heart"></i>
-  				</button>
+  				</button></td>
   			</tr>
   			<tr>
   				<th>내용</th>
-  				<td colspan="5">${reply.brBody}</td>
-  			</tr>
-  			<tr>
-  				<td>
+  				<td colspan="3">${reply.brBody}</td>
+  			<%-- <c:if test="${sessionScope.UID eq reply.mId }">--%>
+  				<td align="center">
   					<input type="button" class="rmBtn" value="수정" param="${reply.no}"/>
   					<input type="button" class="rdBtn" value="삭제" param="${reply.no}"/>
   				</td>
+  			<%-- </c:if>--%>
   		</table>
   <%--댓글 수정폼 --%>
-		  <form id="frm${reply.no}" method="post" action="../staticReplyModify.sm" style="display:none;">
+		  <form id="frm${reply.no}" method="post" action="../static/staticReplyModify.sm" style="display:none;">
 		  	<input type="hidden" name="no" value="${reply.no}"/>
 		  	<input type="hidden" name="oriNo" value="${reply.oriNo}"/>
 		  	<input type="hidden" name="nowPage" value="${nowPage}"/>

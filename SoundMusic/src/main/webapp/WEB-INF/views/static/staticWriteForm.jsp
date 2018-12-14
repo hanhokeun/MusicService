@@ -23,9 +23,14 @@
 					$('#body').focus();
 					return; 
 				}
-				if($('#pw').val()==""){
-					alert('내용을 입력해주세요');
-					$('#pw').focus();
+				if($('#song').val()==""){
+					alert('노래 제목을 입력해주세요');
+					$('#song').focus();
+					return; 
+				}
+				if($('#artist').val()==""){
+					alert('가수 이름을 입력해주세요');
+					$('#artist').focus();
 					return; 
 				}
 				$('#wForm').submit();
@@ -43,7 +48,7 @@
 				}
 				//추가할 폼
 				var tr= "<tr><th>첨부파일</th>"+
-							"<td><input type='file' name='files' id='files"+count+
+							"<td colspan='3'><input type='file' name='files' id='files"+count+
 							"' value='파일선택'/></td></tr>"
 				//원하는 위치에 추가
 				$('#copy').before(tr);
@@ -60,36 +65,40 @@
 				count--;
 			});
 		});
-
-		
 	</script>
 </head>
 <body>
-  <h1>글쓰기 폼(writeForm.jsp)</h1>
+  <h1 align="center">통계 페이지 글 작성하기</h1>
   <form id="wForm"  method="post"  action="../static/staticWriteProc.sm"
   			encType="multipart/form-data">
   	<table border="1" width="700" align="center">
   		<tr>
   			<th>제목</th>
-  			<td><input type="text" name="title" id="title"/></td>
+  			<td colspan="3"><input type="text" name="title" id="title"/></td>
+  		</tr>
+  		<tr>
+  			<th>노래 제목</th>
+  			<td><input type="text" name="song" id="song"/></td>
+  			<th>가수 이름</th>
+  			<td><input type="text" name="artist" id="artist"/></td>
   		</tr>
   		<tr>
   			<th>본문</th>
-  			<td><textarea name="body" id="body" cols="80" rows="5"></textarea></td>
+  			<td colspan="3"><textarea name="body" id="body" cols="80" rows="5"></textarea></td>
   		</tr>
   		<tr>
   			<th>첨부파일</th>
-  			<td>
+  			<td colspan="3">
   				<input type="button" id="aBtn" value="추가"/>
   				<input type="button" id="dBtn" value="삭제"/>
   			</td>
   		</tr>
   		<tr>
   			<th>첨부파일</th>
-  			<td><input type="file" name="files" id="files" value="파일 선택"/></td>
+  			<td colspan="3"><input type="file" name="files" id="files" value="파일 선택"/></td>
   		</tr>
   		<tr id="copy">
-  			<th colspan="2"><input type="button" id="sBtn" value="글쓰기"/></th>
+  			<th colspan="4"><input type="button" id="sBtn" value="글쓰기"/></th>
   		</tr>
   	</table>
   </form>

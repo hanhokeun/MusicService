@@ -15,6 +15,8 @@ public class StaticVO {
 	private MultipartFile[] files;
 	private int hit;
 	private Date wday;
+	private String song;
+	private String artist;
 	//게시글 목록보기
 	private int start;
 	private int end;
@@ -45,6 +47,18 @@ public class StaticVO {
 			temp=temp.replaceAll("\n", "<br/>");
 		}
 		return temp;
+	}
+	public String getSong() {
+		return song;
+	}
+	public void setSong(String song) {
+		this.song = song;
+	}
+	public String getArtist() {
+		return artist;
+	}
+	public void setArtist(String artist) {
+		this.artist = artist;
 	}
 	public int getStart() {
 		return start;
