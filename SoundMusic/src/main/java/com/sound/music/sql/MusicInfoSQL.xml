@@ -20,9 +20,35 @@
 			 FROM
 				MUSIC
 			 WHERE
-				UPPER(MU_ISSHOW)='Y'
+				UPPER(MU_ISSHOW)='Y' 
 				<if test="genre != ''">
 					AND MU_GENRE = #{genre}
+				</if>
+				
+				<if test="sub eq 0">
+					<if test="svalue != ''">
+						AND 
+							MU_TITLE like '%'||#{svalue}||'%' 
+						OR 
+							MU_ARTIST like '%'||#{svalue}||'%'  
+						OR 
+							MU_ALBUM like '%'||#{svalue}||'%'
+					</if>
+				</if>
+				<if test="sub eq 1">
+					<if test="svalue != ''">
+						AND MU_TITLE like '%'||#{svalue}||'%'
+					</if>
+				</if>
+				<if test="sub eq 2">
+					<if test="svalue != ''">
+						AND MU_ARTIST like '%'||#{svalue}||'%'
+					</if>
+				</if>
+				<if test="sub eq 3">
+					<if test="svalue != ''">
+						AND MU_ALBUM like '%'||#{svalue}||'%'
+					</if>
 				</if>
 				)
 		WHERE 
@@ -47,12 +73,41 @@
 			MU_NO = #{no}	
 	</select>
 	<!-- 03. 페이징처리를 위한 음악 개수 구하기 -->
-	<select id ="totalCount" resultType="int">
+	<select id ="totalCount" parameterType="com.sound.music.vo.MusicInfoVO" resultType="int">
 		SELECT
 			COUNT(*) as cnt
 		FROM
 			MUSIC
 		WHERE 
-			MU_ISSHOW='Y'	
+			MU_ISSHOW='Y' 
+				<if test="genre != ''">
+					AND MU_GENRE = #{genre}
+				</if>
+				
+				<if test="sub eq 0">
+					<if test="svalue != ''">
+						AND 
+							MU_TITLE like '%'||#{svalue}||'%' 
+						OR 
+							MU_ARTIST like '%'||#{svalue}||'%'
+						OR 
+							MU_ALBUM like '%'||#{svalue}||'%'
+					</if>
+				</if>
+				<if test="sub eq 1">
+					<if test="svalue != ''">
+						AND MU_title like '%'||#{svalue}||'%'
+					</if>
+				</if>
+				<if test="sub eq 2">
+					<if test="svalue != ''">
+						AND MU_ARTIST like '%'||#{svalue}||'%'
+					</if>
+				</if>
+				<if test="sub eq 3">
+					<if test="svalue != ''">
+						AND MU_ALBUM like '%'||#{svalue}||'%'
+					</if>
+				</if>	
 	</select>					
 </mapper>				

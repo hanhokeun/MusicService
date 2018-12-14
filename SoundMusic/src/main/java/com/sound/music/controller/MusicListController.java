@@ -2,9 +2,10 @@ package com.sound.music.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,16 +27,31 @@ public class MusicListController {
 	//음악 리스트를 띄워줄 컨트롤러
 	@RequestMapping("/musiclist")
 	public ModelAndView MusicList(@RequestParam(value="nowPage",defaultValue="1") int nowPage,
-						@RequestParam(value="genre") String genre, ModelAndView mv1) throws Exception {
+						@RequestParam(value="genre",defaultValue="") String genre, HttpServletRequest req,
+						MusicInfoVO mvo, 
+						ModelAndView mv1) throws Exception {
+		String sub = req.getParameter("sub");
+		String sValue = req.getParameter("svalue");
+		if(sub == null) sub = "0";
+		if(sValue == null) sValue = "";
 		
+		int nSub = Integer.parseInt(sub);
+		
+		mvo.setGenre(genre);
+		mvo.setSub(nSub);
+		mvo.setSvalue(sValue);
 		//페이징 기능
-		PageUtil pInfo= musicInfoService.getPageInfo(nowPage);
+		PageUtil pInfo= musicInfoService.getPageInfo(nowPage,mvo);
 //		System.out.println(pInfo.getTotalCount());
 //		System.out.println(pInfo.getStartPage());
 //		System.out.println(pInfo.getEndPage());
 //		System.out.println(pInfo.getTotalPage());
 		//뿌리기
-		List<MusicInfoVO> vo1 = (List<MusicInfoVO>)musicInfoService.mList(genre,pInfo);
+		List<MusicInfoVO> vo1 = (List<MusicInfoVO>)musicInfoService.mList(pInfo,mvo);
+		
+//		for(MusicInfoVO v : vo1) {
+//			System.out.println("내용확인 album = "+v.getAlbum());
+//		}
 		mv1.addObject("GENRE",genre);
 		mv1.addObject("PINFO",pInfo);
 		mv1.addObject("LIST",vo1);

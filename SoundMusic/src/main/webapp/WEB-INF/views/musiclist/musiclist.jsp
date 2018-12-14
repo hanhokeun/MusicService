@@ -12,8 +12,14 @@ $(document).ready(function(){
 	$('#sValue').click(function(){
 		$('#sValue').val("");
 	})
-
+	
 })
+function getSearchValue(){
+		if($('#sValue').val()==''){
+			return false;
+		}
+		$('#sForm').submit();
+}
 function getView(nowPage,no,genre){
 	$('#no').val(no);
 	$('#nowPage').val(nowPage);
@@ -37,26 +43,25 @@ a.music:hover{color:black;}
   <h1>음악 전체 리스트</h1>
 <% String path = "http://localhost:80/music/musiclist";	 %>
   <!-- 검색창  -->
-<form id="sForm" method="get" action="#">
-
+<form id="sForm" method="post" action="<%=path%>/musiclist.sm?nowPage=${PINFO.nowPage}&genre=${GENRE}">
 	<table width="70%" cellpadding="0px" align="center">
 		<tr>
 			<td colspan="3" align="right">
-				<select name="sub">
+				<select id="sMenu" name="sub">
 					<option value="0">---선택하세요---</option>
 					<option value="1">곡</option>
 					<option value="2">아티스트</option>
 					<option value="3">앨범</option>
 				</select>
-				<input type="text" id="sValue" name="sValue" value="검색어를 입력해주세요"/>
-				<input type="button" id="sBtn" name="sBtn" value="검색"/>
+				<input type="text" id="svalue" name="svalue" placeholder="검색어를 입력해주세요"/>
+				<input type="button" id="sBtn" name="sBtn" value="검색" onclick="getSearchValue()"/>
 			</td>
 		</tr>
 	</table>
 </form>
 
 <!-- 장르 선택 테이블 -->
-  <table class="genre" border="1" align="center" width="70%">
+  <table class="genre"  align="center" width="70%">
   	<tr>
   		<td width="12.5%" align="center" style="background-color:red;color:white;">
   			<a class="genre" href="<%=path%>/musiclist.sm?genre=">전체</a>
@@ -99,7 +104,7 @@ a.music:hover{color:black;}
  	</tr>
  	<c:forEach var="test" items="${LIST}">
  	 	<tr>
-	 		<td><img src="${test.path}" width="50px" height="50px">   </td>
+	 		<td><img src="${test.path}" width="50px" height="50px"></td>
 	 		<td>
 	 			<a class="music" href="javascript:void(0);" onclick="javascript:getView('${PINFO.nowPage}','${test.no}','${GENRE}')">${test.title}</a>
 	 		</td>

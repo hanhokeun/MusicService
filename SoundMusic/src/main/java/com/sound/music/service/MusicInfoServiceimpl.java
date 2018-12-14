@@ -17,13 +17,15 @@ public class MusicInfoServiceimpl implements MusicInfoService {
 	
 	//음악리스트
 	@Override
-	public List<MusicInfoVO> mList(String genre, PageUtil pInfo) throws Exception {
+	public List<MusicInfoVO> mList(PageUtil pInfo, MusicInfoVO mvo) throws Exception {
 		//시작 = (현재페이지-1)*(한 페이지에 보여줄 게시물 수)
 		int start=(pInfo.getNowPage()-1)*pInfo.getListCount()+1;
 		//끝 = 시작페이지 + 그 페이지에서 보여줄 게시물수-1
 		int end=start + pInfo.getListCount()-1;
 		MusicInfoVO vo = new MusicInfoVO();
-		vo.setGenre(genre);
+		vo.setGenre(mvo.getGenre());
+		vo.setSub(mvo.getSub());
+		vo.setSvalue(mvo.getSvalue());
 		vo.setStart(start);
 		vo.setEnd(end);
 		return musicDAO.mList(vo);
@@ -53,10 +55,10 @@ public class MusicInfoServiceimpl implements MusicInfoService {
 	}
 
 	@Override
-	public PageUtil getPageInfo(@RequestParam(value="nowPage",defaultValue="1") int nowPage) throws Exception {
+	public PageUtil getPageInfo(@RequestParam(value="nowPage",defaultValue="1") int nowPage, MusicInfoVO mvo) throws Exception {
 		//할일
 				//게시물 총 개수 구하기
-				int totalCount= musicDAO.getPageInfo();
+				int totalCount= musicDAO.getPageInfo(mvo);
 				
 				//한페이지당 50개의 게시물을 뿌리고, 5페이지씩 보여주자
 				PageUtil pInfo= new PageUtil(nowPage, totalCount, 50, 5);
