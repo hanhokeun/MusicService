@@ -8,8 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sound.music.dao.StaticDAO;
-
+import com.sound.music.dao.StaticDAOInter;
 import com.sound.music.service.StaticServiceInter;
 import com.sound.music.util.PageUtil;
 
@@ -19,7 +18,7 @@ import com.sound.music.vo.StaticVO;
 public class StaticService implements StaticServiceInter {
 
 	@Autowired
-	private StaticDAO sDAO;
+	private StaticDAOInter sDAO;
 	//페이지정보 구하기
 	@Override
 	public PageUtil getPageInfo(int nowPage)throws Exception {
@@ -27,7 +26,7 @@ public class StaticService implements StaticServiceInter {
 		int totalCount = sDAO.totalCount(); //총 페이지개수 구하기
 		System.out.println(totalCount);
 		//페이지 정보구하기
-		PageUtil pInfo = new PageUtil(nowPage,totalCount,10,3);
+		PageUtil pInfo = new PageUtil(nowPage,totalCount,6,3);
 		return pInfo;
 	}
 	//통계 글 목록보여주기
@@ -93,13 +92,14 @@ public class StaticService implements StaticServiceInter {
 	}
 	//글쓰기 정보 등록처리
 	@Override
-	public void insertStatic(StaticVO vo, HttpSession session,ArrayList list)throws Exception {
+	public void insertStatic(StaticVO vo, HttpSession session,ArrayList list) throws Exception {
 		//게시글 등록
 		sDAO.insert(vo, "static");
 		//파일 정보 등록
 		for(int i=0;i<list.size();i++) {
 			//파일에 대한 정보를 list가 가지고 있고 파일 한개당 정보는 Map이 가지고 있음
 			//map의 정보를 활용해서 vo에 담아 실행시켜 줄 수 있도록 함
+			System.out.println("list size:"+list.size());
 			vo.setOriNo(vo.getNo());
 			HashMap map = (HashMap)list.get(i);
 			vo.setPath((String)map.get("path"));
@@ -107,6 +107,7 @@ public class StaticService implements StaticServiceInter {
 			vo.setSaveName((String)map.get("saveName"));
 			vo.setLen((Long)map.get("len"));
 			sDAO.insert(vo, "file"); //파일 정보 등록 질의 실행
+			System.out.println("i값은?"+i);
 		}
 	}
 	//글쓰기 상세 글보기

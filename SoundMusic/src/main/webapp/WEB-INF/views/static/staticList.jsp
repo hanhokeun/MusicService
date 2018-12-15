@@ -73,7 +73,7 @@
 	  				</td>
 					<td>${data.date}</td>
 					<td>${data.hit}</td>
-					<td>${data.fileCount}</td>
+					<td>${data.fileCount}건</td>
 	  			</tr>
 	  		</c:forEach>
   		</tbody>

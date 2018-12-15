@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.sound.music.service.StaticService;
+import com.sound.music.service.StaticServiceInter;
 import com.sound.music.util.FileUtil;
 import com.sound.music.util.PageUtil;
 import com.sound.music.vo.StaticVO;
@@ -24,7 +24,7 @@ import com.sound.music.vo.StaticVO;
 public class StaticController {
 
 	@Autowired
-	private StaticService sService; 
+	private StaticServiceInter sService; 
 	//원글 수정하기
 	//파일 다운로드 횟수 증가
 	@RequestMapping("/staticDownloadCount.sm")
@@ -153,6 +153,7 @@ public class StaticController {
 		//StaticVO클래스 이용해 파일의 정보를 받고
 		//업로드된 파일을 원하는 폴더에 실제 업로드를 실행시켜줌
 		String path=req.getSession().getServletContext().getRealPath("/upload/");
+		System.out.println("path:"+path);
 		ArrayList list=new ArrayList(); //파일 정보를 하나로 묶는 list
 		for(int i =0; i<vo.getFiles().length;i++) {
 			//파일의 실제이름
@@ -170,12 +171,15 @@ public class StaticController {
 			}
 			//파일 업로드 완료 -> 업로드된 파일의 정보를 Map으로 묶어보내기
 			HashMap map = new HashMap();
-			//주석
 			map.put("path", path);
 			map.put("oriName",oriName);
 			map.put("saveName",saveName);
 			map.put("len",file.length());
 			list.add(map);			
+			System.out.println(path);
+			System.out.println(oriName);
+			System.out.println(saveName);
+			System.out.println(file.length());
 		}
 		//서비스위임
 		//한개의 파일 정보를 Map으로 묶고 여러 개의 파일 정보들이 담긴 Map을 List로 묶어 전달

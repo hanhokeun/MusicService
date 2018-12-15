@@ -104,7 +104,7 @@
   <table width="700" border="1" align="center">
   	<c:forEach items="${FILE}" var="info">
   		<tr>
-  			<td><img src="../upload/${info.saveName}"/></td>
+  			<td><img src="../upload/${info.saveName}" width="200" height="200"/></td>
   			<td><a href="../static/staticDownloadCount.sm?fileNo=${info.no}">${info.oriName} (${info.cnt}회 다운로드됨)</a></td>
   		</tr>
   	</c:forEach>

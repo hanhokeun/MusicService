@@ -25,10 +25,8 @@
 	</insert>
 	<!-- 업로드된 파일 정보 등록-->
 	<insert id="insertFile" parameterType="Static">
-		<selectKey order="BEFORE" resultType="int"  keyProperty="no">
-			select NVL(max(sf_No),0)+1 from StaticFile
-		</selectKey>
-		insert into StaticFile values(#{no}, #{oriNo},#{path},#{oriName},#{saveName},#{len},0)
+		insert into StaticFile values((select NVL(max(sf_No),0)+1 sf_No from StaticFile),
+		 #{oriNo},#{path},#{oriName},#{saveName},#{len},0)
 	</insert>
 	<!-- 게시물 목록보기 -->
 	<select id="selectList" resultType="Static" parameterType="Static">
