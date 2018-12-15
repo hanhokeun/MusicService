@@ -25,6 +25,7 @@ public class StaticController {
 
 	@Autowired
 	private StaticService sService; 
+	//원글 수정하기
 	//파일 다운로드 횟수 증가
 	@RequestMapping("/staticDownloadCount.sm")
 	public ModelAndView fileDownloadCount(HttpServletRequest req,ModelAndView mv) throws Exception {
