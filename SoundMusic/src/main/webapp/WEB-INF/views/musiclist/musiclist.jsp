@@ -8,20 +8,24 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<title>Document</title>
 <script>
+$(document).ready(function(){
+	$('#aList').click(function(){
+		$(location).attr('href','../musiclist/musiclistadd.sm');
+	});
+});
 function getSearchValue(){
-		if($('#sValue').val()=='' || $('#sValue').val()== null ){
+		if($('#svalue').val()=='' || $('#svalue').val()== null ){
 			alert('검색어를 입력해주세요!')
 			return false;
 		}
 		$('#sForm').submit();
-}
+};
 function getView(nowPage,no,genre){
 	$('#no').val(no);
 	$('#nowPage').val(nowPage);
 	$('#genre').val(genre)
 	$('#mView').submit();
-}
-
+};
 </script>
 <style>
 a {text-decoration:none;}
@@ -50,6 +54,9 @@ a.music:hover{color:black;}
 				</select>
 				<input type="text" id="svalue" name="svalue" placeholder="검색어를 입력해주세요"/>
 				<input type="button" id="sBtn" name="sBtn" value="검색" onclick="getSearchValue()"/>
+			</td>
+			<td>
+				<input type="button" id="aList" value="음악 추가" />
 			</td>
 		</tr>
 	</table>

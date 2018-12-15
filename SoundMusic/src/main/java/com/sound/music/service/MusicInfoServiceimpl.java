@@ -42,17 +42,17 @@ public class MusicInfoServiceimpl implements MusicInfoService {
 	public void create(MusicInfoVO vo) throws Exception {
 		musicDAO.create(vo);
 	}
-
+	
+	//상세보기 수정
 	@Override
 	public void update(MusicInfoVO vo) throws Exception {
-		// TODO Auto-generated method stub
-
+		musicDAO.update(vo);
 	}
-
+	
+	//음악 삭제
 	@Override
 	public void delete(int no) throws Exception {
-		// TODO Auto-generated method stub
-
+		musicDAO.delete(no);
 	}
 
 	@Override

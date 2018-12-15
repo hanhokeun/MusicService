@@ -15,10 +15,17 @@ public class MusicInfoVO {
 	private int end;
 	private int sub;
 	private String svalue;
+	private String nowPage;
 	
 	
 	
 	
+	public String getNowPage() {
+		return nowPage;
+	}
+	public void setNowPage(String nowPage) {
+		this.nowPage = nowPage;
+	}
 	public int getSub() {
 		return sub;
 	}

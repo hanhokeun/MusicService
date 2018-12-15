@@ -88,14 +88,14 @@ public class MusicListController {
 	
 	//음악 추가
 	@RequestMapping("/musiclistaddproc")
-	public ModelAndView musicListAddProc(ModelAndView mv, HttpServletRequest req, MusicInfoVO vo ) throws Exception {
+	public ModelAndView musicListAddProc(ModelAndView mv, HttpServletRequest req, MusicInfoVO vo) throws Exception {
 		//파라미터
 		String title = req.getParameter("aTitle");
 		String artist = req.getParameter("aArtist");
 		String album = req.getParameter("aAlbum");
 		String path = req.getParameter("aImgpath");
-		String genre = req.getParameter("aGenre");
 		String lyrics = req.getParameter("aLyrics");
+		String genre = req.getParameter("aGenre");
 		vo.setGenre(genre);
 		vo.setTitle(title);
 		vo.setArtist(artist);
@@ -106,6 +106,74 @@ public class MusicListController {
 		//서비스
 		musicInfoService.create(vo);
 		//모델
+		//뷰
+		RedirectView rv = new RedirectView("../musiclist/musiclist.sm");
+		mv.setView(rv);
+		return mv;
+	}
+	
+	//음악 수정 폼
+	@RequestMapping("/musiclistmodify")
+	public String musicListModify(HttpServletRequest req, MusicInfoVO vo) {
+		String nowPage = req.getParameter("nowPage");
+		String strNo = req.getParameter("mNo");
+		int mNo = Integer.parseInt(strNo);
+		String title = req.getParameter("title");
+		String artist = req.getParameter("artist");
+		String album = req.getParameter("album");
+		String path = req.getParameter("path");
+		String lyrics = req.getParameter("lyrics");
+		vo.setNo(mNo);
+		vo.setTitle(title);
+		vo.setArtist(artist);
+		vo.setAlbum(album);
+		vo.setPath(path);
+		vo.setLyrics(lyrics);
+		vo.setNowPage(nowPage);
+		req.setAttribute("LIST", vo);
+		return "/musiclist/musiclistmodify";
+	}
+	
+	//음악 수정
+	@RequestMapping("/musiclistmodifyproc")
+	public ModelAndView musicListModifyProc(ModelAndView mv, HttpServletRequest req, MusicInfoVO vo)
+						throws Exception{
+		//파라미터
+		String nowPage = req.getParameter("nowPage");
+		String strNo = req.getParameter("mNo");
+		int no = Integer.parseInt(strNo);
+		String title = req.getParameter("mTitle");
+		String artist = req.getParameter("mArtist");
+		String album = req.getParameter("mAlbum");
+		String path = req.getParameter("mImgpath");
+		String genre = req.getParameter("mGenre");
+		String lyrics = req.getParameter("mLyrics");
+		vo.setNo(no);
+		vo.setTitle(title);
+		vo.setArtist(artist);
+		vo.setAlbum(album);
+		vo.setPath(path);
+		vo.setGenre(genre);
+		vo.setLyrics(lyrics);
+		
+		//서비스
+		musicInfoService.update(vo);
+		System.out.println("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+no+"&genre="+genre);
+		
+		//모델
+		RedirectView rv = new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+no+"&genre="+genre);
+		mv.setView(rv);
+		return mv;
+	}
+	
+	//음악 삭제
+	@RequestMapping("/musiclistdelete")
+	public ModelAndView musicListDelete(HttpServletRequest req, ModelAndView mv) throws Exception {
+		//파라미터
+		String strNo = req.getParameter("dNo");
+		int no = Integer.parseInt(strNo);
+		//서비스
+		musicInfoService.delete(no);
 		//뷰
 		RedirectView rv = new RedirectView("../musiclist/musiclist.sm");
 		mv.setView(rv);

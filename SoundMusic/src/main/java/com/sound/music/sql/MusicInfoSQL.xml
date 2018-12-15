@@ -117,5 +117,25 @@
 		VALUES((SELECT NVL(MAX(MU_NO),0)+1 FROM MUSIC),
 		#{title},#{artist},#{album},#{path},#{genre},#{lyrics},'Y',0
 	)
-	</insert>				
+	</insert>
+	<!-- 05. 상세보기 내용 수정 -->
+	<update id="updateMusic" parameterType="com.sound.music.vo.MusicInfoVO">
+		UPDATE MUSIC
+			SET 
+			MU_TITLE = #{title},
+			MU_ARTIST = #{artist},
+			MU_ALBUM = #{album},
+			MU_IMAGEPATH = #{path},
+			MU_GENRE = #{genre},
+			MU_LYRICS = #{lyrics}
+		WHERE
+			MU_NO = #{no}
+	</update>
+	<!-- 06. 음악 삭제 -->
+	<update id="deleteMusic" parameterType="int">
+		UPDATE MUSIC
+			SET
+			MU_ISSHOW='N' 
+		WHERE MU_NO = #{no}
+	</update>				
 </mapper>				

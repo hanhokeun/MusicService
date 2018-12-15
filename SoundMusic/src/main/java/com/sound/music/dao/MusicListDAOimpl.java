@@ -33,15 +33,17 @@ public class MusicListDAOimpl implements MusicDAO {
 	public void create(MusicInfoVO vo) throws Exception {
 		session.insert("musicinfo.insertMusic",vo);
 	}
-
+	
+	//상세보기 수정
 	@Override
 	public void update(MusicInfoVO vo) throws Exception {
-		
+		session.update("musicinfo.updateMusic", vo);
 	}
-
+	
+	//음악 삭제
 	@Override
 	public void delete(int no) throws Exception {
-		
+		session.delete("musicinfo.deleteMusic", no);
 	}
 	
 	//전체 데이터개수
