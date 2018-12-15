@@ -28,10 +28,10 @@ public class MusicListDAOimpl implements MusicDAO {
 
 		return session.selectOne("musicinfo.minfo",no);
 	}
-
+	//음악 추가
 	@Override
 	public void create(MusicInfoVO vo) throws Exception {
-		
+		session.insert("musicinfo.insertMusic",vo);
 	}
 
 	@Override

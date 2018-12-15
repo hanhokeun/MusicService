@@ -109,5 +109,13 @@
 						AND MU_ALBUM like '%'||#{svalue}||'%'
 					</if>
 				</if>	
-	</select>					
+	</select>
+	<!-- 04. 음악 리스트 추가  -->	
+	<insert id="insertMusic" parameterType="com.sound.music.vo.MusicInfoVO">
+	INSERT
+		INTO MUSIC
+		VALUES((SELECT NVL(MAX(MU_NO),0)+1 FROM MUSIC),
+		#{title},#{artist},#{album},#{path},#{genre},#{lyrics},'Y',0
+	)
+	</insert>				
 </mapper>				

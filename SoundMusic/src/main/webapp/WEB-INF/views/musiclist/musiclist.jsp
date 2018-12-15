@@ -8,14 +8,9 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<title>Document</title>
 <script>
-$(document).ready(function(){
-	$('#sValue').click(function(){
-		$('#sValue').val("");
-	})
-	
-})
 function getSearchValue(){
-		if($('#sValue').val()==''){
+		if($('#sValue').val()=='' || $('#sValue').val()== null ){
+			alert('검색어를 입력해주세요!')
 			return false;
 		}
 		$('#sForm').submit();
