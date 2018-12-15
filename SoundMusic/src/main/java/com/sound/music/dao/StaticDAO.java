@@ -76,25 +76,41 @@ public class StaticDAO implements StaticDAOInter {
 
 	//통계 글 수정하기
 	@Override
-	public void update(StaticVO vo) throws Exception {
-
+	public void update(StaticVO vo, String kind) throws Exception {
+		if(kind.equals("static")) {
+			//게시판 글수정 처리
+			session.update("static.updateStatic", vo);
+		}else if(kind.equals("file")){
+			//수정된 파일 DB에 저장
+			session.insert("static.insertFile",vo);
+		}
 	}
 
 	//통계 글 삭제하기
 	@Override
-	public void delete(int no) throws Exception {
-
+	public void delete(int oriNo) throws Exception {
+		session.delete("static.deleteStatic", oriNo);
 	}
-	//다운로드 파일 정보 검색하기
+	//통계글 삭제하면서 파일도 삭제하기
 	@Override
-	public StaticVO downloadFile(int fileNo) throws Exception {
-		return session.selectOne("static.download",fileNo);
+	public void deleteAllFile(int oriNo) throws Exception {
+		session.delete("static.deleteAllFile",oriNo);
 	}
 	//다운로드 횟수 구하기
 	@Override
 	public void downloadCount(int fileNo) throws Exception {
 		session.update("static.downloadCount", fileNo);
-		
 	}
+	//원글의 첨부 파일 삭제하기
+	@Override
+	public void deleteFile(int fileNo) throws Exception {
+		session.delete("static.deleteFile",fileNo);
+	}
+	//삭제 or 다운로드 할 파일 정보구하기
+	@Override
+	public StaticVO downNDelFile(int fileNo) throws Exception {
+		return session.selectOne("static.DfileInfo", fileNo);
+	}
+
 
 }

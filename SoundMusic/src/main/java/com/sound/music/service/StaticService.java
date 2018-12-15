@@ -92,7 +92,7 @@ public class StaticService implements StaticServiceInter {
 	}
 	//글쓰기 정보 등록처리
 	@Override
-	public void insertStatic(StaticVO vo, HttpSession session,ArrayList list) throws Exception {
+	public void insertStatic(StaticVO vo, ArrayList list) throws Exception {
 		//게시글 등록
 		sDAO.insert(vo, "static");
 		//파일 정보 등록
@@ -110,36 +110,53 @@ public class StaticService implements StaticServiceInter {
 			System.out.println("i값은?"+i);
 		}
 	}
+	//글 수정하기에서 파일 업로드,글 수정
+	@Override
+	public void update(StaticVO vo,ArrayList list) throws Exception {
+		sDAO.update(vo,"static");
+		for(int i=0;i<list.size();i++) {
+			//파일에 대한 정보를 list가 가지고 있고 파일 한개당 정보는 Map이 가지고 있음
+			//map의 정보를 활용해서 vo에 담아 실행시켜 줄 수 있도록 함
+			System.out.println("list size:"+list.size());
+			vo.setOriNo(vo.getOriNo());
+			HashMap map = (HashMap)list.get(i);
+			vo.setPath((String)map.get("path"));
+			vo.setOriName((String)map.get("oriName"));
+			vo.setSaveName((String)map.get("saveName"));
+			vo.setLen((Long)map.get("len"));
+			sDAO.update(vo, "file");//파일 정보 등록 질의 실행
+		}
+	}
 	//글쓰기 상세 글보기
 	@Override
 	public StaticVO detail(int oriNo) throws Exception {
 		StaticVO vo = sDAO.detail(oriNo);
 		return vo;
 	}
-
-	//통계 글 수정하기
-	@Override
-	public void update(StaticVO vo) throws Exception {
-
-	}
-
 	//통계 글 삭제하기
 	@Override
-	public void delete(int no) throws Exception {
-
+	public void delete(int oriNo) throws Exception {
+		sDAO.delete(oriNo);
 	}
-	//다운로드 파일 검색하기
+	//통계글 삭제하면서 파일도 삭제하기
 	@Override
-	public StaticVO downloadFile(int fileNo) throws Exception {
-		StaticVO vo = sDAO.downloadFile(fileNo);
+	public void deleteAllFile(int oriNo) throws Exception {
+		sDAO.deleteAllFile(oriNo);
+	}
+	//다운로드 or 삭제할 파일 정보 검색하기
+	@Override
+	public StaticVO downNDelFile(int fileNo) throws Exception {
+		StaticVO vo = sDAO.downNDelFile(fileNo);
 		return vo;
 	}
 	//다운로드 횟수 증가시키기
 	@Override
 	public void downloadCount(int fileNo) throws Exception {
 		sDAO.downloadCount(fileNo);
-		
 	}
-
-
+	//원글의 첨부 파일 삭제하기
+	@Override
+	public void deleteFile(int fileNo) throws Exception {
+		sDAO.deleteFile(fileNo);
+	}
 }

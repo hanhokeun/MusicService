@@ -1,6 +1,6 @@
 package com.sound.music.vo;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +28,13 @@ public class StaticVO {
 	private String saveName;
 	private long len;
 	private int fileCount;
+	private int fileNo;
+	public int getFileNo() {
+		return fileNo;
+	}
+	public void setFileNo(int fileNo) {
+		this.fileNo = fileNo;
+	}
 	//댓글 정보
 	private String pw;
 	private int like;
@@ -45,8 +52,15 @@ public class StaticVO {
 		this.mId = mId;
 	}
 	public String getDate() {
-		SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd");
-		return form.format(wday);
+		SimpleDateFormat form1 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat form2 = new SimpleDateFormat("hh:mm:ss");
+		String today =form1.format(new Date());
+		String wdate = form1.format(wday);
+		if(!today.equals(wdate)) {
+			return wdate;
+		}else {
+			return form2.format(wday);
+		}
 	}
 	public String getBrBody() {
 		String temp=body;

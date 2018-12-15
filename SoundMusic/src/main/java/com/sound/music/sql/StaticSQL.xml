@@ -19,7 +19,7 @@
 	<!-- 게시물 등록 -->
 	<insert id="insertStatic" parameterType="Static">
 		<selectKey order="BEFORE" resultType="int"  keyProperty="no">
-			select NVL(max(s_No),0)+1 from StaticMusic where s_IsShow='Y'
+			select NVL(max(s_No),0)+1 from StaticMusic
 		</selectKey>
 		insert into StaticMusic values(#{no}, #{title}, #{body}, 'Y', 0, SYSDATE,#{artist},#{song})
 	</insert>
@@ -31,7 +31,7 @@
 	<!-- 게시물 목록보기 -->
 	<select id="selectList" resultType="Static" parameterType="Static">
 		SELECT * FROM 
-		 (SELECT StaticMusic.s_No AS NO, <include refid="selectField"/>, 
+		 (SELECT StaticMusic.s_No AS NO, <include refid="selectField"/>,
 	 	 ROW_NUMBER() OVER(ORDER BY StaticMusic.s_NO ASC) AS RNO, 
 		 NVL(t1.CNT, 0) AS fileCount FROM StaticMusic, 
 		(SELECT COUNT(*) AS CNT, s_No as no FROM staticFile GROUP BY s_No) t1
@@ -48,7 +48,7 @@
 	</resultMap>
 	<!-- 상세보기 질의 명령 -->
 	<select id="selectDetail" resultMap="clobDetail" parameterType="int">
-		select s_No as no, s_body, <include refid="selectField"/> from StaticMusic
+		select s_No as no, s_body as body, <include refid="selectField"/> from StaticMusic
 		where s_No=#{no}
 	</select>
 	<!-- 첨부파일 검색 질의 -->
@@ -77,8 +77,8 @@
 		sr_Pw as pw, sr_Date as wday from staticReply 
 		where sr_IsShow='Y' and s_No=#{no}
 	</select>
-	<!-- 다운로드 파일 정보 검색 질의 -->
-	<select id="download" parameterType="int" resultType="static">
+	<!-- 파일 정보 검색 질의 ->삭제시 정보검색, 다운로드시 정보검색 -->
+	<select id="DfileInfo" parameterType="int" resultType="static">
 		select sf_No as no, s_No as oriNo, sf_Length as len, sf_Count as fileCount,
 		<include refid="selectFileInfo"/> from staticFile where sf_No=#{fileNo}
 	</select>
@@ -86,4 +86,21 @@
 	<update id="downloadCount" parameterType="java.lang.String">
 		update StaticFile set sf_Count=sf_Count+1 where sf_No=#{fileNo}
 	</update>
+	<!-- 원글 수정에서 첨부파일 삭제하기 -->
+	<delete id="deleteFile" parameterType="int">
+		delete from StaticFile where sf_No=#{fileNo}
+	</delete>
+	<!-- 원글 수정하기 -->
+	<update id="updateStatic" parameterType="static">
+		update StaticMusic set s_Title=#{title}, s_Body=#{body},s_Song=#{song},
+		s_Artist=#{artist}	,s_Date=SYSDATE where s_No=#{no} 
+	</update>
+	<!-- 원글 삭제하기 -->
+	<update id="deleteStatic" parameterType="int">
+		update StaticMusic set s_IsShow='N' where s_No=#{oriNo}
+	</update>
+	<!-- 원글 삭제하면서 파일 삭제하기 -->
+	<delete id="deleteAllFile" parameterType="int">
+		delete from staticFile where s_No=#{oriNo}
+	</delete>
 </mapper>

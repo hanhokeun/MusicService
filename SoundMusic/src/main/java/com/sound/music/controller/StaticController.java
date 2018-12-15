@@ -25,7 +25,102 @@ public class StaticController {
 
 	@Autowired
 	private StaticServiceInter sService; 
-	//원글 수정하기
+	//원글 삭제하기
+	@RequestMapping("/staticDelete.sm")
+	public ModelAndView staticDelete(HttpServletRequest req,ModelAndView mv) throws Exception {
+		String nowPage=req.getParameter("nowPage");
+		String strNo = req.getParameter("oriNo");
+		int oriNo = Integer.parseInt(strNo);
+		ArrayList list = sService.selectFileInfo(oriNo);
+		for(int i=0; i<list.size();i++) {
+			StaticVO vo = new StaticVO();
+			vo= (StaticVO) list.get(i);
+			System.out.println("vo정보:"+vo.getPath()+vo.getSaveName());
+			File file = new File(vo.getPath(),vo.getSaveName());
+			file.delete(); //물리적 파일 삭제			
+		}
+		sService.deleteAllFile(oriNo);//첨부파일 DB정보삭제
+		sService.delete(oriNo); //글 정보 삭제
+		RedirectView rv = new RedirectView("../static/staticList.sm");
+		rv.addStaticAttribute("nowPage", nowPage);
+		mv.setView(rv);
+		return mv;
+	}
+	//원글 수정처리하기
+	@RequestMapping("/staticModifyProc.sm")
+	public ModelAndView staticModifyProc(HttpServletRequest req,
+			StaticVO vo,ModelAndView mv) throws Exception {
+		String nowPage=req.getParameter("nowPage");
+		int oriNo = vo.getOriNo();
+		String path=req.getSession().getServletContext().getRealPath("/upload/");
+		ArrayList list=new ArrayList(); //파일 정보를 하나로 묶는 list
+		for(int i =0; i<vo.getFiles().length;i++) {
+			//파일의 실제이름
+			System.out.println("파일의 길이length:"+vo.getFiles().length);
+			String oriName=vo.getFiles()[i].getOriginalFilename();
+			System.out.println("oriName:"+oriName);
+			if(oriName==null||oriName.length()==0) {
+				continue; //파일 업로드되지 않은 부분 건너뛰기
+			}
+			String saveName=FileUtil.renameTo(path,oriName);
+			File file = new File(path,saveName);
+			try {
+				vo.getFiles()[i].transferTo(file);
+			}catch(Exception e) {
+				System.out.println("강제 복사 에러:"+e);
+			}
+			//파일 업로드 완료 -> 업로드된 파일의 정보를 Map으로 묶어보내기
+			HashMap map = new HashMap();
+			map.put("path", path);
+			map.put("oriName",oriName);
+			map.put("saveName",saveName);
+			map.put("len",file.length());
+			list.add(map);			
+		}
+		//서비스위임
+		//한개의 파일 정보를 Map으로 묶고 여러 개의 파일 정보들이 담긴 Map을 List로 묶어 전달
+		sService.update(vo, list);
+		RedirectView rv = new RedirectView("../static/staticDetail.sm");
+		rv.addStaticAttribute("nowPage", nowPage);
+		rv.addStaticAttribute("oriNo", oriNo);
+		mv.setView(rv);
+		return mv;
+	}
+	//파일 정보삭제하기
+	@RequestMapping("/staticFileDelete.sm")
+	public ModelAndView staticFileDelete(HttpServletRequest req,
+			ModelAndView mv,StaticVO vo) throws Exception {
+		int oriNo = vo.getOriNo();
+		String nowPage=req.getParameter("nowPage");
+		int fileNo = vo.getFileNo();
+		//int fileNo = Integer.parseInt(strFNo);
+		//삭제할 파일 정보 검색
+		StaticVO dvo=sService.downNDelFile(fileNo);
+		//DB에 있는 삭제할 파일 삭제
+		sService.deleteFile(fileNo);
+		File file = new File(dvo.getPath(),dvo.getSaveName());
+		file.delete(); //물리적 파일 삭제
+		RedirectView rv = new RedirectView("../static/staticModifyForm.sm");
+		rv.addStaticAttribute("nowPage", nowPage);
+		rv.addStaticAttribute("oriNo", oriNo);
+		mv.setView(rv);
+		return mv;
+	}
+	//원글 수정하기폼
+	@RequestMapping("/staticModifyForm.sm")
+	public ModelAndView staticModifyForm(HttpServletRequest req,
+			ModelAndView mv) throws Exception {
+		String strNo=req.getParameter("oriNo");
+		int oriNo = Integer.parseInt(strNo);
+		String nowPage = req.getParameter("nowPage");
+		StaticVO vo = sService.detail(oriNo);
+		ArrayList list=sService.selectFileInfo(oriNo);
+		mv.addObject("VIEW",vo); //원글 내용
+		mv.addObject("FILE",list); //파일정보
+		mv.addObject("nowPage",nowPage); //릴레이용
+		mv.setViewName("static/staticModifyForm");
+		return mv;
+	}
 	//파일 다운로드 횟수 증가
 	@RequestMapping("/staticDownloadCount.sm")
 	public ModelAndView fileDownloadCount(HttpServletRequest req,ModelAndView mv) throws Exception {
@@ -40,7 +135,7 @@ public class StaticController {
 	//파일 다운로드 처리
 	@RequestMapping("/staticFileDownload.sm")
 	public ModelAndView fileDownload(@RequestParam(value="fileNo")int fileNo) throws Exception {
-		StaticVO vo = sService.downloadFile(fileNo);
+		StaticVO vo = sService.downNDelFile(fileNo);
 		System.out.println("fileNo"+fileNo);
 		System.out.println("vo.getPath():"+vo.getPath());
 		System.out.println("vo.getSaveName():"+vo.getSaveName());
@@ -158,6 +253,7 @@ public class StaticController {
 		for(int i =0; i<vo.getFiles().length;i++) {
 			//파일의 실제이름
 			System.out.println("l파일의 길이ength:"+vo.getFiles().length);
+			System.out.println("글번호"+vo.getNo());
 			String oriName=vo.getFiles()[i].getOriginalFilename();
 			if(oriName==null||oriName.length()==0) {
 				continue; //파일 업로드되지 않은 부분 건너뛰기
@@ -183,7 +279,7 @@ public class StaticController {
 		}
 		//서비스위임
 		//한개의 파일 정보를 Map으로 묶고 여러 개의 파일 정보들이 담긴 Map을 List로 묶어 전달
-		sService.insertStatic(vo, session, list);
+		sService.insertStatic(vo, list);
 		//모델,뷰 -> 목록보기를 호출하기 위해서 Redirect
 		ModelAndView mv = new ModelAndView();
 		RedirectView view = new RedirectView("../static/staticList.sm");

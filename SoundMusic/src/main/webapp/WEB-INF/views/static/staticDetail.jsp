@@ -27,8 +27,8 @@
 			});
 			//원글 삭제하기
 			$('#dBtn').click(function(){
-				$('#imsiOriNo').val('${VIEW.no}')
-				//파일삭제?
+				$('#imsiOriNo').val('${VIEW.no}');
+				$('#imsiNowPage').val('${nowPage}');
 				$('#imsiFrm').submit();
 			});
 			//댓글 수정폼 보여주기
@@ -116,7 +116,7 @@
   			<td align="center">
 	  			<input type="button" id="lBtn" value="목록보기"/>
 	  			<%-- <c:if test="${sessionScope.UID eq 'admin'}">--%>
-	  			<input type="button" id="eBtn" value="수정하기"/>
+	  			<input type="button" id="mBtn" value="수정하기"/>
   				<input type="button" id="dBtn" value="삭제하기"/>
   			</td>
   			<%-- </c:if> --%>
@@ -193,6 +193,7 @@
   	<%--원글 삭제를 위한 임시 폼 --%>
 	<form id="imsiFrm" method="post" action="../static/staticDelete.sm">
 		<input type="hidden" name="oriNo" id="imsiOriNo"/>
+		<input type="hidden" name="nowPage" id="imsiNowPage"/>
 	</form>
 	<%--댓글 삭제를 위한 임시 폼 --%>
 	<form id="tempReFrm" method="post" action="../static/staticReplyDelete.sm">
