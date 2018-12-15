@@ -33,5 +33,9 @@ public interface StaticServiceInter {
 	public void updateReply(StaticVO vo) throws Exception;
 	//댓글 삭제
 	public void deleteReply(StaticVO vo) throws Exception;
+	//다운로드 정보 검색
+	public StaticVO downloadFile(int no) throws Exception;
+	//다운로드 횟수 증가
+	public void downloadCount(int no) throws Exception;
 
 }

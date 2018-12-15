@@ -25,6 +25,29 @@ public class StaticController {
 
 	@Autowired
 	private StaticService sService; 
+	//파일 다운로드 횟수 증가
+	@RequestMapping("/staticDownloadCount.sm")
+	public ModelAndView fileDownloadCount(HttpServletRequest req,ModelAndView mv) throws Exception {
+		String strNo=req.getParameter("fileNo");
+		int fileNo = Integer.parseInt(strNo);
+		sService.downloadCount(fileNo);
+		RedirectView rv = new RedirectView("../static/staticFileDownload.sm");
+		rv.addStaticAttribute("fileNo", fileNo);
+		mv.setView(rv);
+		return mv;
+	}
+	//파일 다운로드 처리
+	@RequestMapping("/staticFileDownload.sm")
+	public ModelAndView fileDownload(@RequestParam(value="fileNo")int fileNo) throws Exception {
+		StaticVO vo = sService.downloadFile(fileNo);
+		System.out.println("fileNo"+fileNo);
+		System.out.println("vo.getPath():"+vo.getPath());
+		System.out.println("vo.getSaveName():"+vo.getSaveName());
+		File file = new File(vo.getPath(),vo.getSaveName()); //다운로드 파일 정보
+		//사용자 다운로드 뷰 호출
+		ModelAndView mv = new ModelAndView("download","downloadFile",file);
+		return mv;
+	}
 	//목록보기
 	@RequestMapping("/staticList.sm")
 	public void staticList(@RequestParam(value="nowPage",
@@ -42,6 +65,7 @@ public class StaticController {
 		StaticVO svo = new StaticVO();
 		svo= sService.detail(vo.getOriNo()); //글 내용
 		ArrayList fileList = sService.selectFileInfo(vo.getOriNo()); //파일 정보
+		System.out.println("fileList의 size"+fileList.size());
 		ArrayList replyList = sService.selectReply(vo.getOriNo()); //댓글 정보
 		ModelAndView mv = new ModelAndView(); 
 		mv.addObject("VIEW", svo);
@@ -131,6 +155,7 @@ public class StaticController {
 		ArrayList list=new ArrayList(); //파일 정보를 하나로 묶는 list
 		for(int i =0; i<vo.getFiles().length;i++) {
 			//파일의 실제이름
+			System.out.println("l파일의 길이ength:"+vo.getFiles().length);
 			String oriName=vo.getFiles()[i].getOriginalFilename();
 			if(oriName==null||oriName.length()==0) {
 				continue; //파일 업로드되지 않은 부분 건너뛰기

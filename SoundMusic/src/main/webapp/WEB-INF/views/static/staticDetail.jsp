@@ -100,12 +100,12 @@
   		</tr>
   	</tbody>
   </table>
- <%-- 첨부파일 내용 출력 --%>
+  <%-- 첨부파일 내용 출력 --%>
   <table width="700" border="1" align="center">
   	<c:forEach items="${FILE}" var="info">
   		<tr>
   			<td><img src="../upload/${info.saveName}"/></td>
-  			<td>${info.oriName}( ${info.len}Byte )</td>
+  			<td><a href="../static/staticDownloadCount.sm?fileNo=${info.no}">${info.oriName} (${info.cnt}회 다운로드됨)</a></td>
   		</tr>
   	</c:forEach>
   </table>
@@ -125,7 +125,7 @@
   </table>
   <%--댓글보기--%>
   <%--댓글이 존재하지 않는 경우 --%>
-  <c:if test="${empty REPLY }">
+  <c:if test="${empty REPLY}">
   	<table border="1" width="700" align="center">
   		<tr>
   			<td align="center">새로운 댓글을 등록해주세요</td>

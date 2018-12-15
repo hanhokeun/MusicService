@@ -85,5 +85,16 @@ public class StaticDAO implements StaticDAOInter {
 	public void delete(int no) throws Exception {
 
 	}
+	//다운로드 파일 정보 검색하기
+	@Override
+	public StaticVO downloadFile(int fileNo) throws Exception {
+		return session.selectOne("static.download",fileNo);
+	}
+	//다운로드 횟수 구하기
+	@Override
+	public void downloadCount(int fileNo) throws Exception {
+		session.update("static.downloadCount", fileNo);
+		
+	}
 
 }

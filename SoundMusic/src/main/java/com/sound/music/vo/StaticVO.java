@@ -21,16 +21,23 @@ public class StaticVO {
 	private int start;
 	private int end;
 	private int rno;
-	private int fileCount;
+	private int cnt;
 	//파일의 정보
 	private String path;
 	private String oriName;
 	private String saveName;
 	private long len;
+	private int fileCount;
 	//댓글 정보
 	private String pw;
 	private int like;
 	private String mId;
+	public int getFileCount() {
+		return fileCount;
+	}
+	public void setFileCount(int fileCount) {
+		this.fileCount = fileCount;
+	}
 	public String getmId() {
 		return mId;
 	}
@@ -78,11 +85,11 @@ public class StaticVO {
 	public void setRno(int rno) {
 		this.rno = rno;
 	}
-	public int getFileCount() {
-		return fileCount;
+	public int getCnt() {
+		return cnt;
 	}
-	public void setFileCount(int fileCount) {
-		this.fileCount = fileCount;
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 	public String getTitle() {
 		return title;

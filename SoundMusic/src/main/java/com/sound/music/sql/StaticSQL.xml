@@ -35,7 +35,7 @@
 		SELECT * FROM 
 		 (SELECT StaticMusic.s_No AS NO, <include refid="selectField"/>, 
 	 	 ROW_NUMBER() OVER(ORDER BY StaticMusic.s_NO ASC) AS RNO, 
-		 NVL(t1.CNT, 0) AS FILECOUNT FROM StaticMusic, 
+		 NVL(t1.CNT, 0) AS fileCount FROM StaticMusic, 
 		(SELECT COUNT(*) AS CNT, s_No as no FROM staticFile GROUP BY s_No) t1
 		 WHERE <include refid="isShow"/> AND 
 		 StaticMusic.s_No = t1.no(+)) 
@@ -55,7 +55,7 @@
 	</select>
 	<!-- 첨부파일 검색 질의 -->
 	<select id="fileInfo" parameterType="int" resultType="static">
-		select sf_No as no, s_No as oriNo, <include refid="selectFileInfo"/>, sf_Length as len
+		select sf_No as no, s_No as oriNo, <include refid="selectFileInfo"/>, sf_Count as cnt, sf_Length as len
 		from staticFile where s_No=#{oriNo}
 	</select>
 	<!-- 댓글등록 질의 -->
@@ -79,4 +79,13 @@
 		sr_Pw as pw, sr_Date as wday from staticReply 
 		where sr_IsShow='Y' and s_No=#{no}
 	</select>
+	<!-- 다운로드 파일 정보 검색 질의 -->
+	<select id="download" parameterType="int" resultType="static">
+		select sf_No as no, s_No as oriNo, sf_Length as len, sf_Count as fileCount,
+		<include refid="selectFileInfo"/> from staticFile where sf_No=#{fileNo}
+	</select>
+	<!-- 다운로드 횟수 증가 질의 -->
+	<update id="downloadCount" parameterType="java.lang.String">
+		update StaticFile set sf_Count=sf_Count+1 where sf_No=#{fileNo}
+	</update>
 </mapper>

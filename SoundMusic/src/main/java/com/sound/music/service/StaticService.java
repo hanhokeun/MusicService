@@ -127,6 +127,18 @@ public class StaticService implements StaticServiceInter {
 	public void delete(int no) throws Exception {
 
 	}
+	//다운로드 파일 검색하기
+	@Override
+	public StaticVO downloadFile(int fileNo) throws Exception {
+		StaticVO vo = sDAO.downloadFile(fileNo);
+		return vo;
+	}
+	//다운로드 횟수 증가시키기
+	@Override
+	public void downloadCount(int fileNo) throws Exception {
+		sDAO.downloadCount(fileNo);
+		
+	}
 
 
 }
