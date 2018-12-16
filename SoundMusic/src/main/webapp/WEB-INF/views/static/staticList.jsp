@@ -74,6 +74,7 @@
 					<td>${data.date}</td>
 					<td>${data.hit}</td>
 					<td>${data.fileCount}건</td>
+					<td></td>
 	  			</tr>
 	  		</c:forEach>
   		</tbody>

@@ -14,9 +14,106 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<!-- Latest compiled JavaScript -->	
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<style>
+		.page {
+		  padding: 15px  15px 15px 15px;
+		}
+		.bmd-modalButton {
+		  display: block;
+		  margin: 15px auto;
+		  padding: 5px 15px;
+		}
+		.close-button {
+		  overflow: hidden;
+		}
+		.bmd-modalContent {
+		  box-shadow: none;
+		  background-color: transparent;
+		  border: 0;
+		}
+		.bmd-modalContent .close {
+		  font-size: 30px;
+		  line-height: 30px;
+		  padding: 7px 4px 7px 13px;
+		  text-shadow: none;
+		  opacity: .7;
+		  color:#fff;
+		}
+		.bmd-modalContent .close span {
+		  display: block;
+		}
+		.bmd-modalContent .close:hover,
+		.bmd-modalContent .close:focus {
+		  opacity: 1;
+		  outline: none;
+		}
+		.bmd-modalContent iframe {
+		  display: block;
+		  margin: 0 auto;
+		}
+	</style>
+	<script>
+	var apiKey="AIzaSyCIDBmbgWL7cuxwMA0umIEFm5UjP_N1iQU";
+	$.ajax({
+		url:'https://www.googleapis.com/youtube/v3/search?key='+apiKey+'&part=id&maxResults=1&q="${VIEW.song}"',
+		dataType:"json",
+		success:function(data){
+			$.each(data.items,function(key,value){
+				$('#youtube').attr("src","https://www.youtube.com/embed/"+value.id.videoId);
+/* 				var fragment=$(document.createDocumentFragment());
+				fragment.append(['<iframe id="ytplayer" width=600" align="center" height="400" src="https://www.youtube.com/embed/'+value.id.videoId+'"frameborder="0"enablejsapi=1;allow="accelerometer; showinfo=0;encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>']);
+				$('#youtube').append(fragment); */
+			})
+		}
+	})
+	</script>
+	<script>
+		(function($) {
+		    
+		    $.fn.bmdIframe = function( options ) {
+		        var self = this;
+		        var settings = $.extend({
+		            classBtn: '.bmd-modalButton',
+		            defaultW: 1000,
+		            defaultH: 500
+		        }, options );
+		      
+		        $(settings.classBtn).on('click', function(e) {
+		          var allowFullscreen = $(this).attr('data-bmdVideoFullscreen') || false;
+		          
+		          var dataVideo = {
+		            'src': $(this).attr('src'),
+		            'height': $(this).attr('data-bmdHeight') || settings.defaultH,
+		            'width': $(this).attr('data-bmdWidth') || settings.defaultW
+		          };
+		          
+		          if ( allowFullscreen ) dataVideo.allowfullscreen = "";
+		          
+		          // stampiamo i nostri dati nell'iframe
+		          $(self).find("iframe").attr(dataVideo);
+		        });
+		        // se si chiude la modale resettiamo i dati dell'iframe per impedire ad un video di continuare a riprodursi anche quando la modale è chiusa
+		        this.on('hidden.bs.modal', function(){
+		          $(this).find('iframe').html("").attr("src", "");
+		        });
+		        return this;
+		    };
+		  
+		})(jQuery);
+	</script>
 	<script>
 		$(document).ready(function(){
+			$("#myModal").bmdIframe();
 			//목록보기
 			$('#lBtn').click(function(){
 				$(location).attr('href','../static/staticList.sm?nowPage=${nowPage}')
@@ -69,12 +166,12 @@
 				}
 				$('#wrFrm').submit();
 			})
-		});
+		})
 	</script>
 </head>
 <body>
   <%--상세보기 내용 출력 --%>
-  <table border="1" width="700" align="center">
+  <table border="1" width="900" align="center">
   	<tbody>
   		<tr align="center">
   			<th width="100">글번호</th>
@@ -96,21 +193,32 @@
   		</tr>
   		<tr>
   			<th>내용</th>
-  			<td colspan="5" width="500">${VIEW.brBody}</td>
-  		</tr>
-  	</tbody>
+  			<td colspan="4" width="500">${VIEW.brBody}</td>
+  			<td>
+  				<div class="container">
+        			<div class="row">
+        				<div class="col-xs-12">
+         				 	<div class="page">
+            					<button  align="center" type="button" id="youtube" class="bmd-modalButton" data-toggle="modal"  data-bmdWidth="1000" data-bmdHeight="700" data-target="#myModal"  data-bmdVideoFullscreen="true">${VIEW.song} 동영상보기</button>           
+      						</div>
+        				</div>
+      				</div>
+      			</div>
+      			</td>
+      		</tr>
+   	</tbody>
   </table>
   <%-- 첨부파일 내용 출력 --%>
-  <table width="700" border="1" align="center">
+  <table width="900" border="1" align="center">
   	<c:forEach items="${FILE}" var="info">
   		<tr>
-  			<td><img src="../upload/${info.saveName}" width="200" height="200"/></td>
+  			<td><img src="../upload/${info.saveName}" width="500" height="300"/></td>
   			<td><a href="../static/staticDownloadCount.sm?fileNo=${info.no}">${info.oriName} (${info.cnt}회 다운로드됨)</a></td>
   		</tr>
   	</c:forEach>
   </table>
  <%-- 기타기능.. 목록보기 --%>
-  <table border="1" width="700" align="center">
+  <table border="1" width="900" align="center">
   	<tbody>
   		<tr>
   			<td align="center">
@@ -126,7 +234,7 @@
   <%--댓글보기--%>
   <%--댓글이 존재하지 않는 경우 --%>
   <c:if test="${empty REPLY}">
-  	<table border="1" width="700" align="center">
+  	<table border="1" width="900" align="center">
   		<tr>
   			<td align="center">새로운 댓글을 등록해주세요</td>
   		</tr>
@@ -135,7 +243,7 @@
   <%--댓글이 존재하는 경우 댓글 수만큼 반복 출력 --%>
   <c:if test="${not empty REPLY}">
   	<c:forEach var="reply" items="${REPLY}">
-  		<table border="1" id="${reply.no}"  width="700" align="center">
+  		<table border="1" id="${reply.no}"  width="900" align="center">
   			<tr>
   				<th width="100">글쓴이</th>
   				<td width="150">${reply.mId}</td>
@@ -160,7 +268,7 @@
 		  	<input type="hidden" name="no" value="${reply.no}"/>
 		  	<input type="hidden" name="oriNo" value="${reply.oriNo}"/>
 		  	<input type="hidden" name="nowPage" value="${nowPage}"/>
-		  	<table border="1" width="700" align="center">
+		  	<table border="1" width="900" align="center">
 		  		<tr>
 		  			<th>내용</th>
 		  			<td colspan="2"><textarea name="body" id="body${reply.no}">${reply.body}</textarea>
@@ -178,7 +286,7 @@
   <form id="wrFrm" method="post" action="../static/staticReplyWrite.sm">
   	<input type="hidden" id="oriNo" name="oriNo" value="${VIEW.no}">
   	<input type="hidden" id="nowPage" name="nowPage" value="${nowPage}">
-  	<table border="1" width="700" align="center">
+  	<table border="1" width="900" align="center">
   		<tr>
   			<th>글내용</th>
   			<td><textarea name="body" id="body"></textarea></td>
@@ -202,5 +310,21 @@
 		<input type="hidden" name="no" id="tempReNo"/>
 		<input type="hidden" name="nowPage" id="tempRenowPage"/>
 	</form>
+	<footer>
+		<div class="modal fade" id="myModal">
+			<div class="modal-dialog">
+				<div class="modal-content bmd-modalContent">
+					<div class="modal-body">
+          				<div class="close-button">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+         				</div>
+          				<div class="embed-responsive embed-responsive-16by9">
+					            <iframe class="embed-responsive-item" frameborder="0"></iframe>
+          				</div>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	</footer>
 </body>
 </html>
