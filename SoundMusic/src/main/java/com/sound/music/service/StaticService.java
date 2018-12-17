@@ -91,7 +91,6 @@ public class StaticService implements StaticServiceInter {
 			vo.setSaveName((String)map.get("saveName"));
 			vo.setLen((Long)map.get("len"));
 			sDAO.insert(vo, "file"); //파일 정보 등록 질의 실행
-			System.out.println("i값은?"+i);
 		}
 	}
 	//글 수정하기에서 파일 업로드,글 수정

@@ -37,7 +37,7 @@ public class StaticDAO implements StaticDAOInter {
 	//게시글 입력하기
 	@Override
 	public void insert(StaticVO vo, String kind) {
-		if(kind.equals("Static")) {
+		if(kind.equals("static")) {
 			//게시판 글쓰기 처리
 			session.insert("Static.insertStatic",vo);
 		}else if(kind.equals("file")){
