@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sound.music.util.PageUtil;
+import com.sound.music.util.RVPage;
 import com.sound.music.vo.MusicInfoVO;
 
 public interface MusicInfoService {
@@ -20,4 +21,14 @@ public interface MusicInfoService {
 	public void delete(int no)throws Exception;
 	//페이징 기능
 	public PageUtil getPageInfo(int nowPage, MusicInfoVO mvo) throws Exception;
+	//리뷰 추가
+	public void rvWrite(MusicInfoVO vo)throws Exception;
+	//리뷰 상세
+	public List<MusicInfoVO> rvList(RVPage rPage, int no)throws Exception;
+	//리뷰 개수구하기
+	public RVPage getRvPageInfo(int rvPage, int no)throws Exception;
+	//리뷰 수정하기
+	public void rvModify(MusicInfoVO rvo)throws Exception;
+	//리뷰 삭제하기
+	public void rvDelete(int rvno)throws Exception;
 }

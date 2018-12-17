@@ -83,7 +83,7 @@
 				<if test="genre != ''">
 					AND MU_GENRE = #{genre}
 				</if>
-				
+		
 				<if test="sub eq 0">
 					<if test="svalue != ''">
 						AND 
@@ -137,5 +137,61 @@
 			SET
 			MU_ISSHOW='N' 
 		WHERE MU_NO = #{no}
-	</update>				
+	</update>
+	<!-- 07.후기 쓰기 -->
+	<insert id="reviewWrite" parameterType="com.sound.music.vo.MusicInfoVO">
+		INSERT INTO
+			MURE
+		VALUES((SELECT NVL(MAX(MUB_NO),0)+1 FROM MURE),
+		#{oriNo},#{id},#{body},SYSDATE,'Y'
+		)
+	</insert>
+	<!-- 08.후기 리스트 -->
+	<select id="rvList" parameterType="com.sound.music.vo.MusicInfoVO" resultType="com.sound.music.vo.MusicInfoVO">
+		SELECT 
+				*
+		FROM	
+			(SELECT
+				MUB_NO AS no,
+				MUB_ORINO AS oriNo,
+				MUB_WRITER AS writer,
+				MUB_BODY AS body,
+				MUB_DATE AS wdate,
+				ROW_NUMBER() OVER(ORDER BY MUB_NO DESC) AS rno
+			 FROM
+				MURE
+			 WHERE
+				UPPER(MUB_ISSHOW)='Y' 
+				AND MUB_ORINO = #{oriNo}
+			)	 
+		WHERE 
+			rno BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 09.후기 페이징을위한 개수 가져오기 -->	
+	<select id="rvTotalCount" parameterType="int" resultType="int">
+		SELECT	
+			COUNT(*)
+		FROM
+			MURE
+		WHERE 
+			UPPER(MUB_ISSHOW)='Y'
+			AND MUB_ORINO = #{oriNo}
+	</select>
+	<!-- 10.후기 수정 -->
+	<update id="reviewUpdate" parameterType="com.sound.music.vo.MusicInfoVO">
+		UPDATE MURE
+			SET
+			MUB_DATE = SYSDATE,
+			MUB_BODY = #{body}
+		WHERE
+			MUB_NO = #{no} 	
+	</update>
+	<!-- 11.후기 삭제 -->
+	<update id="reviewDelete" parameterType="int">
+		UPDATE MURE
+			SET
+			MUB_ISSHOW = 'N'
+		WHERE
+			MUB_NO = #{rvno}
+	</update>	
 </mapper>				

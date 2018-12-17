@@ -1,5 +1,8 @@
 package com.sound.music.vo;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MusicInfoVO {
 
 	private int no;
@@ -18,8 +21,70 @@ public class MusicInfoVO {
 	private String nowPage;
 	
 	
+	private int oriNo;
+	private String id;
+	private String body;
+	private String writer;
+	private Date wdate;
 	
 	
+	public String getDate() {
+		SimpleDateFormat form1 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat form2 = new SimpleDateFormat("HH:mm:ss");
+		
+		String now = form1.format(new Date());
+		String wday = form1.format(wdate);
+		if(!now.equals(wday)) {
+			return wday;
+		}
+		else {
+			return form2.format(wdate);
+		}
+		
+	}
+	
+	//enter키를 친 부분은 줄바꿈으로 출력
+	public String getBr() {
+		String result = null;
+		if(body !=null && body.length()!=0) {
+			result=body.replaceAll("\r\n", "<br/>");
+		}
+		return"result";
+	}
+	
+	
+	
+
+	public Date getWdate() {
+		return wdate;
+	}
+	public void setWdate(Date wdate) {
+		this.wdate = wdate;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getBody() {
+		return body;
+	}
+	public void setBody(String body) {
+		this.body = body;
+	}
+	public int getOriNo() {
+		return oriNo;
+	}
+	public void setOriNo(int oriNo) {
+		this.oriNo = oriNo;
+	}
 	public String getNowPage() {
 		return nowPage;
 	}

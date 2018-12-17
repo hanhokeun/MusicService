@@ -115,7 +115,8 @@ a.music:hover{color:black;}
 	 		<td>${test.star}</td>
  		</tr> 
  	</c:forEach>
- 	<table border="1" width="45%" align="center">
+ </table>
+ <table border="1" width="45%" align="center">
 		<tr>
 			<td align="center">
 			<%-- 이전 링크 만들기 --%>
@@ -138,7 +139,6 @@ a.music:hover{color:black;}
 			</c:if>
 			</td>		
 		</tr>
-	</table>	
- </table>
+	</table>
 </body>
 </html>

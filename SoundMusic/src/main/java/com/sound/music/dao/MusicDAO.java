@@ -21,4 +21,14 @@ public interface MusicDAO {
 		public void delete(int no)throws Exception;
 		//페이징 처리
 		public int getPageInfo(MusicInfoVO mvo) throws Exception;
+		//리뷰 추가
+		public void rvWrite(MusicInfoVO vo)throws Exception;
+		//리뷰 상세
+		public List<MusicInfoVO> rvList(MusicInfoVO rvo)throws Exception;
+		//리뷰 개수구하기
+		public int getRvPageInfo(int oriNo)throws Exception;
+		//리뷰 수정하기
+		public void rvModify(MusicInfoVO rvo)throws Exception;
+		//리뷰 삭제하기
+		public void rvDelete(int rvno)throws Exception;
 }

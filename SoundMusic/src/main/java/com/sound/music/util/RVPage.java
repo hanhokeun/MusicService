@@ -1,10 +1,10 @@
 package com.sound.music.util;
 
-public class PageUtil {
+public class RVPage {
 //	필수 변수(반드시 개발자가 알려주어야 할 변수)
 	//		현재 보고싶은 페이지, 총 데이터 개수를 알려주어야 한다.
-	private		int		nowPage;		//	현재 보고싶은 페이지
-	private		int		totalCount;		//	총 데이터 개수
+	private		int		rvPage;		//	현재 보고싶은 페이지
+	private		int		rvCount;		//	총 댓글 개수
 	//	필수 변수(계산을 위해서는 꼭 알아야 할 변수)
 	//		한페이지당 몇개의 목록을 보여줄지, 한페이지당 페이지 이동 개수
 	//		(이 변수의 데이터는 개발자가 알려줘도 되고, 하드코딩해도 된다.)
@@ -20,20 +20,20 @@ public class PageUtil {
 	
 	//페이지 이동 기능을 만드는 장소에서
 	//정보를 받아야 한다
-	public PageUtil(int np, int tc) {
+	public RVPage(int rvp, int rvc) {
 //		this.nowPage = np;
 //		this.totalCount = tc;
 //		this.listCount = 10;
 //		this.pageCount = 5;
 		//	아래쪽에 만든 또다른 생성자를 강제로 호출하면서 필요한 데이터(10, 5)를 강제로
 		//	주게 되면 소스가 좀더 간편해 진다.
-		this(np, tc, 10, 5);
+		this(rvp, rvc, 10, 5);
 	}	
 	
 //		4개의 데이터를 개발자가 모두 지정하도록 해보자.
-	public PageUtil(int np, int tc, int lc, int pc) {
-		this.nowPage = np;
-		this.totalCount = tc;
+	public RVPage(int rvp, int rvc, int lc, int pc) {
+		this.rvPage = rvp;
+		this.rvCount = rvc;
 		this.listCount = lc;
 		this.pageCount = pc;
 		
@@ -55,14 +55,14 @@ public class PageUtil {
 			//				6, 7, 8, 9, 10) / 5) + 1		2그룹
 			//				11, 12, 13, 14, 15) / 5) + 1	3그룹
 			//				...
-			totalPage = (totalCount % listCount == 0) ? (totalCount / listCount) : 
-																		(totalCount / listCount) + 1;
+			totalPage = (rvCount % listCount == 0) ? (rvCount / listCount) : 
+																		(rvCount / listCount) + 1;
 	}
 	
 	protected void calcStartPage() {
 		//현재 페이지를 가운데 놓고
 		//좌우에 이전 혹은 다음 페이지를 위치시키는 방식으로 만든다
-		startPage=nowPage-(pageCount/2);
+		startPage=rvPage-(pageCount/2);
 		
 		if(startPage<=0) {
 			startPage=1;
@@ -76,20 +76,20 @@ public class PageUtil {
 		}
 	}
 
-	public int getNowPage() {
-		return nowPage;
+	public int getRvPage() {
+		return rvPage;
 	}
 
-	public void setNowPage(int nowPage) {
-		this.nowPage = nowPage;
+	public void setRvPage(int rvPage) {
+		this.rvPage = rvPage;
 	}
 
-	public int getTotalCount() {
-		return totalCount;
+	public int getRvCount() {
+		return rvCount;
 	}
 
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
+	public void setRvCount(int rvCount) {
+		this.rvCount = rvCount;
 	}
 
 	public int getListCount() {

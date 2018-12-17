@@ -52,5 +52,34 @@ public class MusicListDAOimpl implements MusicDAO {
 		int result = session.selectOne("musicinfo.totalCount",mvo);
 		return result;
 	}
-
+	
+	//리뷰 추가
+	@Override
+	public void rvWrite(MusicInfoVO vo) throws Exception {		
+		session.insert("musicinfo.reviewWrite", vo);
+	}
+	
+	@Override
+	//리뷰 보여주기
+	public List<MusicInfoVO> rvList(MusicInfoVO rvo) throws Exception{
+		return session.selectList("musicinfo.rvList",rvo);
+	}
+	
+	//리뷰 개수
+	@Override
+	public int getRvPageInfo(int oriNo) throws Exception {
+		int result = session.selectOne("musicinfo.rvTotalCount",oriNo);
+		return result;
+	}
+	//리뷰 수정
+	@Override
+	public void rvModify(MusicInfoVO rvo) throws Exception {
+		session.update("musicinfo.reviewUpdate",rvo);
+	}
+	
+	//리뷰 삭제
+	@Override
+	public void rvDelete(int rvno) throws Exception {
+		session.update("musicinfo.reviewDelete",rvno);
+	}
 }

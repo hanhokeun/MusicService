@@ -3,6 +3,7 @@ package com.sound.music.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.sound.music.service.MusicInfoService;
 import com.sound.music.util.PageUtil;
+import com.sound.music.util.RVPage;
 import com.sound.music.vo.MusicInfoVO;
 
 
@@ -62,20 +64,27 @@ public class MusicListController {
 	
 	//음악의 상세 정보를 표기하기위한 컨트롤러
 	@RequestMapping("/musicinfo")
-	public ModelAndView musicInfo(@RequestParam(value="no",defaultValue="1") int no,
+	public ModelAndView musicInfo(HttpServletRequest req,
 			@RequestParam(value="nowPage",defaultValue="1") int nowPage ,
 			@RequestParam(value="genre") String genre,
-			MusicInfoVO vo2, ModelAndView mv2) throws Exception {
+			MusicInfoVO vo2, ModelAndView mv2,@RequestParam(value="rvPage",defaultValue="1") int rvPage)
+			throws Exception {
 		//할일
 		//1.파라미터
+		String strNo = req.getParameter("no");
+		int no = Integer.parseInt(strNo);
 		//2.서비스위임(비즈니스로직)
 		vo2 = musicInfoService.info(no);
+		//페이징 기능
+		RVPage rPage= musicInfoService.getRvPageInfo(rvPage,no);
+		List<MusicInfoVO> vo3 = (List<MusicInfoVO>)musicInfoService.rvList(rPage,no);
 		//3.모델
 		//4.뷰
 		mv2.addObject("GENRE",genre);
-		mv2.addObject("NO",no);
 		mv2.addObject("NOWPAGE",nowPage);
 		mv2.addObject("INFO", vo2);
+		mv2.addObject("REVIEW",vo3);
+		mv2.addObject("RPAGE", rPage);
 		mv2.setViewName("/musiclist/musicinfo");
 		return mv2;
 	}
@@ -176,6 +185,85 @@ public class MusicListController {
 		musicInfoService.delete(no);
 		//뷰
 		RedirectView rv = new RedirectView("../musiclist/musiclist.sm");
+		mv.setView(rv);
+		return mv;
+	}
+	
+	//리뷰 쓰기
+	@RequestMapping("/rvWriteProc")
+	public ModelAndView reviewWriteProc(ModelAndView mv, HttpServletRequest req, MusicInfoVO vo,
+			HttpSession session) throws Exception {
+		//파라미터
+		String strNo = req.getParameter("mrNo");
+		int oriNo = Integer.parseInt(strNo);
+		session.setAttribute("UID", "cloud");
+		String id = (String)session.getAttribute("UID");
+		String body = req.getParameter("rvBody");
+		String nowPage = req.getParameter("mrNowPage");
+		String genre = req.getParameter("mrGenre");
+		System.out.println(id);
+		vo.setOriNo(oriNo);
+		vo.setId(id);
+		vo.setBody(body);
+		//서비스
+		musicInfoService.rvWrite(vo);
+		//모델,뷰
+		RedirectView rv = new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+oriNo+"&genre="+genre);
+		mv.setView(rv);
+		return mv;
+	}
+	
+	//리뷰 수정
+	@RequestMapping("/rvmProc")
+	public ModelAndView reviewModifyProc(ModelAndView mv, HttpServletRequest req,
+			MusicInfoVO rvo)throws Exception {
+		//oriNo 곡번호
+		String strNo = req.getParameter("mvNo");
+		int oriNo = Integer.parseInt(strNo);
+		//nowPage 릴레이용
+		String nowPage = req.getParameter("rnowPage");
+		//genre 릴레이용
+		String genre = req.getParameter("rvGenre");
+		//rvPage 릴레이용
+		String rvPage = req.getParameter("rvPage");
+		//rvno 댓글 번호
+		String sNo = req.getParameter("rvNo");
+		int rvno = Integer.parseInt(sNo);
+		String body = req.getParameter("rvmBody");
+		
+		rvo.setBody(body);
+		rvo.setNo(rvno);
+		
+		//서비스
+		musicInfoService.rvModify(rvo);
+		//모델,뷰
+		RedirectView rv = new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+oriNo+
+				"&genre="+genre+"&rvPage="+rvPage);
+		mv.setView(rv);
+		return mv;
+	}
+	
+	//리뷰 삭제
+	@RequestMapping("/rvDelete")
+	public ModelAndView reviewDeleteProc(ModelAndView mv, HttpServletRequest req) throws Exception {
+		//oriNo 곡번호
+		String strNo = req.getParameter("rdNo");
+		int oriNo = Integer.parseInt(strNo);
+		//nowPage 릴레이용
+		String nowPage = req.getParameter("rdNowPage");
+		//genre 릴레이용
+		String genre = req.getParameter("rdGenre");
+		//rvPage 릴레이용
+		String rvPage = req.getParameter("rdPage");
+		//rvno 댓글 번호
+		String sNo = req.getParameter("rvDno");
+		int rvno = Integer.parseInt(sNo);
+		
+		//서비스
+		musicInfoService.rvDelete(rvno);
+		//모델,뷰
+		RedirectView rv = new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+oriNo+
+				"&genre="+genre+"&rvPage="+rvPage);
 		mv.setView(rv);
 		return mv;
 	}
