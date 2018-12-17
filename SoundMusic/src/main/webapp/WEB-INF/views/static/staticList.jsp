@@ -34,20 +34,23 @@
 <body>
   	<h1>파일 게시판 목록보기</h1>
   	<%-- 검색 기능 --%>
-  	<form id="sForm"  method="post"  action="">
+  	<form id="sForm"  method="post"  action="../static/staticList.sm">
 	  	 <table border="1" width="700" align="center">
 	  		<tr>
 	  			<td align="center">
 					<!-- 검색 대상 -->
-					<select name="" id="target">
-						<option value="title">제목</option>
-						<option value="body">내용</option>
-						<option value="both">제목+내용</option>
+					<select name="searchOption" id="target">
+						<option value="0">==선택하세요==</option>
+						<option value="1">전체</option>
+						<option value="2">제목</option>
+						<option value="3">내용</option>
+						<option value="4">노래명</option>
+						<option value="5">가수명</option>
 					</select>
 					<!-- 검색 단어 -->
-					<input type="text" name="word" id="word"/>
+					<input type="text" name="keyword" id="word"/>
 					<!-- 검색 버튼 -->
-					<input type="button" id="sBtn" value="검색하기"/>
+					<input type="button" id="sBtn" value="조회"/>
 	  			</td>
 	  		</tr>
 	  	</table>
@@ -61,7 +64,6 @@
 				<th>작성일/수정일</th>
 				<th>조회수</th>
 				<th>첨부파일</th>
-				<th>첨부파일이미지</th>
   			</tr>
   		</thead>
   		<tbody>
@@ -74,7 +76,6 @@
 					<td>${data.date}</td>
 					<td>${data.hit}</td>
 					<td>${data.fileCount}건</td>
-					<td></td>
 	  			</tr>
 	  		</c:forEach>
   		</tbody>

@@ -9,10 +9,10 @@ import com.sound.music.vo.StaticVO;
 
 public interface StaticDAOInter {
 	
-	//페이지 정보구하기 - 총페이지구하기
-	public int totalCount() throws Exception;
-	//통계 게시글 목록보기
-	public ArrayList<StaticVO> List(StaticVO vo) throws Exception;
+	//통계 게시글 검색하기
+	public ArrayList<StaticVO> SearchList(StaticVO vo) throws Exception;
+	//통계 게시글 검색 총 페이지 구하기
+	public int totalCount(StaticVO vo) throws Exception;
 	//통계 게시글 입력하기
 	public void insert(StaticVO vo, String kind) throws Exception;
 	//통계 게시글 보기
@@ -29,6 +29,8 @@ public interface StaticDAOInter {
 	public ArrayList<StaticVO> selectFileInfo(int no) throws Exception;
 	//게시글 파일 삭제
 	public void deleteFile(int no) throws Exception;
+	//댓글 총 개수 구하기
+	public int getRvTotalCount(int no) throws Exception;
 	//댓글 조회
 	public ArrayList<StaticVO> selectReply(int no) throws Exception;
 	//댓글 등록

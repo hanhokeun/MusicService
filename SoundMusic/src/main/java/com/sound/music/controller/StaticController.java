@@ -17,14 +17,36 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.sound.music.service.StaticServiceInter;
 import com.sound.music.util.FileUtil;
 import com.sound.music.util.PageUtil;
+import com.sound.music.util.RVPage;
 import com.sound.music.vo.StaticVO;
 
 @Controller
 @RequestMapping("static")
 public class StaticController {
-
 	@Autowired
 	private StaticServiceInter sService; 
+	//목록보기
+	@RequestMapping("/staticList.sm")
+	public ModelAndView staticList(@RequestParam(value="nowPage",
+	defaultValue="1")int nowPage,HttpServletRequest req, StaticVO vo,
+			ModelAndView mv) throws Exception{
+		//모델: 페이지정보 전달, 목록리스트 전달
+		//ArrayList list = sService.List(pInfo);
+		String strOption = req.getParameter("searchOption");
+		String keyword = req.getParameter("keyword");
+		if(strOption == null) strOption = "0";
+		if(keyword == null) keyword = "";
+		int searchOption = Integer.parseInt(strOption);
+		vo.setSearchOption(searchOption);
+		vo.setKeyword(keyword);
+		//검색한 뒤에 검색값이 없으면 모든 목록, 아니면 검색한 목록 보여주기
+		PageUtil pInfo = sService.totalCount(nowPage,vo);
+		ArrayList list = sService.SearchList(pInfo, vo);
+		mv.addObject("LIST", list);
+		mv.addObject("PINFO",pInfo);
+		mv.setViewName("static/staticList");
+		return mv;
+	}
 	//원글 삭제하기
 	@RequestMapping("/staticDelete.sm")
 	public ModelAndView staticDelete(HttpServletRequest req,ModelAndView mv) throws Exception {
@@ -144,29 +166,24 @@ public class StaticController {
 		ModelAndView mv = new ModelAndView("download","downloadFile",file);
 		return mv;
 	}
-	//목록보기
-	@RequestMapping("/staticList.sm")
-	public void staticList(@RequestParam(value="nowPage",
-	defaultValue="1")int nowPage,HttpServletRequest req) throws Exception{
-		PageUtil pInfo = sService.getPageInfo(nowPage);
-		//모델: 페이지정보 전달, 목록리스트 전달
-		ArrayList list = sService.List(pInfo);
-		req.setAttribute("PINFO",pInfo);
-		req.setAttribute("LIST",list);
-	}
 	//상세보기
 	@RequestMapping("/staticDetail.sm")
 	public ModelAndView staticDetail(StaticVO vo,
-			@RequestParam(value="nowPage")int nowPage) throws Exception {
+			@RequestParam(value="nowPage")int nowPage, 
+			@RequestParam(value="rvPage", defaultValue="1")int rvPage) throws Exception {
 		StaticVO svo = new StaticVO();
 		svo= sService.detail(vo.getOriNo()); //글 내용
 		ArrayList fileList = sService.selectFileInfo(vo.getOriNo()); //파일 정보
 		System.out.println("fileList의 size"+fileList.size());
+		RVPage rPage = sService.getRvPageInfo(rvPage,vo.getOriNo());
 		ArrayList replyList = sService.selectReply(vo.getOriNo()); //댓글 정보
+		//댓글 페이징 처리
+		
 		ModelAndView mv = new ModelAndView(); 
 		mv.addObject("VIEW", svo);
 		mv.addObject("nowPage", nowPage);
 		mv.addObject("FILE", fileList);
+		mv.addObject("RPAGE", rPage);
 		mv.addObject("REPLY",replyList);
 		mv.setViewName("static/staticDetail");
 		return mv;

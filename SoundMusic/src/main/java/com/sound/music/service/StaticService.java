@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.sound.music.dao.StaticDAOInter;
 import com.sound.music.service.StaticServiceInter;
 import com.sound.music.util.PageUtil;
-
+import com.sound.music.util.RVPage;
 import com.sound.music.vo.StaticVO;
 
 @Service
@@ -19,29 +19,6 @@ public class StaticService implements StaticServiceInter {
 
 	@Autowired
 	private StaticDAOInter sDAO;
-	//페이지정보 구하기
-	@Override
-	public PageUtil getPageInfo(int nowPage)throws Exception {
-		//비즈니스로직 수행
-		int totalCount = sDAO.totalCount(); //총 페이지개수 구하기
-		System.out.println(totalCount);
-		//페이지 정보구하기
-		PageUtil pInfo = new PageUtil(nowPage,totalCount,6,3);
-		return pInfo;
-	}
-	//통계 글 목록보여주기
-	@Override
-	public ArrayList<StaticVO> List(PageUtil pInfo) throws Exception {
-		//목록에 보여줄 시작과 끝 게시글 설정해서 vo에 담아 DAO로 넘겨주기
-		int start = (pInfo.getNowPage()-1)*pInfo.getListCount()+1;
-		int end = start+pInfo.getListCount()-1;
-		StaticVO vo = new StaticVO();
-		vo.setStart(start);
-		vo.setEnd(end);
-		
-		ArrayList list=sDAO.List(vo);
-		return list;
-	}
 	//통계 글 조회수 증가하기
 	@Override
 	public void increaseHit(int oriNo,HttpSession session) throws Exception {
@@ -68,6 +45,13 @@ public class StaticService implements StaticServiceInter {
 	public ArrayList selectFileInfo(int oriNo) throws Exception {
 		ArrayList list = sDAO.selectFileInfo(oriNo);
 		return list;
+	}
+	//댓글 페이징 처리
+	@Override
+	public RVPage getRvPageInfo(int rvPage, int oriNo) throws Exception {
+		int rvCount = sDAO.getRvTotalCount(oriNo);
+		RVPage rPage = new RVPage(rvPage,rvCount,5,3);
+		return rPage;
 	}
 	//댓글 조회하기
 	@Override
@@ -158,5 +142,26 @@ public class StaticService implements StaticServiceInter {
 	@Override
 	public void deleteFile(int fileNo) throws Exception {
 		sDAO.deleteFile(fileNo);
+	}
+	//목록에서 검색하기
+	@Override
+	public ArrayList<StaticVO> SearchList(PageUtil pInfo,StaticVO vo) throws Exception {
+		int start = (pInfo.getNowPage()-1)*pInfo.getListCount()+1;
+		int end = start+pInfo.getListCount()-1;
+		vo.setStart(start);
+		vo.setEnd(end);
+		System.out.println("start="+start);
+		System.out.println("end="+end);
+		ArrayList list = sDAO.SearchList(vo);
+		return list;
+	}
+	//통계 게시글 검색 결과 페이징 처리 
+	@Override
+	public PageUtil totalCount(int nowPage,StaticVO vo) throws Exception {
+		int totalCount = sDAO.totalCount(vo);
+		System.out.println("totalCount="+totalCount);
+		System.out.println("nowPage"+nowPage);
+		PageUtil pInfo = new PageUtil(nowPage,totalCount,6,3);
+		return pInfo;
 	}
 }

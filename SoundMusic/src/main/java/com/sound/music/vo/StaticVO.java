@@ -2,7 +2,7 @@ package com.sound.music.vo;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
-
+import java.text.DecimalFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 public class StaticVO {
@@ -22,8 +22,12 @@ public class StaticVO {
 	private int end;
 	private int rno;
 	private int cnt;
+	//게시글 검색
+	private String keyword;
+	private int searchOption;
 	//파일의 정보
 	private String path;
+
 	private String oriName;
 	private String saveName;
 	private long len;
@@ -68,6 +72,18 @@ public class StaticVO {
 			temp=temp.replaceAll("\n", "<br/>");
 		}
 		return temp;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	public int getSearchOption() {
+		return searchOption;
+	}
+	public void setSearchOption(int searchOption) {
+		this.searchOption = searchOption;
 	}
 	public String getSong() {
 		return song;

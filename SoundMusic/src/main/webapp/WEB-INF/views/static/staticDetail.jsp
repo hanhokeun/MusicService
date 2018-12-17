@@ -30,8 +30,6 @@
 		}
 		.bmd-modalButton {
 		  display: block;
-		  margin: 15px auto;
-		  padding: 5px 15px;
 		}
 		.close-button {
 		  overflow: hidden;
@@ -171,45 +169,45 @@
 </head>
 <body>
   <%--상세보기 내용 출력 --%>
-  <table border="1" width="900" align="center">
+  <table border="1" width="700" align="center">
   	<tbody>
   		<tr align="center">
   			<th width="100">글번호</th>
   			<td width="50">${VIEW.no}</td>
   			<th width="100">조회수</th>
   			<td width="50">${VIEW.hit}</td>
-  			<th>작성일</th>
-  			<td>${VIEW.date}</td>
+  			<th width="100">작성일</th>
+  			<td width="300">${VIEW.date}</td>
   		</tr>
   		<tr>
-  			<th>노래 제목</th>
-  			<td colspan="3">${VIEW.song}</td>
-  			<th>가수 이름</th>
-  			<td>${VIEW.artist}</td>
+  			<th width="100">노래 제목</th>
+  			<td colspan="3" width="300">${VIEW.song}</td>
+  			<th width="100">가수 이름</th>
+  			<td width="200">${VIEW.artist}</td>
   		</tr>
   		<tr>
-  			<th>제목</th>
-  			<td colspan="5">${VIEW.title}</td>
-  		</tr>
-  		<tr>
-  			<th>내용</th>
-  			<td colspan="4" width="500">${VIEW.brBody}</td>
-  			<td>
+  			<th width="100">제목</th>
+  			<td colspan="4" width="450">${VIEW.title}</td>
+  			<td width="150">
   				<div class="container">
         			<div class="row">
         				<div class="col-xs-12">
          				 	<div class="page">
-            					<button  align="center" type="button" id="youtube" class="bmd-modalButton" data-toggle="modal"  data-bmdWidth="1000" data-bmdHeight="700" data-target="#myModal"  data-bmdVideoFullscreen="true">${VIEW.song} 동영상보기</button>           
+            					<button type="button" id="youtube" class="bmd-modalButton" data-toggle="modal"  data-bmdWidth="400" data-bmdHeight="300" data-target="#myModal"  data-bmdVideoFullscreen="true">${VIEW.song} 동영상보기</button>           
       						</div>
         				</div>
       				</div>
       			</div>
-      			</td>
-      		</tr>
+      		</td>
+  		</tr>
+  		<tr>
+  			<th width="100">내용</th>
+  			<td colspan="6" width="600">${VIEW.brBody}</td>
+      	</tr>
    	</tbody>
   </table>
   <%-- 첨부파일 내용 출력 --%>
-  <table width="900" border="1" align="center">
+  <table width="700" border="1" align="center">
   	<c:forEach items="${FILE}" var="info">
   		<tr>
   			<td><img src="../upload/${info.saveName}" width="500" height="300"/></td>
@@ -218,7 +216,7 @@
   	</c:forEach>
   </table>
  <%-- 기타기능.. 목록보기 --%>
-  <table border="1" width="900" align="center">
+  <table border="1" width="700" align="center">
   	<tbody>
   		<tr>
   			<td align="center">
@@ -234,7 +232,7 @@
   <%--댓글보기--%>
   <%--댓글이 존재하지 않는 경우 --%>
   <c:if test="${empty REPLY}">
-  	<table border="1" width="900" align="center">
+  	<table border="1" width="700" align="center">
   		<tr>
   			<td align="center">새로운 댓글을 등록해주세요</td>
   		</tr>
@@ -243,7 +241,7 @@
   <%--댓글이 존재하는 경우 댓글 수만큼 반복 출력 --%>
   <c:if test="${not empty REPLY}">
   	<c:forEach var="reply" items="${REPLY}">
-  		<table border="1" id="${reply.no}"  width="900" align="center">
+  		<table border="1" id="${reply.no}"  width="700" align="center">
   			<tr>
   				<th width="100">글쓴이</th>
   				<td width="150">${reply.mId}</td>
@@ -268,7 +266,7 @@
 		  	<input type="hidden" name="no" value="${reply.no}"/>
 		  	<input type="hidden" name="oriNo" value="${reply.oriNo}"/>
 		  	<input type="hidden" name="nowPage" value="${nowPage}"/>
-		  	<table border="1" width="900" align="center">
+		  	<table border="1" width="700" align="center">
 		  		<tr>
 		  			<th>내용</th>
 		  			<td colspan="2"><textarea name="body" id="body${reply.no}">${reply.body}</textarea>
@@ -281,12 +279,31 @@
 		  	</table>
 		  </form>
     	</c:forEach>
+    	  	<%-- 페이지 이동기능 --%>
+	  	<table border="1" align="center" width="700">
+	  		<tr>
+	  			<td align="center">
+		  			<%--이전링크 만들기--%>
+		  			<c:if test="${RPAGE.startPage eq 1}">[<]</c:if>
+		  			<c:if test="${RPAGE.startPage ne 1}">
+		  				<a href="../static/staticDetail.sm?rvPage=${RPAGE.nowPage-1}&nowPage=${nowPage}&oriNo=${VIEW.no}">[<]</a></c:if>
+		  			<c:forEach var="page" begin="${RPAGE.startPage}" end="${RPAGE.endPage}">
+		  				<a href="../static/staticDetail.sm?rvPage=${page}&nowPage=${nowPage}&oriNo=${VIEW.no}">[${page}]</a>
+		  			</c:forEach>
+		  			<%--다음링크 만들기--%>
+		  			<c:if test="${RPAGE.endPage eq RPAGE.totalPage}">[>]</c:if>
+		  			<c:if test="${RPAGE.endPage ne RPAGE.totalPage}">
+		  				<a href="../static/staticDetail.sm?rvPage=${RPAGE.endPage+1}&nowPage=${nowPage}&oriNo=${VIEW.no}">[>]</a>
+		  			</c:if>
+		  		</td>
+	  		</tr>
+	  	</table>
   </c:if>
   <%--댓글 쓰기 폼--%>
   <form id="wrFrm" method="post" action="../static/staticReplyWrite.sm">
   	<input type="hidden" id="oriNo" name="oriNo" value="${VIEW.no}">
   	<input type="hidden" id="nowPage" name="nowPage" value="${nowPage}">
-  	<table border="1" width="900" align="center">
+  	<table border="1" width="700" align="center">
   		<tr>
   			<th>글내용</th>
   			<td><textarea name="body" id="body"></textarea></td>
