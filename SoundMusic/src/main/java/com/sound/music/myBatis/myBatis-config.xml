@@ -21,17 +21,20 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 
 	<typeAliases>
 		<typeAlias type="java.lang.Integer" alias="int"/>
+		<typeAlias type="java.lang.String" alias="String"/>
 		<typeAlias type="java.util.HashMap" alias="hMap"/>
 		<typeAlias type="com.sound.music.vo.StaticVO" alias="static"/>
 		<typeAlias type="com.sound.music.vo.FreeBoardVO" alias="freeBoard"/>
+		<typeAlias type="com.sound.music.vo.MemberVO" alias="mVO"/>
 	</typeAliases>
 	
 	<!-- SQL용 xml파일을 만들었으면 그 파일을 사용하기전에 반드시 mappers의 element에
 		등록을 해놨는지 반드시 확인해야 한다. -->	
-	<mappers>		
+	<mappers>
+		<mapper resource="com/sound/music/sql/MemberSQL.xml"/>
 		<mapper resource="com/sound/music/sql/NoticeSQL.xml"/>
 		<mapper resource="com/sound/music/sql/MusicInfoSQL.xml"/>
 		<mapper resource="com/sound/music/sql/StaticSQL.xml"/>
-		<mapper resource="com/sound/music/sql/FreeBoardSQL.xml"/>
+		<mapper resource="com/sound/music/sql/FreeBoardSQL.xml"/>		
 	</mappers>
 </configuration>

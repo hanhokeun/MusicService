@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,8 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  	
 	<title>Document</title>
 </head>
 <script>
@@ -32,7 +31,7 @@
 	
 	// 회원가입 버튼 클릭시 회원가입 화면으로 이동
 	function MemberJoin() {
-	    location.href="./../member/MemberJoin.sm";
+	    location.href="./../member/SignUp.sm";
 	}
 
 	// ID찾기 버튼 클릭시 ID찾기 화면으로 이동
@@ -53,20 +52,12 @@
 
 </script>
 <body>
-<!--   </br></br></br>
 
-<div class="content">	
-	<div class="login_content">		
-		<p align="center">SoundMusic 에 오신걸 환영합니다.</p>
-	</div>
-</div>
-</br> -->
 <div class="container">	
 	<div class="col-lg-3"></div>		
 		<div class="col-lg-6">			
-			<a href="#">
-			<img src="../resources/images/golf.jpg" alt="사진" width="360" height="200" /></a>
-			<br><br><br><br>
+			<a href="../main.jsp"><img src="../resources/images/music.png" alt="사진"/></a>
+			<br><br><br>
 			<div class="jumbotron" style="padding-top:20px;">
 				<form method="GET" action="../member/LoginProc.sm" id="LoginFrm">
 					<h3 style="text-align:center;">로그인 화면</h3>
@@ -81,13 +72,15 @@
 					<input type="button" class="btn btn-primary form-control" id ="lBtn" onClick="LoginProc()" value="LOGIN" >
 				</form>
 			</div>
+		
+			<hr><p>아이디가 기억나지않으세요?</p>
 			<div class="btn-group">
 				<input type="button"  class="btn btn-default" id ="Mbtn" onClick="MemberJoin()" value="회원가입" />
 				<input type="button"  class="btn btn-default"  id ="Idbtn" onClick="IdSearch()" value="아이디찾기" />
 				<input type="button"  class="btn btn-default"  id ="Pwbtn" onClick="PwSearch()" value="비밀번호찾기"/>
-			</div>	
+			</div>
 		</div>
 		<div class="col-lg-3"></div>
-</div>
+</div> 
 </body>
 </html>

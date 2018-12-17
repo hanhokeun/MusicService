@@ -1,59 +1,271 @@
 package com.sound.music.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.sound.music.dao.MemberDAO;
 import com.sound.music.service.MemberService;
+import com.sound.music.util.PageUtil;
 import com.sound.music.vo.MemberVO;
 
 @Controller
+@RequestMapping("/member")
 public class MemberController {
 
-	// 스프링은 하나의 컨트롤러에 여러 개의 요청처리함수를 만들 수 있다.
-	// 요청처리함수를 알려주기 위해서 @RequestMapping() 처리를 해주어야 한다.
-	// 반환값 void, String, ModelAndView 중 택일 => 뷰 호출방식 결정
-	@Autowired
+	@Autowired	
 	private MemberService mService;
-
-	@RequestMapping("/member/LoginForm")
-	public String loginForm() {		
-		// 할일
-		// 1. 파라미터를 받고
-		// 2. 서비스 클래스에서 비즈니스 로직을 처리하도록 요청
-		// 3. 그결과를 모델로 만들어서 뷰에게 전달
-		return "member/LoginForm";
+	
+	@Autowired
+	private MemberDAO dao;
+	
+	
+	//마이페이지 비밀번호 변경처리
+	@RequestMapping(value="/ChangePwProc",method= {RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView ChangePw(MemberVO vo,HttpSession session) {
 		
-		/*참고
-		스프링은 컨트롤러 함수는 비즈니스 로직부분을 처리하지 않도록 한다.
-		서비스 개념의 클래스를 별도로 하여금 이 클래스를 이용하여
-		비즈니스 로직을 처리하도록 분산 시켜 놓도록 한다.
-		*/
+		String pw = vo.getPw();
+		String cpw = vo.getCpw();	
+		
+		vo.setPw(pw);
+		vo.setCpw(cpw);		
+		
+		mService.changePw(vo, session);
+		
+		ModelAndView mv = new ModelAndView();
+		RedirectView rv = new RedirectView("../member/LoginForm.sm");	
+		mv.setView(rv);
+		return mv;		
+		
 	}
 	
-	@RequestMapping("/member/LoginProc")
-	public ModelAndView loginProc(MemberVO vo,HttpSession session) {
+	//마이페이지 비밀번호 변경폼요청
+	@RequestMapping("/ChangePw")
+	public void ChangePw() {
 		
-		System.out.println("ModelAndView 리턴타입 요청함수");
-		//할일
-		// 1. 파라미터를 받고(req 방식과 VO 클래스를 매개변수로)
-		// 2. 서비스 클래스에서 비즈니스 로직을 처리하도록 요청
-		mService.loginProc(vo, session); // 필요한것을 준다.
-		// 로그인이 끝나면 화면에 보여줄건 없고 대신에
-		// 또 다른 작업을 하려고 한다.
+	}	
+	
+	
+	//마이페이지 회원탈퇴 요청
+	@RequestMapping("/MemberDrop")
+	public ModelAndView MemberDrop(MemberVO vo,HttpSession session) {	
 		
-		// 3. 그 결과를 모델
+		mService.memberDrop(vo, session);		
+		mService.logOut(session);
+		
 		ModelAndView mv = new ModelAndView();
-		RedirectView rv = new RedirectView("../member/LoginForm.sun"); 
-		// 4. 뷰지정(RedirectView용)
-		// 파라미터가 필요하면 추가시킬 수 있다.
-		// rv.addStaticAttribute(name, value)
-		mv.setView(rv);		
+		RedirectView rv = new RedirectView("./../main.jsp");	
+		mv.setView(rv);
 		return mv;
 	}
 	
+	
+	//마이페이지 수정처리 요청	
+	@RequestMapping(value="/ProfileProc",method=RequestMethod.POST)
+	public ModelAndView modifyPfProc(MemberVO vo,HttpSession session) {				
+		
+		String gender = vo.getGender();
+		String email = vo.getEmail();	
+		
+		mService.modifyPfProc(vo, session);
+		
+		ModelAndView mv = new ModelAndView();
+		RedirectView rv = new RedirectView("../member/Profile.sm");	
+		mv.setView(rv);
+		return mv;
+		
+	}
+	
+	
+	//마이페이지 수정폼 요청
+	@RequestMapping("/ProfileModify")
+	public ModelAndView profileModify(ModelAndView mv,MemberVO vo,HttpSession session) {		
+		
+		MemberVO result =mService.proFile(vo,session);
+		
+		mv.addObject("MEM",result);
+		
+		mv.setViewName("member/ProfileModify");
+		
+		return mv;
+		
+	}
+	
+	//마이페이지 폼요청
+	@RequestMapping("/Profile")
+	public ModelAndView ProFile(ModelAndView mv,MemberVO vo,HttpSession session) {	
+		
+		MemberVO result =mService.proFile(vo,session);
+		
+		mv.addObject("MEM",result);
+		
+		mv.setViewName("member/Profile");
+		
+		return mv;
+	}
+	
+	
+	//비밀번호 찾기 처리
+	@ResponseBody
+	@RequestMapping(value="/PwSearchProc", method=RequestMethod.GET)	
+	public String PwSearchProc( @RequestParam(value="id") String id,
+									@RequestParam(value="name") String name,
+									@RequestParam(value="gender") String gender,
+									@RequestParam(value="email") String email,MemberVO vo) throws Exception{			
+			
+		vo.setId(id);
+		vo.setName(name);
+		vo.setGender(gender);
+		vo.setEmail(email);			
+		
+		String result = mService.getpwSearch(vo);		
+		return result;
+	}
+	
+	//비밀번호 찾기폼요청
+	@RequestMapping("/PwSearch")
+	public void PwSearch() {
+			
+	}
+	
+	//아이디 찾기 처리
+	@ResponseBody
+	@RequestMapping(value="/IdSearchProc", method=RequestMethod.GET)	
+	public String IdSearchProc( @RequestParam(value="name") String name,
+								@RequestParam(value="gender") String gender,
+								@RequestParam(value="email") String email,MemberVO vo) throws Exception{
+		
+		
+		vo.setName(name);
+		vo.setGender(gender);
+		vo.setEmail(email);			
+		
+		String result = mService.getidSearch(vo);		
+		return result;				
+
+	}
+	
+	//아이디 찾기폼요청
+	@RequestMapping("/IdSearch")
+	public void idSearch() {
+		
+	}	
+	
+	//회원관리페이지 회원추방
+	@RequestMapping("/MemberDelete")
+	public ModelAndView MemberDelete(@RequestParam(value="id") String id){		
+		
+		mService.deleteMember(id);		
+		
+		ModelAndView mv = new ModelAndView();
+		RedirectView rv = new RedirectView("../member/MemberList.sm");	
+		mv.setView(rv);
+		return mv;		
+		
+	}	
+	
+	//회원관리자페이지 이동
+	@RequestMapping("/MemberList")
+	public void MemberList(@RequestParam(value="nowPage", defaultValue="1") int nowPage,HttpServletRequest req) {		
+		// 페이지 이동 기능
+		PageUtil pInfo = mService.getPageInfo(nowPage);
+		
+		//회원목록 꺼내오기		
+		ArrayList list = mService.getmemberList(pInfo);
+		
+		//모델
+		req.setAttribute("PINFO", pInfo);
+		req.setAttribute("LIST", list);
+		// 뷰
+		
+	}
+	
+	
+	// 회원가입 처리 요청
+	@RequestMapping(value="/SignProc",method=RequestMethod.POST)
+	public ModelAndView signProc(MemberVO vo) {
+		System.out.println("회원가입요청 들어온다.");
+		String id = vo.getId();
+		String pw = vo.getPw();
+		String name = vo.getName();
+		String gender = vo.getGender();
+		String email = vo.getEmail();		
+		
+		mService.signProc(vo);
+		
+		ModelAndView mv = new ModelAndView();
+		RedirectView rv = new RedirectView("../member/LoginForm.sm");	
+		mv.setView(rv);
+		return mv;
+	}
+	
+	// 회원가입 ID중복체크 요청
+	@ResponseBody
+	@RequestMapping(value="/IdCheck", method= RequestMethod.POST)
+	public String idcheck(@RequestBody String userid) throws Exception {
+				
+		String result =mService.idCheck(userid);
+		return result;			
+		
+	}
+	
+	// 회원가입 폼 요청
+	@RequestMapping("/SignUp")
+	public void signUp() {
+		
+	}
+	
+
+	// 로그아웃 요청
+	@RequestMapping("/LogOut")
+	public ModelAndView LogOut(HttpSession session) {
+			
+		mService.logOut(session);		
+		
+		ModelAndView mv = new ModelAndView();
+		RedirectView view = new RedirectView("../main.jsp");
+		mv.setView(view);
+		return mv;
+	}
+		
+		
+	
+	// 로그인 처리 요청
+	@RequestMapping("/LoginProc")
+	public ModelAndView loginProc(MemberVO vo,HttpSession session) {				
+		
+		boolean result = mService.loginProc(vo, session); // 필요한것을 준다.		
+		
+		ModelAndView mv = new ModelAndView();
+		RedirectView rv = null;
+		
+		if(result==true) {
+			rv = new RedirectView("../main.jsp");
+		}
+		else {
+			rv = new RedirectView("../member/LoginForm.sm");
+		}
+		mv.setView(rv);
+		return mv;
+	}
+	
+	// 로그인 폼 요청
+	@RequestMapping("/LoginForm")
+	public String loginForm() {		
+		return "member/LoginForm";	
+	}	
+		
 }
