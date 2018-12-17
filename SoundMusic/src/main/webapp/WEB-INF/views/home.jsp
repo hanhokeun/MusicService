@@ -1,8 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<html>
+<html lang="en">
 <head>
 	<title>Home</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 <h1>
@@ -14,8 +17,8 @@
 	<a href="./member/LoginForm.sm">login-</a>
 	<p/>
 	
-	<a href="./fileBoard/boardList.sm">fileBoard(목록보기)</a>
+	<a href="./freeBoard/boardList.sm">freeBoard(가즈아)</a>
 	<p/><p/>	
-	<a href="./notice/noticeList.sm">freeBoard(목록보기)</a>
+	<a href="./notice/noticeList.sm">noticeBoard(go)</a>
 </body>
 </html>
