@@ -17,8 +17,6 @@ pageEncoding="UTF-8"%>
 	<link rel="stylesheet" type="text/css" href="css/codingBooster.css"> 
 <style>
 	body{font-family: 'Sunflower', sans-serif;}
-	
-	
 </style>
 <title>Insert title here</title>
 </head>
