@@ -27,7 +27,7 @@
 				
 			})
 			$("#hBtn").click(function(){
-				$(location).attr("href","../index.sm");
+				$(location).attr("href","../main.jsp");
 			})
 		})
 		function getView(oriNo,nowPage){
@@ -38,7 +38,7 @@
 	</script>
 	</head>
 <body>
-<form id="a" method="POST" action="../freeBoard/boardView.sm">
+<form id="a" method="POST" action="../freeBoard/hitProc.sm">
 	<input type="hidden" id="oriNo" name="oriNo" />
 	<input type="hidden" id="nowPage" name="nowPage" />
 </form>

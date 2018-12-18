@@ -22,7 +22,7 @@ public class FreeBoardVO {
 	private String oriName;
 	private String saveName;
 	private long len;	
-	private String nick;
+	private String writer;
 	private Date wday;
 	private int hit;
 	private int rno;
@@ -142,13 +142,7 @@ public class FreeBoardVO {
 		this.len = len;
 	}
 
-	public String getNick() {
-		return nick;
-	}
-
-	public void setNick(String nick) {
-		this.nick = nick;
-	}
+	
 
 	public Date getWday() {
 		return wday;
@@ -204,6 +198,12 @@ public class FreeBoardVO {
 
 	public void setNowPage(int nowPage) {
 		this.nowPage = nowPage;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
 

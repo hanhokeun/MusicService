@@ -49,12 +49,15 @@ public class FreeBoardServiceimpl implements FreeBoardService {
 	// 보드 리스트 가져오는 함수
 	@Override
 	public ArrayList getBoardList(PageUtil pInfo)throws Exception {
+		System.out.println("보드리스트 시작");
 		int start = (pInfo.getNowPage()-1)*pInfo.getListCount()+1;
 		int end =  start + pInfo.getListCount()-1;
 		FreeBoardVO vo = new FreeBoardVO();
 		vo.setStart(start);
 		vo.setEnd(end);
 		ArrayList list = frDAO.getBoardList(vo);
+		System.out.println("리스트 내용"+list);
+		System.out.println("보드리스트 끝");
 		return list;
 	}
 	// 상세보기 함수
@@ -77,7 +80,7 @@ public class FreeBoardServiceimpl implements FreeBoardService {
 		ArrayList hitList = (ArrayList)session.getAttribute("HIT");
 		
 		if(hitList==null||hitList.size()==0){//첫방문
-			hitList = new ArrayList<Integer>();
+			hitList = new ArrayList();
 			hitList.add(oriNo);
 			isHit=true;
 			session.setAttribute("HIT", hitList);
@@ -94,7 +97,6 @@ public class FreeBoardServiceimpl implements FreeBoardService {
 		if(isHit == true) {
 			frDAO.updateHit(oriNo);
 		}
-		
 	}
 	//파일 다운로드 함수
 	@Override

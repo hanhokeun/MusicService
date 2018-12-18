@@ -108,7 +108,7 @@ public class FreeBoardController {
 			System.out.println(strNo);
 			int oriNo = Integer.parseInt(strNo);
 			String nowPage = (String)req.getParameter("nowPage");//릴레이용
-			
+			System.out.println("oriNo="+oriNo);
 			//로직..서비스위임
 			//조회수 증가처리
 			//db를 이용하여 조회수 무한 증가되는것을 방지하는 방법을 사용.

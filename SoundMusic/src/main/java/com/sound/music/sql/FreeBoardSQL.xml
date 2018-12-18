@@ -142,8 +142,7 @@
 			SET
 				frb_Hit = frb_Hit + 1
 			WHERE
-				frb_No = #{no}	
-	
+				frb_No = #{oriNo}
 	</update>
 	<!-- 다운로드 파일정보 검색 질의 -->
 	<select id="download" parameterType="int" resultType="freeBoard">
