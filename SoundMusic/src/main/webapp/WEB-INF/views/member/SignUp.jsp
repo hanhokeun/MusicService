@@ -53,7 +53,7 @@ function JoinForm(){
 	var userpwdch = $("#pw1").val();	
 	var username = $("#name").val();
 	var useremail = $("#email").val();
-	var regex =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	
 	
 	 
 	if(userid=="" || userid.length==0){
@@ -72,7 +72,7 @@ function JoinForm(){
 		$("#pw1").focus();
 		return false; 
 	}
-	if(username.length<=2 || username.length==0 ){
+	if(username.length<=1 || username.length==0 ){
 		alert("이름을 두글자이상 입력해주세요");
 		$("#name").focus();
 		return false; 
@@ -81,12 +81,14 @@ function JoinForm(){
 		alert("이메일를 입력해주세요");
 		$("#email").focus();
 		return false; 
-	}
-	/*  if (regex.test(email) != true) {
-        alert("잘못된 이메일 형식입니다.");
-        $("#email").focus();
-        return false;
-    }  */    	
+	}else {
+        var emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!emailRegex.test(useremail)) {
+            alert('이메일 주소가 유효하지 않습니다. ex)abc@gmail.com');
+            $("#email").focus();
+            return false;
+        }
+    }		
     
 	 if(confirm('등록신청을 하시겠습니까?')){
 		alert("회원가입을 축하드립니다.")
@@ -103,20 +105,17 @@ function JoinForm(){
 </head>
 <body>
 <div class="container">	
-	<div class="col-lg-3"></div>
-	<div class="col-lg-6">
+	<div class="col-lg-2"></div>
+	<div class="col-lg-8">
 	<a href="../main.jsp">
 			<img src="../resources/images/music.png" alt="사진" width="700" height="100" /></a>
-			<br><br><br><br>
+			<br><br>
+			<h3>회원 등록양식</h3><hr><br>
+			
 	<form method="post" action="../member/SignProc.sm" id="jFrm">		
-		<table class="table table-bordered table-hover" style="text-align:center, border:1px;">
-		<thead>
-			<tr>
-				<th colspan="3" style="text-align:center;"><h4>회원 등록 양식</h4>
-			</tr>
-		</thead>
+		<table class="table table-striped" style="text-align:center, border:1px;">		
 		<tbody>
-  		<tr>
+  		<tr class>
   			<th>아이디</th>
   			<td><input type="text" name="id"  id="id" class="form-control" placeholder="아이디" style="width: 200px;"/></td>
   			<td><input type="button"  class="btn btn-default"  id ="idbtn" onClick="IdCheck()" value="중복체크"/></td>
@@ -155,15 +154,15 @@ function JoinForm(){
   		</tr>
   		<tr>
   			<td colspan="3">
-  				<input type="button" class="btn btn-outline-primary" id="submit1" disabled="disabled" onclick="JoinForm()" value="회원가입" /> 
-	            <input type="reset" class="btn btn-outline-primary"  value="다시작성" />
+  				<input type="button" class="btn btn-outline-primary pull-right" id="submit1" disabled="disabled" onclick="JoinForm()" value="회원가입" /> 
+	            <input type="reset" class="btn btn-outline-primary"  value="Reset" />
   			</td>
   		</tr>
   		</tbody>
   		</table>
 	</form>
 	</div>
-	<div class="col-lg-3"></div>	
+	<div class="col-lg-2"></div>	
 </div>
 </body>
 </html>

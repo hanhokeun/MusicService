@@ -53,9 +53,10 @@
 </script>
 <body>
 
-<div class="container">	
+<div class="container">
+	<div class="row">	
 	<div class="col-lg-3"></div>		
-		<div class="col-lg-6">			
+		<div class="col-lg-7"><br><br>			
 			<a href="../main.jsp"><img src="../resources/images/music.png" alt="사진"/></a>
 			<br><br><br>
 			<div class="jumbotron" style="padding-top:20px;">
@@ -73,14 +74,15 @@
 				</form>
 			</div>
 		
-			<hr><p>아이디가 기억나지않으세요?</p>
+			<hr><br><p>아이디가 기억나지않으세요?</p>
 			<div class="btn-group">
 				<input type="button"  class="btn btn-default" id ="Mbtn" onClick="MemberJoin()" value="회원가입" />
 				<input type="button"  class="btn btn-default"  id ="Idbtn" onClick="IdSearch()" value="아이디찾기" />
 				<input type="button"  class="btn btn-default"  id ="Pwbtn" onClick="PwSearch()" value="비밀번호찾기"/>
 			</div>
 		</div>
-		<div class="col-lg-3"></div>
+		<div class="col-lg-2"></div>
+	</div>	
 </div> 
 </body>
 </html>

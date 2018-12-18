@@ -153,6 +153,10 @@ public class MemberController {
 		vo.setGender(gender);
 		vo.setEmail(email);			
 		
+		System.out.println("받아온 이름="+vo.getName());
+		System.out.println("받아온 성별="+vo.getGender());
+		System.out.println("받아온 이메일="+vo.getEmail());
+		
 		String result = mService.getidSearch(vo);		
 		return result;				
 

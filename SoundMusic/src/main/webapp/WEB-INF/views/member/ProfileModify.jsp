@@ -28,7 +28,16 @@
   			alert("이메일를 입력해주세요");
   			$("#email").focus();
   			return false; 
-  		}  		
+  		}else {
+	        var emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	        if (!emailRegex.test(email)) {
+	            alert('이메일 주소가 유효하지 않습니다. ex)abc@gmail.com');
+	            $("#email").focus();
+	            return false;
+	        }
+	    }
+  		
+  		
   		if(confirm('회원 수정을 하시겠습니까?')){
   			alert("수정이 완료되었습니다.")
   			$("#pFrm").submit();			 
@@ -52,13 +61,14 @@
   
 </head>
 <body>
-<div class="container">	
-		<h1>My Page</h1>
+<a href="../member/Profile.sm"><img src="../resources/images/mypage.png" alt="사진"/></a>
+<div class="container">		
 		<ul class="nav navbar-nav navbar-right">			
 			<li><a href="../main.jsp"><span class="glyphicon glyphicon-log-in"></span> 나가기</a></li>
 		</ul>	
   <div class="row">
   </br><hr></br>
+  <div class="col-lg-2"></div>
  <ul class="nav nav-tabs nav-justified">
     <li class="active"><a href="../member/Profile.sm">프로필 관리</a></li>
     <li><a href="../member/ChangePw.sm">비밀번호 변경</a></li>

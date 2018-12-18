@@ -13,7 +13,7 @@
   function pSForm(){
 	  	var id = $("#id").val();
 		var name = $("#name").val();
-		var gender = $("#gender").val();
+		var gender = $("input[name=gender]:checked").val()
 		var email = $("#email").val();		
 		
 		
@@ -31,7 +31,14 @@
 			alert("이메일를 입력해주세요");
 			$("#email").focus();
 			return false; 
-		}		
+		}else {
+	        var emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	        if (!emailRegex.test(email)) {
+	            alert('이메일 주소가 유효하지 않습니다. ex)abc@gmail.com');
+	            $("#email").focus();
+	            return false;
+	        }
+	    }		
 		
 		$.ajax({			
 			type : 'GET',
@@ -62,16 +69,16 @@
 </head>
 <body>
  <div class="container"> 
- 	<div class="col-lg-3"></div>		
-		<div class="col-lg-6">			
+ 	<div class="col-lg-2"></div>		
+		<div class="col-lg-8">			
 			<a href="../main.jsp"><img src="../resources/images/music.png" alt="사진"/></a>
 			<br><br><br>					
-			<h2 style="text-align:center;">비밀번호 찾기</h2><br>
+			<h3>비밀번호 찾기</h3><hr><br>
 			
 			<form method="post" action="../member/PwSearchProc.sm" id="PwSearch" name="PwSearch">					
   				<table class="table table-bordered table-hover" style="text-align:center, border:1px;">
 				<thead>
-					<tr><th colspan="3" style="text-align:center;"><h4>비밀번호 찾기 양식</h4></tr>
+					<tr><th colspan="3" style="text-align:center;"><h5>등록된 회원정보로 찾기</h5></tr>
 				</thead>
 				<tbody>
 					<tr>
@@ -101,14 +108,14 @@
   					</tr>
   					<tr>
   						<td colspan="3">
-  						<button type="button" class="btn btn-info" onclick="pSForm()" style="width: 540px; height: 60px;">비밀번호찾기</button>
+  						<button type="button" class="btn btn-info" onclick="pSForm()" style="width: 700px; height: 50px;">비밀번호찾기</button>
   						</td> 					
   					</tr>
 					</tbody>  					
 				<span id="idList"></span> 
 				</form>
  			<!-- </div> -->
- 		<div class="col-lg-3"></div>		
+ 		<div class="col-lg-2"></div>		
  	</div>
 	</div>	
  <footer>
