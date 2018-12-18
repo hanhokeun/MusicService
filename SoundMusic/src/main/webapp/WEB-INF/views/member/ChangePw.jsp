@@ -74,7 +74,7 @@
   </br><hr></br>
   <div class="col-lg-2"></div>
  <ul class="nav nav-tabs nav-justified">
-    <li class="active"><a href="../member/Profile.sm">프로필 관리</a></li>
+    <li class="active"><a href="../member/Profile.sm">프로필관리</a></li>
     <li><a href="../member/ChangePw.sm">비밀번호 변경</a></li>
     <li><a href="#">-</a></li>    
     <li><a href="#" onclick="defileForm()">회원탈퇴</a></li>    
