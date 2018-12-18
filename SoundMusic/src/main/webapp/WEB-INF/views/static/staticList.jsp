@@ -60,14 +60,14 @@
 								<!-- 검색 대상 -->
 								<select name="searchOption" id="target">
 									<option value="0">==선택하세요==</option>
-									<option value="1">전체</option>
-									<option value="2">제목</option>
-									<option value="3">내용</option>
-									<option value="4">노래명</option>
-									<option value="5">가수명</option>
+									<option value="1"  <c:if test="${SEARCHOPTION eq '1'}"> selected</c:if>>전체</option>
+									<option value="2" <c:if test="${SEARCHOPTION eq '2'}"> selected</c:if>>제목</option>
+									<option value="3" <c:if test="${SEARCHOPTION eq '3'}"> selected</c:if>>내용</option>
+									<option value="4" <c:if test="${SEARCHOPTION eq '4'}"> selected</c:if>>노래명</option>
+									<option value="5" <c:if test="${SEARCHOPTION eq '5'}"> selected</c:if>>가수명</option>
 								</select>
 								<!-- 검색 단어 -->
-								<input type="text" name="keyword" id="word" />
+								<input type="text" name="keyword" id="word"  value="${KEYWORD}"/>
 								<!-- 검색 버튼 -->
 								<button type="button" class="btn btn-light btn-sm" id="sBtn">조회</button>
 								<button type="button" class="btn btn-light btn-sm" id="tBtn">전체보기</button>
@@ -108,14 +108,14 @@
 				  			<%--이전링크 만들기--%>
 				  			<c:if test="${PINFO.startPage eq 1}">[<]</c:if>
 				  			<c:if test="${PINFO.startPage ne 1}">
-				  				<a href="../static/staticList.sm?nowPage=${PINFO.nowPage-1}">[<]</a></c:if>
+				  				<a href="../static/staticList.sm?nowPage=${PINFO.nowPage-1}&searchOption=${SEARCHOPTION}&keyword=${KEYWORD}">[<]</a></c:if>
 				  			<c:forEach var="page" begin="${PINFO.startPage}" end="${PINFO.endPage}">
-				  				<a href="../static/staticList.sm?nowPage=${page}">[${page}]</a>
+				  				<a href="../static/staticList.sm?nowPage=${page}&searchOption=${SEARCHOPTION}&keyword=${KEYWORD}">[${page}]</a>
 				  			</c:forEach>
 				  			<%--다음링크 만들기--%>
 				  			<c:if test="${PINFO.endPage eq PINFO.totalPage}">[>]</c:if>
 				  			<c:if test="${PINFO.endPage ne PINFO.totalPage}">
-				  				<a href="../static/staticList.sm?nowPage=${PINFO.endPage+1}">[>]</a>
+				  				<a href="../static/staticList.sm?nowPage=${PINFO.endPage+1}&searchOption=${SEARCHOPTION}&keyword=${KEYWORD}">[>]</a>
 				  			</c:if>
 				  		</td>
 			  		</tr>

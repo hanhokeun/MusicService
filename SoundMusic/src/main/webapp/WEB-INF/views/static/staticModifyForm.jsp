@@ -93,31 +93,39 @@
 			  			encType="multipart/form-data">
 			  		<input type="hidden" name="nowPage" value="${nowPage}"/>
 			  		<input type="hidden" name="oriNo" value="${VIEW.no}"/>
-			  		<table border="1" width="700" align="center">
+			  		<table class="table">
 				  		<tr>
-				  			<th>제목</th>
-				  			<td colspan="3"><input type="text" name="title" id="title" value="${VIEW.title}"/></td>
+				  			<th class="text-right">제목</th>
+				  			<td colspan="3" class="text-right">
+				  				<input type="text" name="title" id="title" value="${VIEW.title}" class="form-control form-control-sm"/>
+				  			</td>
 				  		</tr>
 				  		<tr>
-				  			<th>노래 제목</th>
-				  			<td><input type="text" name="song" id="song" value="${VIEW.song}"/></td>
+				  			<th class="text-right">노래 제목</th>
+				  			<td class="text-right">
+				  				<input type="text" name="song" id="song" value="${VIEW.song}"  class="form-control form-control-sm"/>
+				  			</td>
 				  			<th>가수 이름</th>
-				  			<td><input type="text" name="artist" id="artist" value="${VIEW.artist}"/></td>
+				  			<td>
+				  				<input type="text" name="artist" id="artist" value="${VIEW.artist}"  class="form-control form-control-sm"/>
+				  			</td>
 				  		</tr>
 				  		<tr>
-				  			<th>본문</th>
-				  			<td colspan="3"><textarea name="body" id="body" cols="80" rows="5">${VIEW.body}</textarea></td>
+				  			<th class="text-right">본문</th>
+				  			<td colspan="3" class="text-right">
+				  				<textarea name="body" id="body" cols="80" rows="5" class="form-control">${VIEW.body}</textarea>
+				  			</td>
 				  		</tr>
 				  		<tr>
-				  			<th>첨부파일</th>
-				  			<td colspan="3">
+				  			<th class="text-right">첨부파일</th>
+				  			<td colspan="3" class="text-right">
 				  				<input type="button" id="aBtn" value="추가"/>
 				  				<input type="button" id="dBtn" value="삭제"/>
 				  			</td>
 				  		</tr>
 						<tr>
-							<th>첨부파일</th>
-							<td colspan="3">
+							<th class="text-right">첨부파일</th>
+							<td colspan="3" class="text-right">
 				  				<div id="fileDiv">
 						  			<c:forEach items="${FILE}" var="info" varStatus="row">
 						  				<p>
@@ -133,7 +141,7 @@
 				  			</td>
 						</tr>
 				  		<tr id="copy">
-				  			<th colspan="4"><input type="button" id="sBtn" value="수정완료"/></th>
+				  			<td colspan="4" class="text-right"><input type="button" id="sBtn" class="btn btn-outline-secondary btn-block" value="수정완료"/></td>
 				  		</tr>
 			  	</table>
 			</form>

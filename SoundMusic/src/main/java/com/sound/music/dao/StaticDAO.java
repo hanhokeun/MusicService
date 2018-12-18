@@ -79,9 +79,10 @@ public class StaticDAO implements StaticDAOInter {
 	//통계 글 수정하기
 	@Override
 	public void update(StaticVO vo, String kind) throws Exception {
-		if(kind.equals("Static")) {
+		if(kind.equals("static")) {
 			//게시판 글수정 처리
 			session.update("Static.updateStatic", vo);
+			System.out.println("게시판 수정 완료");
 		}else if(kind.equals("file")){
 			//수정된 파일 DB에 저장
 			session.insert("Static.insertFile",vo);

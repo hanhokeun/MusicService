@@ -67,7 +67,7 @@
 	<script>
 		var apiKey="AIzaSyCIDBmbgWL7cuxwMA0umIEFm5UjP_N1iQU";
 		$.ajax({
-			url:'https://www.googleapis.com/youtube/v3/search?key='+apiKey+'&part=id&maxResults=1&q="${VIEW.song}"',
+			url:'https://www.googleapis.com/youtube/v3/search?key='+apiKey+'&part=id&maxResults=1&q="${VIEW.song} ${VIEW.artist}"',
 			dataType:"json",
 			success:function(data){
 				$.each(data.items,function(key,value){
@@ -176,7 +176,7 @@
 			  			<td>${VIEW.no}</td>
 			  			<th>조회수</th>
 			  			<td>${VIEW.hit}</td>
-			  			<th>작성일</th>
+			  			<th>작성일/수정일</th>
 			  			<td>${VIEW.date}</td>
 			  		</tr>
 			  		<tr>
