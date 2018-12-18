@@ -31,7 +31,7 @@ public class LoginCheck extends HandlerInterceptorAdapter {
 			
 			//로그인 폼을 보여줘
 			try {
-			response.sendRedirect("../member/LoginForm.sun");
+			response.sendRedirect("../member/LoginForm.sm");
 			}
 			catch(Exception e) {
 				

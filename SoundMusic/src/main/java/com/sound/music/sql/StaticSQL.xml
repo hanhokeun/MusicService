@@ -140,7 +140,7 @@
 			<!-- 검색 옵션이 전체 검색일 경우 -->
 		<if test="searchOption eq 1">
 			<if test="keyword !=''">
-				s_Title like '%'||#{keyword}||'%' or
+				and s_Title like '%'||#{keyword}||'%' or
 				s_Body like '%'||#{keyword}||'%' or 
 				s_Song like '%'||#{keyword}||'%' or 
 				s_Artist like '%'||#{keyword}||'%'
@@ -149,13 +149,13 @@
 			<!--검색 옵션이 제목일 경우 -->
 		<if test="searchOption eq 2">
 			<if test="keyword!=''">
-				s_Title like '%'||#{keyword}||'%'
+				and s_Title like '%'||#{keyword}||'%'
 			</if>
 		</if>
 		<if test="searchOption eq 3">
 			<!-- 검색 옵션이 내용일 경우 -->
 			<if test="keyword!=''">
-				s_Body like '%'||#{keyword}||'%'
+				and s_Body like '%'||#{keyword}||'%'
 			</if>
 		</if>
 		<if test="searchOption eq 4">
@@ -165,7 +165,7 @@
 		</if>
 		<if test="searchOption eq 5">
 			<if test="keyword!=''">
-				s_Artist like '%'||#{keyword}||'%'
+				and s_Artist like '%'||#{keyword}||'%'
 			</if>
 		</if>
 	</select>

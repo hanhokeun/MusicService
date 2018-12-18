@@ -6,7 +6,17 @@
 	<title>Document</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  	<link href="https://fonts.googleapis.com/css?family=Sunflower:300" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<style>
+			body{
+				font-family: 'Sunflower', sans-serif;
+			}
+	</style>
 	<script>
 		$(document).ready(function(){
 			var count=1; //업로드할 파일의 개수
@@ -64,43 +74,61 @@
 				tr.remove();
 				count--;
 			});
+			$('#lBtn').click(function(){
+				$(location).attr('href','../static/staticList.sm');
+			});
 		});
 	</script>
 </head>
 <body>
-  <h1 align="center">통계 페이지 글 작성하기</h1>
-  <form id="wForm"  method="post"  action="../static/staticWriteProc.sm"
-  			encType="multipart/form-data">
-  	<table border="1" width="700" align="center">
-  		<tr>
-  			<th>제목</th>
-  			<td colspan="3"><input type="text" name="title" id="title"/></td>
-  		</tr>
-  		<tr>
-  			<th>노래 제목</th>
-  			<td><input type="text" name="song" id="song"/></td>
-  			<th>가수 이름</th>
-  			<td><input type="text" name="artist" id="artist"/></td>
-  		</tr>
-  		<tr>
-  			<th>본문</th>
-  			<td colspan="3"><textarea name="body" id="body" cols="80" rows="5"></textarea></td>
-  		</tr>
-  		<tr>
-  			<th>첨부파일</th>
-  			<td colspan="3">
-  				<input type="button" id="aBtn" value="추가"/>
-  				<input type="button" id="dBtn" value="삭제"/>
-  			</td>
-  		</tr>
-  		<tr>
-  			<th>첨부파일</th>
-  			<td colspan="3"><input type="file" name="files" id="files" value="파일 선택"/></td>
-  		</tr>
-  		<tr id="copy">
-  			<th colspan="4"><input type="button" id="sBtn" value="글쓰기"/></th>
-  		</tr>
-  	</table>
-  </form>
+	<div class="container">
+		<div class="row">
+		<div class="col-lg-1"></div>
+			<div class="col-lg-10">
+			  	<h1 align="center">통계 페이지 글 작성하기</h1>
+			  		<form id="wForm"  method="post"  action="../static/staticWriteProc.sm"
+			  			encType="multipart/form-data">
+			  			<table class="table">
+					  		<tr>
+					  			<th>제목</th>
+					  			<td colspan="3"><input type="text" name="title" id="title" class="form-control form-control-sm"/></td>
+					  		</tr>
+					  		<tr>
+					  			<th>노래 제목</th>
+					  			<td><input type="text" name="song" id="song" class="form-control form-control-sm"/></td>
+					  			<th>가수 이름</th>
+					  			<td><input type="text" name="artist" id="artist" class="form-control form-control-sm"/></td>
+					  		</tr>
+					  		<tr>
+					  			<th>본문</th>
+					  			<td colspan="3"><textarea name="body" id="body" cols="80" rows="5" class="form-control"></textarea></td>
+					  		</tr>
+					  		<tr>
+					  			<th>첨부파일</th>
+					  			<td colspan="3">
+					  				<input type="button" id="aBtn" value="추가"/>
+					  				<input type="button" id="dBtn" value="삭제"/>
+					  			</td>
+					  		</tr>
+					  		<tr>
+					  			<th>첨부파일</th>
+					  			<td colspan="3">
+					  				<input type="file" name="files" id="files" value="파일 선택"/>
+					  			</td>
+					  		</tr>
+					  		<tr id="copy">
+					  			<td colspan="5" align="center">
+						  			<div class="btn-group btn-group">
+						  				<button  type="button" class="btn btn-outline-secondary" id="sBtn">글쓰기</button>
+						  				<button  type="button" class="btn btn-outline-secondary" id="lBtn">목록보기</button>
+						  			</div>
+					  			</td>
+					  		</tr>
+			  			</table>
+			  	</form>
+			</div>
+			<div class="col-lg-1"></div>
+		</div>
+	</div>
 </body>
 </html>

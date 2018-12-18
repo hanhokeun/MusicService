@@ -50,7 +50,7 @@ public class StaticService implements StaticServiceInter {
 	@Override
 	public RVPage getRvPageInfo(int rvPage, int oriNo) throws Exception {
 		int rvCount = sDAO.getRvTotalCount(oriNo);
-		RVPage rPage = new RVPage(rvPage,rvCount,5,3);
+		RVPage rPage = new RVPage(rvPage,rvCount,3,3);
 		return rPage;
 	}
 	//댓글 조회하기
