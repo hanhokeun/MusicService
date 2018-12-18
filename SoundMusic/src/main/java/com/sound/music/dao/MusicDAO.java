@@ -31,4 +31,10 @@ public interface MusicDAO {
 		public void rvModify(MusicInfoVO rvo)throws Exception;
 		//리뷰 삭제하기
 		public void rvDelete(int rvno)throws Exception;
+		//추천 유효성 검사
+		public MusicInfoVO selectStar(MusicInfoVO vo) throws Exception;
+		//추천수 증가
+		public void updateStar(int no)throws Exception;
+		//추천곡 리스트 수정
+		public void updateSlist(MusicInfoVO vo)throws Exception;
 }
