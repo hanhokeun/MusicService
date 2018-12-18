@@ -82,4 +82,38 @@ public class MusicListDAOimpl implements MusicDAO {
 	public void rvDelete(int rvno) throws Exception {
 		session.update("musicinfo.reviewDelete",rvno);
 	}
+	
+	//추천 유효성 검사
+	@Override
+	public MusicInfoVO selectStar(MusicInfoVO vo) throws Exception {
+			boolean permit = false;
+			MusicInfoVO svo = new MusicInfoVO();
+			String res = session.selectOne("musicinfo.selectStar", vo);
+			System.out.println("[3]res="+res);
+			if(res=="" || res == null) {
+				permit = true;
+				svo.setPermit(permit);
+				res = session.selectOne("musicinfo.selectSlist",vo.getId());
+				vo.setRes(res);
+				return svo;
+			}
+			else {
+				svo.setRes(res);
+				svo.setPermit(permit);
+				return svo;
+			}
+		
+	}
+	
+	//추천수 증가
+	@Override
+	public void updateStar(int no) throws Exception {
+		session.update("musicinfo.updateStar",no);
+	}
+	
+	//추천곡 목록 수정
+	@Override
+	public void updateSlist(MusicInfoVO vo) throws Exception {
+		session.update("musicinfo.updateSlist", vo);
+	}
 }

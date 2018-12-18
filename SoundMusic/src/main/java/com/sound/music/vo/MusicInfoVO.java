@@ -27,6 +27,10 @@ public class MusicInfoVO {
 	private String writer;
 	private Date wdate;
 	
+	private String strNo;
+	private boolean permit;
+	private String res;
+	
 	
 	public String getDate() {
 		SimpleDateFormat form1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -54,6 +58,31 @@ public class MusicInfoVO {
 	
 	
 	
+	
+	
+	public boolean isPermit() {
+		return permit;
+	}
+
+	public void setPermit(boolean permit) {
+		this.permit = permit;
+	}
+
+	public String getRes() {
+		return res;
+	}
+
+	public void setRes(String res) {
+		this.res = res;
+	}
+
+	public String getStrNo() {
+		return strNo;
+	}
+
+	public void setStrNo(String strNo) {
+		this.strNo = strNo;
+	}
 
 	public Date getWdate() {
 		return wdate;

@@ -13,8 +13,8 @@
   
 </head>
 <body>
+<a href="../main.jsp"><img src="../resources/images/admin.png" alt="사진"/></a>
 <div class="container">	
-		<h2>관리자</h2>
 		<ul class="nav navbar-nav navbar-right">			
 			<li><a href="../main.jsp"><span class="glyphicon glyphicon-log-in"></span> 나가기</a></li>
 		</ul>	
@@ -51,6 +51,7 @@
     </tbody>
   </table>
   </br>
+ <div class="text-center">
   <%-- 페이지 이동기능 --%>	  
   <nav aria-label="Page navigation example">
   	<ul class="pagination justify-content-center">
@@ -92,6 +93,7 @@
    		</ul>
 	</nav>
 	</br><hr> 
+	</div>
   </div>
  </div> 
 </body>

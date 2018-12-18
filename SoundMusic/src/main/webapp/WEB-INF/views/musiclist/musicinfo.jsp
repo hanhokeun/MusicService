@@ -70,11 +70,21 @@ function rdProc(rno){
 	confirm('정말 삭제하시겠습니까?')
 	$('#rvdFrm_'+rno).submit();
 }
+//추천기능
+function likeProc(){
+	$('#c').submit();
+}
 </script>
 <body>
 <% String path = "http://localhost:80/music/musiclist";	 %>
 <form id="d" method="POST" action="../musiclist/musiclistdelete.sm?nowPage=${NOWPAGE}&mNo=${INFO.no}">
 <input type="hidden" id="dNo" name="dNo" value="${INFO.no}" />
+</form>
+<form id="c" method="POST" action="../musiclist/updateStar.sm">
+<input type="hidden" id="starNo" name="starNo" value="${INFO.no}" />
+<input type="hidden" id="starId" name="starId" value="${list.writer}" />
+<input type="hidden" id="sNowPage" name="sNowPage" value="${NOWPAGE}" />
+<input type="hidden" id="sGenre" name="sGenre" value="${GENRE}" />
 </form>
   	<!-- 이곳은 음악의 상세 정보를 표시하는 창
   	VO로부터 파라미터를 가져와서 표시할 예정  -->
@@ -105,10 +115,13 @@ function rdProc(rno){
 	</tr>
 	<tr>
 		<td colspan="3">
-			<input type="button" id="goList" name="goList" value="목록으로">
-			<input type="button" id="like" name="like" value="추천하기 ${INFO.star}">
-			<input type="button" onclick="mProc()" value="수정하기">
-			<input type="button" onclick="dProc()" value="삭제하기">
+		<div class="container">
+			<input type="button" class="btn btn-info" id="goList" name="goList" value="목록으로">
+			<input type="button" class="btn btn-success" id="like" name="like" 
+			onclick="javascript:likeProc('${INFO.no}')" value="추천하기 ${INFO.star}">
+			<input type="button" class="btn" onclick="mProc()" value="수정하기">
+			<input type="button" class="btn" onclick="dProc()" value="삭제하기">
+		</div>	
 		</td>
 	</tr>
 </table>

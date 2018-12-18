@@ -68,7 +68,7 @@ public class MemberService {
 		public String getidSearch(MemberVO vo) {
 			/*System.out.println("회원 이이디 찾기 서비스");*/
 			String result =  mDAO.idSearch(vo);
-			/*System.out.println("서비스의 result="+result);*/
+			System.out.println("서비스의 result="+result);
 			return result;
 		}
 		

@@ -1,9 +1,15 @@
 package com.sound.music.controller;
 
+import java.awt.Dimension;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -264,6 +270,48 @@ public class MusicListController {
 		//모델,뷰
 		RedirectView rv = new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+oriNo+
 				"&genre="+genre+"&rvPage="+rvPage);
+		mv.setView(rv);
+		return mv;
+	}
+	//추천수 증가
+	@RequestMapping("/updateStar")
+	public ModelAndView updateStar(HttpServletRequest req, ModelAndView mv, HttpSession session,
+			HttpServletResponse resp) throws Exception {
+		//파라미터
+		session.setAttribute("UID", "cloud");
+		String strNo = req.getParameter("starNo");
+		String id = (String)session.getAttribute("UID");
+		int no = Integer.parseInt(strNo);
+		String nowPage = req.getParameter("sNowPage");
+		String genre = req.getParameter("sGenre");
+		//서비스
+		//넘어온 아이디가 내가 선택하려는 음악번호를 가지고있는 지 알아보자
+		System.out.println("[1]id="+id);
+		MusicInfoVO resVo = musicInfoService.selectStar(id,strNo);
+		String res = resVo.getRes();
+		//1. 만약 없다면
+		//추천수 증가와 유저의 추천곡 목록 수정
+		boolean permit = resVo.isPermit();
+		System.out.println("[4]permit="+permit);
+		if(permit==true) {
+			res = res+strNo+"/";
+			System.out.println("[5]res="+res);
+			musicInfoService.updateStar(no);
+			musicInfoService.updateSlist(res,id);
+		}
+		//2. 만약 있다면..
+		else {
+			
+			resp.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = resp.getWriter();
+			out.println("<script>");
+			out.println("alert('이미 추천한 곡입니다!');");
+			out.println("history.back();");
+			out.println("</script>");
+			out.close();	
+		}
+		//모델, 뷰
+		RedirectView rv = new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+no+"&genre="+genre);
 		mv.setView(rv);
 		return mv;
 	}

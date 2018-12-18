@@ -1,5 +1,6 @@
 package com.sound.music.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -111,6 +112,32 @@ public class MusicInfoServiceimpl implements MusicInfoService {
 	public void rvDelete(int rvno) throws Exception {
 		musicDAO.rvDelete(rvno);
 	}
+	
+	//추천 유효성 검사
+	@Override
+	public MusicInfoVO selectStar(String id, String strNo) throws Exception {
+		System.out.println("[2]strNo="+strNo);
+		MusicInfoVO vo = new MusicInfoVO();
+		vo.setId(id);
+		vo.setStrNo(strNo);
+		return musicDAO.selectStar(vo);	 
+	}
+	
+	//추천수 증가
+	@Override
+	public void updateStar(int no) throws Exception {
+		musicDAO.updateStar(no);
+	}
+	
+	//추천곡 리스트 추가
+	@Override
+	public void updateSlist(String res, String id) throws Exception {
+		MusicInfoVO vo = new MusicInfoVO();
+		vo.setRes(res);
+		vo.setId(id);
+		musicDAO.updateSlist(vo);
+	}
+
 	
 	
 

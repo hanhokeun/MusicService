@@ -16,7 +16,7 @@
 				MU_GENRE AS genre,
 				MU_IMAGEPATH AS path,
 				MU_STAR AS star,
-				ROW_NUMBER() OVER(ORDER BY MU_STAR ASC) AS rno
+				ROW_NUMBER() OVER(ORDER BY MU_STAR DESC) AS rno
 			 FROM
 				MUSIC
 			 WHERE
@@ -194,4 +194,42 @@
 		WHERE
 			MUB_NO = #{rvno}
 	</update>	
+	<!-- 12.추천수 증가 -->
+	<update id="updateStar">
+		UPDATE 
+			MUSIC
+		SET
+			MU_STAR = MU_STAR+1
+		WHERE MU_NO = #{no}	
+	</update>
+	<!-- 13.로그인한 유저의 추천곡 유효성검사  -->
+	<select id="selectStar" parameterType="com.sound.music.vo.MusicInfoVO" resultType="java.lang.String">
+		SELECT 
+			S_SEL
+		FROM 
+			STAR
+		WHERE 
+			S_ID = #{id}	
+		AND
+			S_SEL LIKE '%'||#{strNo}||'%'
+			
+	</select>
+	<!-- 14.유저의 추천곡 목록 수정 -->
+	<update id="updateSlist" parameterType="com.sound.music.vo.MusicInfoVO">
+		UPDATE STAR
+			SET
+			S_SEL = #{res}
+		WHERE
+			S_ID = #{id}
+	</update>
+	<!-- 15.선택한 유저의 추천곡 목록 가져오기 -->
+	<select id="selectSlist" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT 
+			S_SEL
+		FROM 
+			STAR
+		WHERE 
+			S_ID = #{id}	
+			
+	</select>
 </mapper>				

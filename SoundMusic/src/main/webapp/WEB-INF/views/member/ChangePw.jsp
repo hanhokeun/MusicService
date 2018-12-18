@@ -65,15 +65,16 @@
   
 </head>
 <body>
-<div class="container">	
-		<h1>My Page</h1>
+<a href="../member/Profile.sm"><img src="../resources/images/mypage.png" alt="사진"/></a>
+<div class="container">		
 		<ul class="nav navbar-nav navbar-right">			
 			<li><a href="../main.jsp"><span class="glyphicon glyphicon-log-in"></span> 나가기</a></li>
 		</ul>	
   <div class="row">
   </br><hr></br>
+  <div class="col-lg-2"></div>
  <ul class="nav nav-tabs nav-justified">
-    <li class="active"><a href="../member/Profile.sm">프로필 관리</a></li>
+    <li class="active"><a href="../member/Profile.sm">프로필관리</a></li>
     <li><a href="../member/ChangePw.sm">비밀번호 변경</a></li>
     <li><a href="#">-</a></li>    
     <li><a href="#" onclick="defileForm()">회원탈퇴</a></li>    

@@ -51,8 +51,8 @@ public class MemberDAO extends SqlSessionDaoSupport {
 	
 	//회원 아이디 찾기
 	public String idSearch(MemberVO vo) {
-		/*System.out.println("회원아이디찾기 DAO");
-		System.out.println("DAO받은ID값="+vo);*/		
+		/*System.out.println("회원아이디찾기 DAO");*/
+		System.out.println("DAO받은ID값="+vo);		
 		return session.selectOne("member.idSearch",vo);
 	}
 	

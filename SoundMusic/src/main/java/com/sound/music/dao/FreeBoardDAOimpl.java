@@ -36,8 +36,9 @@ public class FreeBoardDAOimpl implements FreeBoardDAO {
 	//글 목록보기
 	@Override
 	public ArrayList getBoardList(FreeBoardVO vo)throws Exception {
-		
+		System.out.println("목록 가져오기 시작");
 		return (ArrayList)session.selectList("freeBoard.boardList",vo);
+		
 	}
 	//글 상세보기
 	@Override
@@ -53,9 +54,8 @@ public class FreeBoardDAOimpl implements FreeBoardDAO {
 	}
 	// 조회수 증가
 	@Override
-	public void updateHit(int no) throws Exception{
-		session.update("freeBoard.updateHit",no);	
-
+	public void updateHit(int oriNo) throws Exception{
+		session.update("freeBoard.updateHit",oriNo);	
 	}
 	// 파일 다운로드
 	@Override
