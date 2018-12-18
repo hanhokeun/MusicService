@@ -2,43 +2,28 @@
 <!DOCTYPE mapper PUBLIC 
 				"-//mybatis.org//DTD Mapper 3.0//EN" 
 				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="static">
+<mapper namespace="Static">
 	<sql id="isShow">
 		UPPER(s_IsShow)='Y'
 	</sql>
 	<sql id="selectField">
-		 s_Title AS TITLE, s_Date AS WDAY, s_Hit AS HIT, s_Song AS song, s_Artist AS artist
+		 s_Title AS TITLE, s_Date AS WDAY, s_Hit AS HIT, s_Song AS song, S_ARTIST AS artist
 	</sql>
 	<sql id="selectFileInfo">
 		sf_OriName AS oriName, sf_SaveName AS saveName, sf_FilePath AS path
 	</sql>
-	<!-- 게시물 개수 구하기 -->
-	<select id="totalCount" resultType="int">
-		select count(*) as cnt from StaticMusic where upper(s_IsShow)='Y'
-	</select>
 	<!-- 게시물 등록 -->
-	<insert id="insertStatic" parameterType="Static">
+	<insert id="insertStatic" parameterType="static">
 		<selectKey order="BEFORE" resultType="int"  keyProperty="no">
 			select NVL(max(s_No),0)+1 from StaticMusic
 		</selectKey>
 		insert into StaticMusic values(#{no}, #{title}, #{body}, 'Y', 0, SYSDATE,#{artist},#{song})
 	</insert>
 	<!-- 업로드된 파일 정보 등록-->
-	<insert id="insertFile" parameterType="Static">
+	<insert id="insertFile" parameterType="static">
 		insert into StaticFile values((select NVL(max(sf_No),0)+1 sf_No from StaticFile),
 		 #{oriNo},#{path},#{oriName},#{saveName},#{len},0)
 	</insert>
-	<!-- 게시물 목록보기 -->
-	<select id="selectList" resultType="Static" parameterType="Static">
-		SELECT * FROM 
-		 (SELECT StaticMusic.s_No AS NO, <include refid="selectField"/>,
-	 	 ROW_NUMBER() OVER(ORDER BY StaticMusic.s_NO ASC) AS RNO, 
-		 NVL(t1.CNT, 0) AS fileCount FROM StaticMusic, 
-		(SELECT COUNT(*) AS CNT, s_No as no FROM staticFile GROUP BY s_No) t1
-		 WHERE <include refid="isShow"/> AND 
-		 StaticMusic.s_No = t1.no(+)) 
-		WHERE RNO BETWEEN #{start} AND #{end}
-	</select>
 	<!-- 조회수 증가 질의 명령 -->
 	<update id="updateHit" parameterType="int">
 		update staticMusic set s_Hit=s_Hit+1 where s_No=#{no}
@@ -55,6 +40,10 @@
 	<select id="fileInfo" parameterType="int" resultType="static">
 		select sf_No as no, s_No as oriNo, <include refid="selectFileInfo"/>, sf_Count as cnt, sf_Length as len
 		from staticFile where s_No=#{oriNo}
+	</select>
+	<!-- 댓글 총 개수 구하기 질의 -->
+	<select id="selectTotalReply" parameterType="int" resultType="int">
+		select count(*) as cnt from StaticReply where sr_IsShow='Y' and s_No = #{oriNo}
 	</select>
 	<!-- 댓글등록 질의 -->
 	<insert id="insertReply" parameterType="static">
@@ -103,4 +92,81 @@
 	<delete id="deleteAllFile" parameterType="int">
 		delete from staticFile where s_No=#{oriNo}
 	</delete>
+	<!-- 검색하기, 목록보여주기-->
+	<select id="searchList" parameterType="static" resultType="static">
+		SELECT * FROM 
+		 (SELECT s_No AS NO, s_Title AS TITLE, s_Date AS WDAY, s_Hit AS HIT,  
+		 s_Body as body, s_Artist as artist, s_Song as song,
+	 	 ROW_NUMBER() OVER(ORDER BY s_NO desc) AS RNO, 
+		 NVL(t1.CNT, 0) AS fileCount FROM StaticMusic, 
+		(SELECT COUNT(*) AS CNT, s_No as no FROM staticFile GROUP BY s_No) t1
+		 WHERE <include refid="isShow"/> AND 
+		 StaticMusic.s_No = t1.no(+)) 
+		WHERE RNO BETWEEN #{start} AND #{end}  
+		<if test="searchOption eq 1">
+			<if test="keyword !=''">
+				and title like '%'||#{keyword}||'%' or
+				body like '%'||#{keyword}||'%' or 
+				song like '%'||#{keyword}||'%' or 
+				artist like '%'||#{keyword}||'%'
+			</if>
+		</if>
+			<!--검색 옵션이 제목일 경우 -->
+		<if test="searchOption eq 2">
+			<if test="keyword!=''">
+				and title like '%'||#{keyword}||'%'
+			</if>
+		</if>
+		<if test="searchOption eq 3">
+			<!-- 검색 옵션이 내용일 경우 -->
+			<if test="keyword!=''">
+				and body like '%'||#{keyword}||'%'
+			</if>
+		</if>
+		<if test="searchOption eq 4">
+			<if test="keyword!=''">
+				and song like '%'||#{keyword}||'%'
+			</if>
+		</if>
+		<if test="searchOption eq 5">
+			<if test="keyword!=''">
+				and artist like '%'||#{keyword}||'%'
+			</if>
+		</if>
+	</select>
+	<!-- 검색하기 갯수 보여주기, 목록 갯수 보여주기 -->
+	<select id="searchCount" parameterType="static" resultType="int">
+		select count(*) as cnt  from StaticMusic where <include refid="isShow"></include>
+			<!-- 검색 옵션이 전체 검색일 경우 -->
+		<if test="searchOption eq 1">
+			<if test="keyword !=''">
+				s_Title like '%'||#{keyword}||'%' or
+				s_Body like '%'||#{keyword}||'%' or 
+				s_Song like '%'||#{keyword}||'%' or 
+				s_Artist like '%'||#{keyword}||'%'
+			</if>
+		</if>
+			<!--검색 옵션이 제목일 경우 -->
+		<if test="searchOption eq 2">
+			<if test="keyword!=''">
+				s_Title like '%'||#{keyword}||'%'
+			</if>
+		</if>
+		<if test="searchOption eq 3">
+			<!-- 검색 옵션이 내용일 경우 -->
+			<if test="keyword!=''">
+				s_Body like '%'||#{keyword}||'%'
+			</if>
+		</if>
+		<if test="searchOption eq 4">
+			<if test="keyword!=''">
+				s_Song like '%'||#{keyword}||'%'
+			</if>
+		</if>
+		<if test="searchOption eq 5">
+			<if test="keyword!=''">
+				s_Artist like '%'||#{keyword}||'%'
+			</if>
+		</if>
+	</select>
 </mapper>

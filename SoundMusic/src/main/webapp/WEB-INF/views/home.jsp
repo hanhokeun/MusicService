@@ -20,5 +20,6 @@
 	<a href="./freeBoard/boardList.sm">freeBoard(가즈아)</a>
 	<p/><p/>	
 	<a href="./notice/noticeList.sm">noticeBoard(go)</a>
+	<a href="./static/staticList.sm">StaticList가기</a>
 </body>
 </html>

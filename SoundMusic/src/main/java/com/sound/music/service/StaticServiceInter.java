@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 
 import com.sound.music.util.PageUtil;
+import com.sound.music.util.RVPage;
 import com.sound.music.vo.StaticVO;
 
 public interface StaticServiceInter {
 
-	//페이지 정보 처리하기
-	public PageUtil getPageInfo(int nowPage) throws Exception;
-	//통계 게시글 목록보기
-	public ArrayList<StaticVO> List(PageUtil pInfo) throws Exception;
+	//통계 게시글 검색하기, 목록보기
+	public ArrayList<StaticVO> SearchList(PageUtil pInfo,StaticVO vo) throws Exception;
+	//통계 게시글 검색,목록 페이지정보 처리
+	public PageUtil totalCount(int nowPage,StaticVO vo) throws Exception;
 	//통계 게시글 등록
 	public void insertStatic(StaticVO vo, ArrayList list)throws Exception;
 	//통계 게시글 보기
@@ -29,6 +30,8 @@ public interface StaticServiceInter {
 	public ArrayList<StaticVO> selectFileInfo(int no) throws Exception;
 	//게시글 파일 삭제
 	public void deleteFile(int no) throws Exception;
+	//게시글 댓글 페이징 처리
+	public RVPage getRvPageInfo(int rvPage, int no) throws Exception;
 	//댓글 조회
 	public ArrayList<StaticVO> selectReply(int no) throws Exception;
 	//댓글 등록
