@@ -4,23 +4,39 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
 function mProc(){
 	$('#mForm').submit();
 }
+function gMain(){
+	$(location).attr('href','../musiclist/musiclist.sm')
+}
 </script>
 </head>
 <body>
-<h1 align="center">음악리스트 수정</h1>
+<div class="container">
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+<br/>
+<br/>
+<br/>		
+<h1 align="center" style="box-shadow:4px 4px 6px 4px"]><i><font color="#9999FF">MODIFY LIST</font></i></h1>
+<br/>
+<br/>
 <form id=mForm method="POST" action="../musiclist/musiclistmodifyproc.sm">
 	<input type="hidden" name="mNo" value="${LIST.no}" />
 	<input type="hidden" name="nowPage" value="${LIST.nowPage}" />
-	<table border="1" align="center" width="450">
+	<table class="table table-striped" align="center">
 		<tr>
-			<th>곡명</th>
-			<td width="30%">
+			<th width="48%">곡명</th>
+			<td>
 				<input type="text" id="mTitle" name="mTitle" size="45" value="${LIST.title}"/>			
 			</td>
 		</tr>
@@ -54,16 +70,21 @@ function mProc(){
 		<tr>
 			<th>가사</th>
 			<td>
-				<textarea cols="46" id="mLyrics" name="mLyrics">${LIST.lyrics}</textarea>
+				<textarea class="form-control" cols="46" rows="5" id="mLyrics" name="mLyrics" style="resize:none;">${LIST.lyrics}</textarea>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
 				<input type="button" onclick="mProc()" value="수정하기"/>
 				<input type="reset" id="rBtn" value="취소"/>
+				<input type="button" id="goList" name="goList" value="메인으로" onclick="gMain()" />
 			</td>
 		</tr>
 	</table>
 </form>
+	</div>
+	<div class="col-md-2"></div>
+	</div>
+</div>
 </body>
 </html>

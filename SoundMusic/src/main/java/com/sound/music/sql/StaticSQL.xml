@@ -12,6 +12,39 @@
 	<sql id="selectFileInfo">
 		sf_OriName AS oriName, sf_SaveName AS saveName, sf_FilePath AS path
 	</sql>
+	<sql id="search">
+		<!-- 검색 옵션이 전체일 경우 -->
+		<if test="searchOption eq 1">
+			<if test="keyword !=''">
+				and (s_Title like '%'||#{keyword}||'%' or
+				s_Body like '%'||#{keyword}||'%' or 
+				s_Song like '%'||#{keyword}||'%' or 
+				s_Artist like '%'||#{keyword}||'%')
+			</if>
+		</if>
+		<!--검색 옵션이 제목일 경우 -->
+		<if test="searchOption eq 2">
+			<if test="keyword!=''">
+				and s_Title like '%'||#{keyword}||'%'
+			</if>
+		</if>
+		<if test="searchOption eq 3">
+			<!-- 검색 옵션이 내용일 경우 -->
+			<if test="keyword!=''">
+				and s_Body like '%'||#{keyword}||'%'
+			</if>
+		</if>
+		<if test="searchOption eq 4">
+			<if test="keyword!=''">
+				and s_Song like '%'||#{keyword}||'%'
+			</if>
+		</if>
+		<if test="searchOption eq 5">
+			<if test="keyword!=''">
+				and s_Artist like '%'||#{keyword}||'%'
+			</if>
+		</if>
+	</sql>
 	<!-- 게시물 등록 -->
 	<insert id="insertStatic" parameterType="static">
 		<selectKey order="BEFORE" resultType="int"  keyProperty="no">
@@ -82,7 +115,7 @@
 	<!-- 원글 수정하기 -->
 	<update id="updateStatic" parameterType="static">
 		update StaticMusic set s_Title=#{title}, s_Body=#{body},s_Song=#{song},
-		s_Artist=#{artist}	,s_Date=SYSDATE where s_No=#{no} 
+		s_Artist=#{artist}	,s_Date=SYSDATE where s_No=#{oriNo} 
 	</update>
 	<!-- 원글 삭제하기 -->
 	<update id="deleteStatic" parameterType="int">
@@ -101,72 +134,14 @@
 		 NVL(t1.CNT, 0) AS fileCount FROM StaticMusic, 
 		(SELECT COUNT(*) AS CNT, s_No as no FROM staticFile GROUP BY s_No) t1
 		 WHERE <include refid="isShow"/> AND 
-		 StaticMusic.s_No = t1.no(+)) 
+		 StaticMusic.s_No = t1.no(+)
+		<include refid="search"></include>) 
 		WHERE RNO BETWEEN #{start} AND #{end}  
-		<if test="searchOption eq 1">
-			<if test="keyword !=''">
-				and title like '%'||#{keyword}||'%' or
-				body like '%'||#{keyword}||'%' or 
-				song like '%'||#{keyword}||'%' or 
-				artist like '%'||#{keyword}||'%'
-			</if>
-		</if>
-			<!--검색 옵션이 제목일 경우 -->
-		<if test="searchOption eq 2">
-			<if test="keyword!=''">
-				and title like '%'||#{keyword}||'%'
-			</if>
-		</if>
-		<if test="searchOption eq 3">
-			<!-- 검색 옵션이 내용일 경우 -->
-			<if test="keyword!=''">
-				and body like '%'||#{keyword}||'%'
-			</if>
-		</if>
-		<if test="searchOption eq 4">
-			<if test="keyword!=''">
-				and song like '%'||#{keyword}||'%'
-			</if>
-		</if>
-		<if test="searchOption eq 5">
-			<if test="keyword!=''">
-				and artist like '%'||#{keyword}||'%'
-			</if>
-		</if>
 	</select>
 	<!-- 검색하기 갯수 보여주기, 목록 갯수 보여주기 -->
 	<select id="searchCount" parameterType="static" resultType="int">
-		select count(*) as cnt  from StaticMusic where <include refid="isShow"></include>
-			<!-- 검색 옵션이 전체 검색일 경우 -->
-		<if test="searchOption eq 1">
-			<if test="keyword !=''">
-				s_Title like '%'||#{keyword}||'%' or
-				s_Body like '%'||#{keyword}||'%' or 
-				s_Song like '%'||#{keyword}||'%' or 
-				s_Artist like '%'||#{keyword}||'%'
-			</if>
-		</if>
-			<!--검색 옵션이 제목일 경우 -->
-		<if test="searchOption eq 2">
-			<if test="keyword!=''">
-				s_Title like '%'||#{keyword}||'%'
-			</if>
-		</if>
-		<if test="searchOption eq 3">
-			<!-- 검색 옵션이 내용일 경우 -->
-			<if test="keyword!=''">
-				s_Body like '%'||#{keyword}||'%'
-			</if>
-		</if>
-		<if test="searchOption eq 4">
-			<if test="keyword!=''">
-				s_Song like '%'||#{keyword}||'%'
-			</if>
-		</if>
-		<if test="searchOption eq 5">
-			<if test="keyword!=''">
-				s_Artist like '%'||#{keyword}||'%'
-			</if>
-		</if>
+		select count(*) as cnt  from StaticMusic where 
+		<include refid="isShow"></include>
+		<include refid="search"></include>
 	</select>
 </mapper>

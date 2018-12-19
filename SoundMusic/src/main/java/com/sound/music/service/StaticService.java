@@ -50,7 +50,7 @@ public class StaticService implements StaticServiceInter {
 	@Override
 	public RVPage getRvPageInfo(int rvPage, int oriNo) throws Exception {
 		int rvCount = sDAO.getRvTotalCount(oriNo);
-		RVPage rPage = new RVPage(rvPage,rvCount,5,3);
+		RVPage rPage = new RVPage(rvPage,rvCount,3,3);
 		return rPage;
 	}
 	//댓글 조회하기
@@ -97,6 +97,10 @@ public class StaticService implements StaticServiceInter {
 	@Override
 	public void update(StaticVO vo,ArrayList list) throws Exception {
 		sDAO.update(vo,"static");
+		System.out.println("title:"+vo.getTitle());
+		System.out.println("body:"+vo.getBody());
+		System.out.println("artist:"+vo.getArtist());
+		System.out.println("song:"+vo.getSong());
 		for(int i=0;i<list.size();i++) {
 			//파일에 대한 정보를 list가 가지고 있고 파일 한개당 정보는 Map이 가지고 있음
 			//map의 정보를 활용해서 vo에 담아 실행시켜 줄 수 있도록 함

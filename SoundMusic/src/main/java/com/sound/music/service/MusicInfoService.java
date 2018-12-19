@@ -37,4 +37,10 @@ public interface MusicInfoService {
 	public void updateStar(int no)throws Exception;
 	//추천곡 리스트 수정
 	public void updateSlist(String res, String id)throws Exception;
+	//삭제 음악 리스트
+	public List<MusicInfoVO> rcList(PageUtil pInfo, String genre) throws Exception;
+	//삭제 음악 페이징
+	public PageUtil getrcPageInfo(int nowPage, String genre) throws Exception;
+	//음악 복원
+	public void recycleMusic(int no) throws Exception;
 }

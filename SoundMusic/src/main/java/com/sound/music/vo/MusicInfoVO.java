@@ -19,7 +19,7 @@ public class MusicInfoVO {
 	private int sub;
 	private String svalue;
 	private String nowPage;
-	
+	private int cnt;
 	
 	private int oriNo;
 	private String id;
@@ -60,6 +60,16 @@ public class MusicInfoVO {
 	
 	
 	
+	
+	
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
 	public boolean isPermit() {
 		return permit;
 	}

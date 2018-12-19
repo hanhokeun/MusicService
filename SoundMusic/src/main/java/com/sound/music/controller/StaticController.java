@@ -42,6 +42,8 @@ public class StaticController {
 		//검색한 뒤에 검색값이 없으면 모든 목록, 아니면 검색한 목록 보여주기
 		PageUtil pInfo = sService.totalCount(nowPage,vo);
 		ArrayList list = sService.SearchList(pInfo, vo);
+		mv.addObject("KEYWORD", keyword);
+		mv.addObject("SEARCHOPTION",searchOption);
 		mv.addObject("LIST", list);
 		mv.addObject("PINFO",pInfo);
 		mv.setViewName("static/staticList");
@@ -74,6 +76,7 @@ public class StaticController {
 			StaticVO vo,ModelAndView mv) throws Exception {
 		String nowPage=req.getParameter("nowPage");
 		int oriNo = vo.getOriNo();
+		System.out.println("oriNo="+oriNo);
 		String path=req.getSession().getServletContext().getRealPath("/upload/");
 		ArrayList list=new ArrayList(); //파일 정보를 하나로 묶는 list
 		for(int i =0; i<vo.getFiles().length;i++) {
@@ -99,9 +102,9 @@ public class StaticController {
 			map.put("len",file.length());
 			list.add(map);			
 		}
+		sService.update(vo, list); //원글 내용 수정
 		//서비스위임
 		//한개의 파일 정보를 Map으로 묶고 여러 개의 파일 정보들이 담긴 Map을 List로 묶어 전달
-		sService.update(vo, list);
 		RedirectView rv = new RedirectView("../static/staticDetail.sm");
 		rv.addStaticAttribute("nowPage", nowPage);
 		rv.addStaticAttribute("oriNo", oriNo);
