@@ -169,28 +169,28 @@
 			  <table align="center" class="table">
 			  	<tbody>
 			  		<tr align="center">
-			  			<th>글번호</th>
+			  			<td align="center"><b>글번호</b></td>
 			  			<td>${VIEW.no}</td>
-			  			<th>조회수</th>
+			  			<td align="center"><b>조회수</b></td>
 			  			<td>${VIEW.hit}</td>
-			  			<th>작성일/수정일</th>
+			  			<td align="center"><b>작성일/수정일</b></td>
 			  			<td>${VIEW.date}</td>
 			  		</tr>
 			  		<tr>
-			  			<th>노래 제목</th>
-			  			<td colspan="3" >${VIEW.song}</td>
-			  			<th>가수 이름</th>
-			  			<td>${VIEW.artist}</td>
+			  			<td align="center"><b>노래 제목</b></td>
+			  			<td colspan="3"  align="center">${VIEW.song}</td>
+			  			<td align="center"><b>가수 이름</b></td>
+			  			<td align="center">${VIEW.artist}</td>
 			  		</tr>
 			  		<tr>
-			  			<th width="100">제목</th>
+			  			<td align="center"><b>제목</b></td>
 			  			<td colspan="4" >${VIEW.title}</td>
-			  			<td>
+			  			<td align="center">
 			  				<div class="container">
 			        			<div class="row">
 			        				<div class="col-xs-12">
 			         				 	<div class="page">
-			            					<button type="button" id="youtube" class="bmd-modalButton" data-toggle="modal"  data-bmdWidth="600" data-bmdHeight="400" data-target="#myModal"  data-bmdVideoFullscreen="true">${VIEW.song} movie</button>           
+			            						<button type="button" id="youtube" class="bmd-modalButton" data-toggle="modal"  data-bmdWidth="600" data-bmdHeight="400" data-target="#myModal"  data-bmdVideoFullscreen="true">${VIEW.song} 영상보기</button>           
 			      						</div>
 			        				</div>
 			      				</div>
@@ -198,7 +198,7 @@
 			      		</td>
 			  		</tr>
 			  		<tr>
-			  			<th>내용</th>
+			  			<td align="center"><b>내용</b></td>
 			  			<td colspan="6">${VIEW.brBody}</td>
 			      	</tr>
 			   	</tbody>

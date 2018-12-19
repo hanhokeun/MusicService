@@ -58,7 +58,7 @@
 					return;
 				}
 				//추가할 폼
-				var tr= 	"<p><input type='file' name='files' id='files"+count+
+				var tr= 	"<p align='left'><input type='file' name='files' id='files"+count+
 							"' value='파일선택'/></p>"
 				//원하는 위치에 추가
 				$('#fileDiv').after(tr);
@@ -89,7 +89,7 @@
 		<div class="row">
 			<div class="col-lg-1"></div>
 			<div class="col-lg-10">
-			  <h1 align="center">통계 페이지 글 작성하기</h1>
+			  <h1 align="center">통계 페이지 글 수정하기</h1>
 			  <form id="wForm"  method="post"  action="../static/staticModifyProc.sm"
 			  			encType="multipart/form-data">
 			  		<input type="hidden" name="nowPage" value="${nowPage}"/>
@@ -119,7 +119,7 @@
 				  		</tr>
 				  		<tr>
 				  			<th class="text-right">첨부파일</th>
-				  			<td colspan="3" class="text-right">
+				  			<td colspan="3" >
 				  				<input type="button" id="aBtn" value="추가"/>
 				  				<input type="button" id="dBtn" value="삭제"/>
 				  			</td>
