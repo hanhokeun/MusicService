@@ -87,21 +87,31 @@ public class MusicListDAOimpl implements MusicDAO {
 	@Override
 	public MusicInfoVO selectStar(MusicInfoVO vo) throws Exception {
 			boolean permit = false;
+			String id = vo.getId();
 			MusicInfoVO svo = new MusicInfoVO();
-			String res = session.selectOne("musicinfo.selectStar", vo);
-			if(res=="" || res == null) {
-				permit = true;
-				svo.setPermit(permit);
-				res = session.selectOne("musicinfo.selectSlist",vo.getId());
-				vo.setRes(res);
-				return svo;
-			}
+			//먼저 들어온 vo로 유효성 검사를 하자
+			 int cnt = session.selectOne("musicinfo.selectStar", vo);
+			 //1.추천곡 번호가 포함 되어있지 않으면
+			 if(cnt == 0){
+				 permit = true; // 추천 가능
+				 //이 유저의 추천곡 리스트를 불러오자
+				 MusicInfoVO tempvo = new MusicInfoVO();
+				 tempvo.setId(id);
+				 String res = session.selectOne("musicinfo.selectSlist",tempvo);
+				 svo.setRes(res);
+				 svo.setPermit(permit);
+				 return svo;
+				}
+			 //2.추천곡 번호가 포함되어 있다면
 			else {
-				svo.setRes(res);
-				svo.setPermit(permit);
-				return svo;
-			}
-	}
+				 MusicInfoVO tempvo = new MusicInfoVO();
+				 tempvo.setId(id);
+				 //이 유저의 추천곡 리스트도 담아오자
+				 String res = session.selectOne("musicinfo.selectSlist",tempvo);
+				 svo.setPermit(permit); // 추천 불가
+				 return svo;
+				}
+	}	
 	
 	//추천수 증가
 	@Override

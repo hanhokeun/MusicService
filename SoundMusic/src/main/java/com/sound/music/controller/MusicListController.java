@@ -169,7 +169,6 @@ public class MusicListController {
 		
 		//서비스
 		musicInfoService.update(vo);
-		System.out.println("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+no+"&genre="+genre);
 		
 		//모델
 		RedirectView rv = new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+no+"&genre="+genre);
@@ -198,12 +197,10 @@ public class MusicListController {
 		//파라미터
 		String strNo = req.getParameter("mrNo");
 		int oriNo = Integer.parseInt(strNo);
-		session.setAttribute("UID", "cloud");
 		String id = (String)session.getAttribute("UID");
 		String body = req.getParameter("rvBody");
 		String nowPage = req.getParameter("mrNowPage");
 		String genre = req.getParameter("mrGenre");
-		System.out.println(id);
 		vo.setOriNo(oriNo);
 		vo.setId(id);
 		vo.setBody(body);
@@ -274,7 +271,6 @@ public class MusicListController {
 	public ModelAndView updateStar(HttpServletRequest req, ModelAndView mv, HttpSession session,
 			HttpServletResponse resp) throws Exception {
 		//파라미터
-		session.setAttribute("UID", "cloud");
 		String strNo = req.getParameter("starNo");
 		String id = (String)session.getAttribute("UID");
 		int no = Integer.parseInt(strNo);
@@ -285,6 +281,7 @@ public class MusicListController {
 		MusicInfoVO resVo = musicInfoService.selectStar(id,strNo);
 		String res = resVo.getRes();
 		//1. 만약 없다면
+		//그 유저의 추천곡 리스트를 가져오자
 		//추천수 증가와 유저의 추천곡 목록 수정
 		boolean permit = resVo.isPermit();
 		if(permit==true) {
@@ -338,4 +335,5 @@ public class MusicListController {
 		mv.setView(rv);	
 		return mv;
 	}
+	
 }	
