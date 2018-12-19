@@ -41,8 +41,7 @@
   			return false;
   		}  		
   		
-  		if(confirm('비밀번호를 변경 하시겠습니까?')){
-  			alert("수정이 완료되었습니다.")
+  		if(confirm('비밀번호를 변경 하시겠습니까?')){  			
   			$("#cFrm").submit();			 
   		 }  		
   	}  	
