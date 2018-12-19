@@ -252,12 +252,12 @@
 			  			<tr>
 			  				<th>내용</th>
 			  				<td colspan="2">${reply.brBody}</td>
-			  			<%-- <c:if test="${sessionScope.UID eq reply.mId }">--%>
+			  			<c:if test="${sessionScope.UID eq (reply.mId || 'admin') }">
 			  				<td align="center">
 			  					<input type="button" class="rmBtn" value="수정" param="${reply.no}"/>
 			  					<input type="button" class="rdBtn" value="삭제" param="${reply.no}"/>
 			  				</td>
-			  			<%-- </c:if>--%>
+			  			</c:if>
 			  		</table>
 			  <%--댓글 수정폼 --%>
 					  <form id="frm${reply.no}" method="post" action="../static/staticReplyModify.sm" style="display:none;">
