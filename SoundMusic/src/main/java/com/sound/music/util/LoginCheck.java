@@ -28,9 +28,8 @@ public class LoginCheck extends HandlerInterceptorAdapter {
 			// 로그인이 아니된 경우
 			
 			// false 를 반환하면 컨트롤러가 실행되지 않고 무응답상태로 된다는 문제발생
-			
+			// 커밋용
 			//로그인 폼을 보여줘
-			//푸시용
 			try {
 			response.sendRedirect("../member/LoginForm.sm");
 			}
