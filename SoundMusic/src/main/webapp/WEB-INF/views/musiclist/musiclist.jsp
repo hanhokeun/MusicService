@@ -55,7 +55,7 @@ a.music:hover{color:black;}
 <div class="container">
 <% String path = "http://localhost:80/music/musiclist";	 %>
   <!-- 검색창  -->
-<form id="sForm" method="post" action="<%=path%>/musicrecycle.sm?nowPage=${PINFO.nowPage}&genre=${GENRE}">
+<form id="sForm" method="post" action="<%=path%>/musiclist.sm?nowPage=${PINFO.nowPage}&genre=${GENRE}">
 	<table width="930px" cellpadding="0px" align="center">
 		<tr>
 			<td><br/></td>
