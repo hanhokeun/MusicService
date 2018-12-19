@@ -3,14 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<title>Insert title here</title>
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
-  <script type="text/javascript">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
   
   	function cPForm(){
   		location.href="./../member/ChangePw.sm"
@@ -93,10 +92,12 @@
   			<td colspan="2">${MEM.name}</td>
   		</tr>
   		<tr>
-  			<th>성별</th>
+  			<th>성별</th>  		
   			<td colspan="2">
-  				<input type="radio" name="gender"  id="gender" value="남" checked/>남
- 				<input type="radio" name="gender"  id="gender1" value="여"/>여
+  				<input type="radio" name="gender"  id="gender" value="남" 
+  				<c:if test="${MEM.gender eq '남'}">checked </c:if> />남자
+ 				<input type="radio" name="gender"  id="gender1" value="여" 				
+  				<c:if test="${MEM.gender eq '여'}">checked </c:if> />여자
   			</td>
   		</tr>
   		<tr>

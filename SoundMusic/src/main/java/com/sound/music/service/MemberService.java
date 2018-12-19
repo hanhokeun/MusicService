@@ -75,6 +75,7 @@ public class MemberService {
 		
 		// 관리자 회원추방
 		public void deleteMember(String id) {
+			System.out.println("받은 아이디="+id);
 			mDAO.DeleteMember(id);
 			/*System.out.println("회원추방 서비스.java");*/
 		}
@@ -105,7 +106,7 @@ public class MemberService {
 			int totalCount=mDAO.getTotalCount();
 			
 			// 한 페이지당 3개의 게시물을 뿌리고, 5페이지씩 보여주자
-			PageUtil pInfo=new PageUtil(nowPage, totalCount, 10, 5);
+			PageUtil pInfo=new PageUtil(nowPage, totalCount, 7, 5);
 			/*System.out.println("pInfo.getListCount()="+pInfo.getListCount());
 			System.out.println("pInfo.pInfo.getPageCount()="+pInfo.getPageCount());*/
 			

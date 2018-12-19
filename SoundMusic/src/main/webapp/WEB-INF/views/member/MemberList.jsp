@@ -3,17 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<title>Insert title here</title>
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
 </head>
 <body>
-<a href="../main.jsp"><img src="../resources/images/admin.png" alt="사진"/></a>
+<a href="../member/MemberList.sm"><img src="../resources/images/admin.png" alt="사진"/></a>
 <div class="container">	
 		<ul class="nav navbar-nav navbar-right">			
 			<li><a href="../main.jsp"><span class="glyphicon glyphicon-log-in"></span> 나가기</a></li>
@@ -34,7 +33,7 @@
         <th>회원이름</th>
         <th>이메일</th>
         <th>가입일</th>
-        <th>삭제</th>        
+        <th>추방</th>        
       </tr>
     </thead>
     <tbody>

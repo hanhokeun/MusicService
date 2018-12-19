@@ -96,6 +96,8 @@
 		UPDATE
 			MEMBER
 		SET
+			m_Pw = 'XXXX',
+			m_Email = 'XXXXX',
 			m_IsShow = 'N'
 		WHERE
 			m_Id = #{id}

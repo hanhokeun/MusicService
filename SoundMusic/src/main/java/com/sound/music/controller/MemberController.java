@@ -172,7 +172,8 @@ public class MemberController {
 	@RequestMapping("/MemberDelete")
 	public ModelAndView MemberDelete(@RequestParam(value="id") String id){		
 		
-		mService.deleteMember(id);		
+		System.out.println("추방컨트롤러="+id);
+		mService.deleteMember(id);
 		
 		ModelAndView mv = new ModelAndView();
 		RedirectView rv = new RedirectView("../member/MemberList.sm");	

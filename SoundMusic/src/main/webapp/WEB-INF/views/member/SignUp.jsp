@@ -2,11 +2,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Document</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<title>Insert title here</title>
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script>
@@ -15,7 +14,19 @@
 // 아이디 중복체크
 function IdCheck(){
 	var userid = $("#id").val();
-	var result=0;	
+	var result=0;
+	if(userid=="" || userid.length==0){
+		alert("아이디를  입력해주세요");
+		$("#id").focus();		
+		return false; 
+	}else{
+		 var idReg = /^[a-z]+[a-z0-9]{3,14}$/g;
+	     if( !idReg.test(userid)){
+	     	alert("아이디는 영문자로 시작하는 4~15자 영문자 또는 숫자이어야 합니다.");
+	        return false;
+	        }	
+	}
+	
 	$.ajax({		
 		async:false,
 		type : 'POST',
@@ -52,15 +63,8 @@ function JoinForm(){
 	var userpwd = $("#pw").val();
 	var userpwdch = $("#pw1").val();	
 	var username = $("#name").val();
-	var useremail = $("#email").val();
+	var useremail = $("#email").val();	 
 	
-	
-	 
-	if(userid=="" || userid.length==0){
-		alert("아이디를  입력해주세요");
-		$("#id").focus();		
-		return false; 
-	}
 
 	if(userpwd.length<4 || userpwd.length>12 ){
 		alert("비밀번호를 4~12자까지 입력해주세요");

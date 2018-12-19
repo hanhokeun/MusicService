@@ -2,25 +2,25 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Document</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<title>Insert title here</title>
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script>
   function iSForm(){				
 		var name = $("#name").val();
-		var gender = $("input[name=gender]:checked").val()
-		console.log(gender)		
+		var gender = $("input[name=gender]:checked").val()		
 		var email = $("#email").val();		
 		
-		if(name.length=="" || name.length==0 ){
-			alert("이름을 입력해주세요");
+		if(name.length<=1 || name.length==0 ){
+			alert("이름을 두글자이상 입력해주세요");
 			$("#name").focus();
 			return false; 
-		}	
+		}
+		
+		
 		if(email=="" || email.length==0 ){
 			alert("이메일를 입력해주세요");
 			$("#email").focus();
@@ -75,7 +75,7 @@
  	<div class="col-lg-2"></div>		
 		<div class="col-lg-8">			
 			<a href="../main.jsp"><img src="../resources/images/music.png" alt="사진"/></a>
-			<br><br><br>					
+			<br><br>				
 			<h3>아이디 찾기</h3><hr><br>
 			
 			<form method="post" action="../member/IdSearchProc.sm" id="IdSearch" name="IdSearch">					
