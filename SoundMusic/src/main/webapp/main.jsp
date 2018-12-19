@@ -27,7 +27,7 @@ pageEncoding="UTF-8"%>
 	  }
 	  
 </style>
-<title>Insert title here</title>
+<title>Insert title here1</title>
 </head>
 <body>
 <!-- 로그인이 된 사람들의 세션을 만들어 준다. 
