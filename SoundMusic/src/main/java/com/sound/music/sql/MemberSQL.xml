@@ -9,6 +9,23 @@
 				
 <mapper namespace="member">	
 
+
+	<sql id="searchCondition">
+		<if test='target eq "id"'>
+		m_Id LIKE '%' || #{word} || '%'
+		</if>
+		<if test='target eq "name"'>
+		m_Name LIKE '%' || #{word} || '%'
+		</if>		
+		<if test='target eq "both"'>
+		(m_Id LIKE '%' || #{word} || '%' OR m_Name LIKE '%' || #{word} || '%')
+		</if>
+	</sql>
+
+	<sql id="isShow">
+		UPPER(m_IsShow) = 'Y' 
+	</sql>
+
 	<!-- 마이페이지 비밀번호 변경 -->
 	<update id="changePw" parameterType="mVO"> 
 		UPDATE
@@ -102,6 +119,44 @@
 		WHERE
 			m_Id = #{id}
 	</update>
+
+	<!-- 검색어에 따른 데이터 검색 질의 명령 -->
+		<select id="memberSearch" parameterType="mVO" resultType="mVO">
+		SELECT
+		*
+		FROM
+		(SELECT
+				m_No AS no,
+				m_Id AS ID,
+				m_Name AS NAME,			
+				m_Email AS email,
+				m_Bam	AS bam,
+				m_IsShow AS isshow,
+				ROW_NUMBER() OVER(ORDER BY m_No DESC) AS RNO
+			FROM 
+				MEMBER
+			WHERE
+				<include refid="isShow" />
+			AND	
+				<include refid="searchCondition" /> )
+		WHERE
+			(RNO BETWEEN #{start} AND #{end})									
+	</select>
+	
+
+	<!-- 회원검색 결과 데이터 개수 구하기 질의 명령  -->
+	<select id="searchCount" parameterType="mVO" resultType="int"> 
+		SELECT
+			COUNT(*) AS CNT
+		FROM
+			MEMBER
+		WHERE
+			<include refid="searchCondition" /> 	
+		AND 
+			<include refid="isShow" /> 
+	
+	</select>
+	
 
 	<!-- 회원리스트 총사용자수 쿼리 -->
 	<select id="totalCount" resultType="int">

@@ -32,7 +32,7 @@ public class MemberController {
 	@Autowired
 	private MemberDAO dao;
 	
-	
+		
 	//마이페이지 비밀번호 변경처리
 	@RequestMapping(value="/ChangePwProc",method= {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView ChangePw(MemberVO vo,HttpSession session) {
@@ -180,7 +180,41 @@ public class MemberController {
 		mv.setView(rv);
 		return mv;		
 		
-	}	
+	}
+	
+	//회원관리페이지 검색기능
+		@RequestMapping("/MemberSearch")
+		public ModelAndView MemberSearch(ModelAndView mv, HttpServletRequest req) {
+		
+			String target = req.getParameter("target");
+			String word = req.getParameter("word");
+			
+			String strPage = req.getParameter("nowPage");
+			int nowPage = 1;
+			if(strPage==null  || strPage.length()==0) {
+				nowPage = 1;
+			}
+			else {
+				nowPage = Integer.parseInt(strPage);
+			}
+			
+			MemberVO vo = new MemberVO();
+			vo.setTarget(target);
+			vo.setWord(word);
+			PageUtil pInfo = mService.getSearchPage(vo, nowPage);
+			
+			//검색어를 이용하여 실제 데이터를 db에서 검색하고
+			ArrayList list = mService.memberSearch(vo, pInfo);
+			mv.addObject("target",target);
+			mv.addObject("word",word);
+			mv.addObject("PINFO",pInfo);
+			mv.addObject("LIST",list);
+			
+			mv.setViewName("member/MemberSearch");
+			return mv;
+			
+			
+		}
 	
 	//회원관리자페이지 이동
 	@RequestMapping("/MemberList")
@@ -196,8 +230,7 @@ public class MemberController {
 		req.setAttribute("LIST", list);
 		// 뷰
 		
-	}
-	
+	}	
 	
 	// 회원가입 처리 요청
 	@RequestMapping(value="/SignProc",method=RequestMethod.POST)

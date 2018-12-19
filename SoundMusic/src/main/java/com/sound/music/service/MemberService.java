@@ -80,6 +80,31 @@ public class MemberService {
 			/*System.out.println("회원추방 서비스.java");*/
 		}
 		
+		//회원검색어에 따른 데이터 검색 호출 함수
+		public ArrayList memberSearch(MemberVO vo,PageUtil pInfo) {
+			
+			//시작 = (현재페이지-1)*(한 페이지에 보여줄 게시물수)
+			int start=(pInfo.getNowPage()-1)*pInfo.getListCount()+1;
+			
+			//끝 = 시작페이지 + 그 페이지에서 보여줄 게시물수-1
+			int end = start + pInfo.getListCount()-1;
+			
+			vo.setStart(start);
+			vo.setEnd(end);	
+			ArrayList list = mDAO.memberSearch(vo);		
+			return list;
+		}
+		
+		
+		//회원검색 결과 데이터 개수 구하기 호출 함수
+		public PageUtil getSearchPage(MemberVO vo,int nowPage) {
+			
+			int count = mDAO.searchCount(vo);			
+			//페이지이동정보 
+			PageUtil pInfo = new PageUtil(nowPage, count, 3, 5);
+			return pInfo;
+		}
+		
 		//관리자 회원목록조회
 		public ArrayList getmemberList(PageUtil pInfo) {
 			

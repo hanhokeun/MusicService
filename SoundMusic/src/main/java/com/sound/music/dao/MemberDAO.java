@@ -16,7 +16,6 @@ public class MemberDAO extends SqlSessionDaoSupport {
 	@Autowired
 	private SqlSessionTemplate session;	
 	
-	
 	//마이페이지 비밀번호변경
 	public void changePw(MemberVO vo) {
 		/*System.out.println("마이페이지 비밀번호변경DAO");*/
@@ -61,6 +60,16 @@ public class MemberDAO extends SqlSessionDaoSupport {
 	public void DeleteMember(String id) {
 		session.update("member.deleteMember",id);		
 		/*System.out.println("회원추방 DAO");*/
+	}
+	
+	//회원검색어에 따른 데이터 검색 질의 명령 실행함수
+	public ArrayList memberSearch(MemberVO vo) {
+		return (ArrayList)session.selectList("member.memberSearch", vo);
+	}
+	
+	//회원검색 결과 데이터 개수 구하기 질의 명령 실행함수
+	public int searchCount(MemberVO vo) {
+		return (Integer)session.selectOne("member.searchCount",vo);
 	}
 	
 	//관리자 회원목록조회

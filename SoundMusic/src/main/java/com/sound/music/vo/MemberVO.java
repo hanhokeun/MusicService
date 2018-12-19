@@ -17,11 +17,31 @@ public class MemberVO {
 	private int start;
 	private int end;
 	private int rno;
+	private int nowPage;
+	private String target;
+	private String word;
 	
 	
 	
 	
-	
+	public int getNowPage() {
+		return nowPage;
+	}
+	public void setNowPage(int nowPage) {
+		this.nowPage = nowPage;
+	}
+	public String getTarget() {
+		return target;
+	}
+	public void setTarget(String target) {
+		this.target = target;
+	}
+	public String getWord() {
+		return word;
+	}
+	public void setWord(String word) {
+		this.word = word;
+	}
 	public String getCpw() {
 		return cpw;
 	}
