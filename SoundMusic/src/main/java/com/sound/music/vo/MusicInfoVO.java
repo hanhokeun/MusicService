@@ -30,6 +30,7 @@ public class MusicInfoVO {
 	private String strNo;
 	private boolean permit;
 	private String res;
+	private String sel;
 	
 	
 	public String getDate() {
@@ -62,6 +63,14 @@ public class MusicInfoVO {
 	
 	
 	
+	public String getSel() {
+		return sel;
+	}
+
+	public void setSel(String sel) {
+		this.sel = sel;
+	}
+
 	public int getCnt() {
 		return cnt;
 	}

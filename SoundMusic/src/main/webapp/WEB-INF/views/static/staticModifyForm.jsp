@@ -129,16 +129,17 @@
 							<td colspan="3" class="text-right">
 				  				<div id="fileDiv">
 						  			<c:forEach items="${FILE}" var="info" varStatus="row">
-						  				<p>
+						  				<p align="left">
 						  					<a href="../upload/${info.saveName}"  name="name_${row.index}" id="name_${row.index}">${info.oriName}</a>
-						  					<input type="file" name="files" id="files${row.index}"/>
 						  					<input type="button" param="${info.no}" name="delete_${row.index}" class="dfBtn" value="삭제">
 						  				</p>
 					  				</c:forEach>
 				  				</div>${info.oriName}
-				  				<p>
-									<input type="file"  name="files" id="files"/>
-								</p>
+				  				<div>
+				  					<p align="left">
+										<input type="file"  name="files" id="files"/>
+									</p>
+								</div>
 				  			</td>
 						</tr>
 				  		<tr id="copy">
