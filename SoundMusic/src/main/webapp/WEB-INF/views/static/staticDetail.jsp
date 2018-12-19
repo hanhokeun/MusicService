@@ -62,6 +62,7 @@
 		}
 	</style>
 	<script>
+	//유튜브 API
 		var apiKey="AIzaSyCIDBmbgWL7cuxwMA0umIEFm5UjP_N1iQU";
 		$.ajax({
 			url:'https://www.googleapis.com/youtube/v3/search?key='+apiKey+'&part=id&maxResults=1&q="${VIEW.song} ${VIEW.artist}"',
