@@ -120,8 +120,10 @@ function likeProc(){
 			<input type="button" class="btn btn-info" id="goList" name="goList" value="목록으로">
 			<input type="button" class="btn btn-success" id="like" name="like" 
 			onclick="javascript:likeProc('${INFO.no}')" value="추천하기 ${INFO.star}">
+			<c:if test="${ID eq 'admin'}">
 			<input type="button" class="btn" onclick="mProc()" value="수정하기">
 			<input type="button" class="btn" onclick="dProc()" value="삭제하기">	
+			</c:if>
 		</td>
 	</tr>
 </table>
@@ -180,7 +182,9 @@ function likeProc(){
 		<font size="3pt">${list.body}</font>
 	</td>
 	<!-- 수정 버튼 -->
-	<td><button type="button" class="btn btn-primary" id="rmBtn_${list.rno}" name="rmBtn" 
+	<td>
+	<c:if test="${list.writer eq (ID || 'admin')}">
+	<button type="button" class="btn btn-primary" id="rmBtn_${list.rno}" name="rmBtn" 
 	onclick="javascript:rmBtn('${list.rno}')">수정</button>
 	<form id="rvdFrm_${list.rno}" method="POST" action="../musiclist/rvDelete.sm">
 	<input type="hidden" name="rdNo" value="${INFO.no}" />
@@ -192,6 +196,7 @@ function likeProc(){
 	<button type="button" class="btn btn-dark" id="rdBtn_${list.rno}" name="rdBtn" 
 	onclick="javascript:rdProc('${list.rno}')">삭제</button>
 	</form>
+	</c:if>
 	</td>
 </tr>
 <tr>

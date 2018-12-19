@@ -57,16 +57,14 @@ a.music:hover{color:black;}
   <!-- 검색창  -->
 <form id="sForm" method="post" action="<%=path%>/musicrecycle.sm?nowPage=${PINFO.nowPage}&genre=${GENRE}">
 	<table width="930px" cellpadding="0px" align="center">
-	<!-- 	<tr>
-			<td align="left">
-				<input type="button" class="btn btn-outline-success" id="goMain" name="goMain" 
-				onclick="gMain()" value="메인으로" />
-			</td>
-		</tr> -->
 		<tr>
 			<td><br/></td>
 		</tr>
-		<tr>	
+		<tr>
+			<td align="left">
+				<input type="button" class="btn btn-outline-success" id="goMain" name="goMain" 
+				onclick="gMain()" value="홈으로" />
+			</td>	
 			<td align="right">
 				<select class="form-control" id="sMenu" name="sub" style="width:180px;height:40px;">
 					<option value="0">---선택하세요---</option>
@@ -82,8 +80,10 @@ a.music:hover{color:black;}
 			<td>
 				<input type="button" class="btn btn-primary" id="sBtn" name="sBtn" value="검색"
 				 onclick="getSearchValue()"/>
+				 <c:if test="${ID eq 'admin'}">
 				<input type="button" class="btn" id="aList" value="음악 추가" />
 				<input type="button" class="btn" id="rcList" value="복원" />	
+				</c:if>
 			</td>
 		</tr>
 	</table>

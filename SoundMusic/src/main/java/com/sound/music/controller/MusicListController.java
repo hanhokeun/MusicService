@@ -38,7 +38,8 @@ public class MusicListController {
 	public ModelAndView MusicList(@RequestParam(value="nowPage",defaultValue="1") int nowPage,
 						@RequestParam(value="genre",defaultValue="") String genre, HttpServletRequest req,
 						MusicInfoVO mvo, 
-						ModelAndView mv1) throws Exception {
+						ModelAndView mv1, HttpSession session) throws Exception {
+		String id = (String)session.getAttribute("UID");
 		String sub = req.getParameter("sub");
 		String sValue = req.getParameter("svalue");
 		if(sub == null) sub = "0";
@@ -53,6 +54,7 @@ public class MusicListController {
 		PageUtil pInfo= musicInfoService.getPageInfo(nowPage,mvo);
 		//뿌리기
 		List<MusicInfoVO> vo1 = (List<MusicInfoVO>)musicInfoService.mList(pInfo,mvo);
+		mv1.addObject("ID", id);
 		mv1.addObject("GENRE",genre);
 		mv1.addObject("PINFO",pInfo);
 		mv1.addObject("LIST",vo1);
@@ -62,13 +64,14 @@ public class MusicListController {
 	
 	//음악의 상세 정보를 표기하기위한 컨트롤러
 	@RequestMapping("/musicinfo")
-	public ModelAndView musicInfo(HttpServletRequest req,
+	public ModelAndView musicInfo(HttpServletRequest req, HttpSession session,
 			@RequestParam(value="nowPage",defaultValue="1") int nowPage ,
 			@RequestParam(value="genre") String genre,
 			MusicInfoVO vo2, ModelAndView mv2,@RequestParam(value="rvPage",defaultValue="1") int rvPage)
 			throws Exception {
 		//할일
 		//1.파라미터
+		String id = (String)session.getAttribute("UID");
 		String strNo = req.getParameter("no");
 		int no = Integer.parseInt(strNo);
 		//2.서비스위임(비즈니스로직)
@@ -78,6 +81,7 @@ public class MusicListController {
 		List<MusicInfoVO> vo3 = (List<MusicInfoVO>)musicInfoService.rvList(rPage,no);
 		//3.모델
 		//4.뷰
+		mv2.addObject("ID", id);
 		mv2.addObject("GENRE",genre);
 		mv2.addObject("NOWPAGE",nowPage);
 		mv2.addObject("INFO", vo2);
