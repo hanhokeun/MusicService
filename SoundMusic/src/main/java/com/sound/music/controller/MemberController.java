@@ -32,7 +32,7 @@ public class MemberController {
 	@Autowired
 	private MemberDAO dao;
 	
-		
+	//	
 	//마이페이지 비밀번호 변경처리
 	@RequestMapping(value="/ChangePwProc",method= {RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView ChangePw(MemberVO vo,HttpSession session) {
