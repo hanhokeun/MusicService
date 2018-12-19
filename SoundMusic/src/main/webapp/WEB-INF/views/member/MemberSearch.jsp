@@ -98,14 +98,14 @@
   		<li class="page-item">
   		<%-- 현재페이지가 1이 아닌 경우 --%>
   		<c:if test="${PINFO.nowPage ne 1}">
-  		<a class="page-link" href="../member/MemberList.sm?nowPage=${PINFO.nowPage-1}&target=${target}&word=${word}">Previous</a>
+  		<a class="page-link" href="../member/MemberSearch.sm?nowPage=${PINFO.nowPage-1}&target=${target}&word=${word}">Previous</a>
   		</c:if> 		
   		</li>
   		
   		<li class="page-item">
   		<%-- [1][2][3][4][5]--%>
   		<c:forEach var="page" begin="${PINFO.startPage}" end="${PINFO.endPage}">
-  		 <a class="page-link" href="../member/MemberList.sm?nowPage=${page}&target=${target}&word=${word}">[${page}]</a>
+  		 <a class="page-link" href="../member/MemberSearch.sm?nowPage=${page}&target=${target}&word=${word}">[${page}]</a>
   		</c:forEach>
   		</li>
   		
@@ -119,7 +119,7 @@
   		
   		<li class="page-item">
   		<c:if test="${PINFO.nowPage ne PINFO.totalPage}">
-  			<a class="page-link" href="../member/MemberList.sm?nowPage=${PINFO.nowPage+1}&target=${target}&word=${word}">Next</a>
+  			<a class="page-link" href="../member/MemberSearch.sm?nowPage=${PINFO.nowPage+1}&target=${target}&word=${word}">Next</a>
   		</c:if>
   		</li>
   		
