@@ -222,7 +222,8 @@
 		#{email},
 		SYSDATE,
 		1,
-		'Y')
+		'Y',
+		'0/')
 	
 	</insert>
 </mapper>
