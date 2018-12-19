@@ -67,7 +67,7 @@ public class MusicInfoServiceimpl implements MusicInfoService {
 				int totalCount= musicDAO.getPageInfo(mvo);
 				
 				//한페이지당 50개의 게시물을 뿌리고, 5페이지씩 보여주자
-				PageUtil pInfo= new PageUtil(nowPage, totalCount, 50, 5);
+				PageUtil pInfo= new PageUtil(nowPage, totalCount, 30, 5);
 				return pInfo;
 	}
 	
@@ -116,7 +116,6 @@ public class MusicInfoServiceimpl implements MusicInfoService {
 	//추천 유효성 검사
 	@Override
 	public MusicInfoVO selectStar(String id, String strNo) throws Exception {
-		System.out.println("[2]strNo="+strNo);
 		MusicInfoVO vo = new MusicInfoVO();
 		vo.setId(id);
 		vo.setStrNo(strNo);
@@ -136,6 +135,37 @@ public class MusicInfoServiceimpl implements MusicInfoService {
 		vo.setRes(res);
 		vo.setId(id);
 		musicDAO.updateSlist(vo);
+	}
+	
+	//삭제된 곡 리스트
+	@Override
+	public List<MusicInfoVO> rcList(PageUtil pInfo, String genre) throws Exception {
+		//시작 = (현재페이지-1)*(한 페이지에 보여줄 게시물 수)
+			int start=(pInfo.getNowPage()-1)*pInfo.getListCount()+1;
+			//끝 = 시작페이지 + 그 페이지에서 보여줄 게시물수-1
+			int end=start + pInfo.getListCount()-1;
+			MusicInfoVO vo = new MusicInfoVO();
+			vo.setGenre(genre);
+			vo.setStart(start);
+			vo.setEnd(end);
+			return musicDAO.rcList(vo);
+	}
+	//삭제된 곡 페이징
+	@Override
+	public PageUtil getrcPageInfo(@RequestParam(value="nowPage",defaultValue="1") int nowPage, String genre) throws Exception {
+		//할일
+		//게시물 총 개수 구하기
+		int totalCount= musicDAO.getrcPageInfo(genre);
+		
+		//한페이지당 20개의 게시물을 뿌리고, 5페이지씩 보여주자
+		PageUtil pInfo= new PageUtil(nowPage, totalCount, 20, 5);
+		return pInfo;
+	}
+	
+	//음악 복원
+	@Override
+	public void recycleMusic(int no) throws Exception {
+		musicDAO.recycleMusic(no);
 	}
 
 	

@@ -76,6 +76,7 @@ function likeProc(){
 }
 </script>
 <body>
+<div class="container">
 <% String path = "http://localhost:80/music/musiclist";	 %>
 <form id="d" method="POST" action="../musiclist/musiclistdelete.sm?nowPage=${NOWPAGE}&mNo=${INFO.no}">
 <input type="hidden" id="dNo" name="dNo" value="${INFO.no}" />
@@ -99,36 +100,38 @@ function likeProc(){
 <input type="hidden" id="nowPage" name="nowPage" value="${NOWPAGE}" />
 
 <span class="title">
-	<h1>${INFO.title}</h1>
+	<h1 style="color:#3a3635;">${INFO.title}</h1>
 </span>
-<table  border="1" width="60%">	
+<hr border="solid 0.3px #CCCCCC">
+<table width="1000px">	
 	<tr>
-		<td rowspan="3" width="200px" height="200px">
-			<img src="${INFO.path}" width="200px" height="200px">
+		<td rowspan="3" width="180px" height="180px">
+			<img src="${INFO.path}" width="165px" height="165px">
 		</td>
-		<td>아티스트</td>
-		<td>${INFO.artist}</td>
+		<td>&nbsp;<font size="2.5pt" color="#3a3635">아티스트</font>&nbsp;&nbsp;&nbsp;&nbsp;${INFO.artist}</td>
 	</tr>
 	<tr>
-		<td>앨범</td>
-		<td>${INFO.album}</td>
+		<td>&nbsp;<font size="2.5pt" color="#3a3635">앨범</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${INFO.album}</td>
 	</tr>
 	<tr>
 		<td colspan="3">
-		<div class="container">
+			<br/>
+			<br/>
 			<input type="button" class="btn btn-info" id="goList" name="goList" value="목록으로">
 			<input type="button" class="btn btn-success" id="like" name="like" 
 			onclick="javascript:likeProc('${INFO.no}')" value="추천하기 ${INFO.star}">
 			<input type="button" class="btn" onclick="mProc()" value="수정하기">
-			<input type="button" class="btn" onclick="dProc()" value="삭제하기">
-		</div>	
+			<input type="button" class="btn" onclick="dProc()" value="삭제하기">	
 		</td>
 	</tr>
 </table>
+<br/>
 <div class="lyrics">
-	<h2>가사</h2>
+	<h2 style="color:#3a3635;">가사</h2>
 	<hr>
-	${INFO.lyrics}
+	<span class="lyrics" style="color:#615e5d">
+		${INFO.lyrics}
+	</span>
 </div>
 </form>
 <hr>
@@ -138,7 +141,6 @@ function likeProc(){
 <input type="hidden" id="mrNo" name="mrNo" value="${INFO.no}" />
 <input type="hidden" id="mrGenre" name="mrGenre" value="${GENRE}" />
 <input type="hidden" id="mrNowPage" name="mrNowPage" value="${NOWPAGE}" />
-<div class="container">
 	<table  class="table table-striped">
 		<tr>
 			<td colspan="2" align="left">
@@ -147,7 +149,8 @@ function likeProc(){
 		</tr>
 		<tr>
 			<td>
-				<textarea cols="100" rows="2" id="rvBody" name="rvBody" style="resize:none;"></textarea>
+				<textarea class="form-control" cols="100" rows="2" id="rvBody" name="rvBody" 
+				style="resize:none;"></textarea>
 			</td>
 		</tr>
 		<tr>
@@ -158,19 +161,24 @@ function likeProc(){
 				onclick="rwCancel()" value="취소" />
 			</td>
 		</tr>	
-	</table>
-</div>	
+	</table>	
 </form>
 <!-- 후기 리스트-->
-<div class="container">
 <table  class="table table-borderless">
 <c:forEach var="list" items="${REVIEW}">
 <tr>
-	<td>${list.writer}</td>
-	<td>${list.date}</td>
+	<td>
+		<b>${list.writer}</b>
+		<hr border="solid 0.5px #615e5d">
+	</td>
+	<td>
+		${list.date}
+	</td>
 </tr>
 <tr>
-	<td>${list.body}</td>
+	<td>
+		<font size="3pt">${list.body}</font>
+	</td>
 	<!-- 수정 버튼 -->
 	<td><button type="button" class="btn btn-primary" id="rmBtn_${list.rno}" name="rmBtn" 
 	onclick="javascript:rmBtn('${list.rno}')">수정</button>
@@ -189,7 +197,7 @@ function likeProc(){
 <tr>
 	<td>
 		<!-- 수정폼 -->
-		<div class="container" id="reply_${list.rno}" style="display:none;">
+		<div class="rModify" id="reply_${list.rno}" style="display:none;">
 		<form id="rvMProc_${list.rno}" method="POST" action="../musiclist/rvmProc.sm">
 			<input type="hidden" name="mvNo" value="${INFO.no}" />
 			<input type="hidden" name="rvNo" value="${list.no}" />	
@@ -221,33 +229,42 @@ function likeProc(){
 		</form>
 		</div>
 	</td>
-</tr>	
+</tr>
+<tr>
+	<td><hr style="border:solid 0.5px black;"></td>
+</tr>		
 </c:forEach>
 </table>
-</div>
-<table border="1" width="40%" align="center">
-		<tr>
-			<td align="center">
-			<%-- 이전 링크 만들기 --%>
-			<c:if test="${RPAGE.startPage eq 1}">
-				[이전]
-			</c:if>
-			<c:if test="${RPAGE.startPage ne 1}">
-				<a href="<%=path%>/musicinfo.sm?nowPage=${NOWPAGE}&genre=${GENRE}&no=${INFO.no}&rvPage=${RPAGE.rvPage-1}">[이전]</a>
-			</c:if>
-			<%-- [1][2][3]링크만들기 --%>
-			<c:forEach var="page" begin="${RPAGE.startPage}" end="${RPAGE.endPage}">
-				<a href="<%=path%>/musicinfo.sm?nowPage=${NOWPAGE}&genre=${GENRE}&no=${INFO.no}&rvPage=${page}">[${page}]</a>
-			</c:forEach>	
-			<%-- 다음 링크 만들기 --%>
-			<c:if test="${RPAGE.endPage eq RPAGE.totalPage}">
-				[다음]
-			</c:if>
-			<c:if test="${RPAGE.endPage ne RPAGE.totalPage}">
-				<a href="<%=path%>/musicinfo.sm?nowPage=${NOWPAGE}&genre=${GENRE}&no=${INFO.no}&rvPage=${RPAGE.rvPage+1}">[다음]</a>
-			</c:if>
-			</td>		
-		</tr>
-	</table>	
+	<ul class="pagination justify-content-center">
+		<%-- 이전 링크 만들기 --%>
+		<c:if test="${RPAGE.startPage eq 1}">
+		<li class="page-item">
+			<a class="page-link" href="#">이전</a>
+		</li>	
+		</c:if>
+		<c:if test="${RPAGE.startPage ne 1}">
+			<li class="page-item">
+			<a class="page-link" href="<%=path%>/musicinfo.sm?nowPage=${NOWPAGE}&genre=${GENRE}&no=${INFO.no}&rvPage=${RPAGE.rvPage-1}">이전</a>
+			</li>
+		</c:if>
+		<%-- [1][2][3]링크만들기 --%>
+		<c:forEach var="page" begin="${RPAGE.startPage}" end="${RPAGE.endPage}">
+			<li class="page-item">
+			<a class="page-link" href="<%=path%>/musicinfo.sm?nowPage=${NOWPAGE}&genre=${GENRE}&no=${INFO.no}&rvPage=${page}">${page}</a>
+			</li>
+		</c:forEach>	
+		<%-- 다음 링크 만들기 --%>
+		<c:if test="${RPAGE.endPage eq RPAGE.totalPage}">
+			<li class="page-item">
+			<a class="page-link" href="#">다음</a>
+			</li>
+		</c:if>
+		<c:if test="${RPAGE.endPage ne RPAGE.totalPage}">
+			<li class="page-item">
+			<a class="page-link" href="<%=path%>/musicinfo.sm?nowPage=${NOWPAGE}&genre=${GENRE}&no=${INFO.no}&rvPage=${RPAGE.rvPage+1}">다음</a>
+			</li>
+		</c:if>
+	</ul>
+</div>		
 </body>
 </html>

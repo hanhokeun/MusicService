@@ -89,7 +89,6 @@ public class MusicListDAOimpl implements MusicDAO {
 			boolean permit = false;
 			MusicInfoVO svo = new MusicInfoVO();
 			String res = session.selectOne("musicinfo.selectStar", vo);
-			System.out.println("[3]res="+res);
 			if(res=="" || res == null) {
 				permit = true;
 				svo.setPermit(permit);
@@ -102,7 +101,6 @@ public class MusicListDAOimpl implements MusicDAO {
 				svo.setPermit(permit);
 				return svo;
 			}
-		
 	}
 	
 	//추천수 증가
@@ -115,5 +113,26 @@ public class MusicListDAOimpl implements MusicDAO {
 	@Override
 	public void updateSlist(MusicInfoVO vo) throws Exception {
 		session.update("musicinfo.updateSlist", vo);
+	}
+	
+	//삭제곡 목록
+	@Override
+	public List<MusicInfoVO> rcList(MusicInfoVO vo) throws Exception {
+		return session.selectList("musicinfo.recycleInfo",vo);
+	}
+	
+	//삭제음악 개수
+	@Override
+	public int getrcPageInfo(String genre) throws Exception {
+		MusicInfoVO vo = new MusicInfoVO();
+		vo.setGenre(genre);
+		int result = session.selectOne("musicinfo.rcyCount",vo);
+		return result;
+	}
+	
+	//음악 복원
+	@Override
+	public void recycleMusic(int no) throws Exception {
+		session.update("musicinfo.recycleMusic", no);
 	}
 }

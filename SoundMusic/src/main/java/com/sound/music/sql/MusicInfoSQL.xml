@@ -68,8 +68,6 @@
 		FROM
 			MUSIC
 		WHERE
-			MU_ISSHOW='Y'
-		AND 
 			MU_NO = #{no}	
 	</select>
 	<!-- 03. 페이징처리를 위한 음악 개수 구하기 -->
@@ -232,4 +230,50 @@
 			S_ID = #{id}	
 			
 	</select>
+	<!-- 16.삭제 대기 음악 리스트  -->
+	<select id="recycleInfo" parameterType="com.sound.music.vo.MusicInfoVO" resultType="com.sound.music.vo.MusicInfoVO">
+		SELECT 
+				*
+		FROM	
+			(SELECT
+				MU_NO AS no,
+				MU_TITLE AS title,
+				MU_ARTIST AS artist,
+				MU_ALBUM AS album,
+				MU_GENRE AS genre,
+				MU_IMAGEPATH AS path,
+				MU_STAR AS star,
+				ROW_NUMBER() OVER(ORDER BY MU_STAR DESC) AS rno
+			 FROM
+				MUSIC
+			 WHERE
+				UPPER(MU_ISSHOW) = 'N' 
+				<if test="genre != '' and genre != null">
+					AND MU_GENRE = #{genre}
+				</if>
+				)	
+		WHERE 
+			rno BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 17.삭제대기 음악리스트 페이징 처리 -->
+	<select id ="rcyCount" parameterType="com.sound.music.vo.MusicInfoVO" resultType="int">
+		SELECT
+			COUNT(*) as cnt
+		FROM
+			MUSIC
+		WHERE 
+			MU_ISSHOW = 'N' 
+				<if test="genre != '' and value != null " >
+					AND MU_GENRE = #{genre}
+				</if>
+	</select>
+	<!-- 18. 음악 복원 -->
+	<update id="recycleMusic" parameterType="int">
+		UPDATE
+			MUSIC
+		SET
+			MU_ISSHOW = 'Y'	
+		WHERE
+			MU_NO = #{no}	
+	</update>
 </mapper>				

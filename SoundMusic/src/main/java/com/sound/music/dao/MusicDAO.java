@@ -37,4 +37,10 @@ public interface MusicDAO {
 		public void updateStar(int no)throws Exception;
 		//추천곡 리스트 수정
 		public void updateSlist(MusicInfoVO vo)throws Exception;
+		//삭제 음악 리스트
+		public List<MusicInfoVO> rcList(MusicInfoVO vo) throws Exception;
+		//삭제 음악 페이징
+		public int getrcPageInfo(String genre) throws Exception;
+		//음악 복원
+		public void recycleMusic(int no) throws Exception;
 }

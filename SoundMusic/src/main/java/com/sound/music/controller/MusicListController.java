@@ -51,16 +51,8 @@ public class MusicListController {
 		mvo.setSvalue(sValue);
 		//페이징 기능
 		PageUtil pInfo= musicInfoService.getPageInfo(nowPage,mvo);
-//		System.out.println(pInfo.getTotalCount());
-//		System.out.println(pInfo.getStartPage());
-//		System.out.println(pInfo.getEndPage());
-//		System.out.println(pInfo.getTotalPage());
 		//뿌리기
 		List<MusicInfoVO> vo1 = (List<MusicInfoVO>)musicInfoService.mList(pInfo,mvo);
-		
-//		for(MusicInfoVO v : vo1) {
-//			System.out.println("내용확인 album = "+v.getAlbum());
-//		}
 		mv1.addObject("GENRE",genre);
 		mv1.addObject("PINFO",pInfo);
 		mv1.addObject("LIST",vo1);
@@ -286,16 +278,13 @@ public class MusicListController {
 		String genre = req.getParameter("sGenre");
 		//서비스
 		//넘어온 아이디가 내가 선택하려는 음악번호를 가지고있는 지 알아보자
-		System.out.println("[1]id="+id);
 		MusicInfoVO resVo = musicInfoService.selectStar(id,strNo);
 		String res = resVo.getRes();
 		//1. 만약 없다면
 		//추천수 증가와 유저의 추천곡 목록 수정
 		boolean permit = resVo.isPermit();
-		System.out.println("[4]permit="+permit);
 		if(permit==true) {
 			res = res+strNo+"/";
-			System.out.println("[5]res="+res);
 			musicInfoService.updateStar(no);
 			musicInfoService.updateSlist(res,id);
 		}
@@ -313,6 +302,36 @@ public class MusicListController {
 		//모델, 뷰
 		RedirectView rv = new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+no+"&genre="+genre);
 		mv.setView(rv);
+		return mv;
+	}
+	
+	//삭제된 음악 리스트
+	@RequestMapping("/musicrecycle")
+	public ModelAndView recycleMusic(@RequestParam(value="nowPage",defaultValue="1") int nowPage,
+			@RequestParam(value="genre",defaultValue="") String genre, HttpServletRequest req, 
+			ModelAndView mv1) throws Exception {
+			//페이징 기능
+			PageUtil pInfo= musicInfoService.getrcPageInfo(nowPage,genre);
+			//뿌리기
+			List<MusicInfoVO> vo1 = (List<MusicInfoVO>)musicInfoService.rcList(pInfo,genre);
+			mv1.addObject("GENRE",genre);
+			mv1.addObject("PINFO",pInfo);
+			mv1.addObject("LIST",vo1);
+			mv1.setViewName("musiclist/musicrecycle");
+			return mv1;
+	}
+	
+	//음악 복원
+	@RequestMapping("/rcyProc")
+	public ModelAndView recycleMusic(ModelAndView mv, HttpServletRequest req) throws Exception {
+		//파라미터
+		String strNo = req.getParameter("rcNo");
+		int no = Integer.parseInt(strNo);
+		//서비스
+		musicInfoService.recycleMusic(no);
+		//모델,뷰
+		RedirectView rv = new RedirectView("../musiclist/musiclist.sm");
+		mv.setView(rv);	
 		return mv;
 	}
 }	
