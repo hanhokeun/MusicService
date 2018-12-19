@@ -90,7 +90,7 @@ a.music:hover{color:black;}
 </form>
 <br/>
 <hr>
-<!-- 장르 선택 테이블 -->
+<!-- 장르 선택 테이블~ -->
   <table class="genre" width="930px" align="center">
   	<tr>
   		<td class="genre" width="12.5%" align="center">
