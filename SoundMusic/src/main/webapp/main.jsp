@@ -84,7 +84,7 @@
     <div class="col-md-3">
       <div class="menubar">
       	<ul class="list-group list-group-flush">
-        	<li class="list-group-item"><a href="#" class="list-group-item list-group-item-action"> 실시간 차트</a></li>
+        	<li class="list-group-item"><a href="freeboard/onChart.sm" class="list-group-item list-group-item-action"> 실시간 차트</a></li>
         	<li class="list-group-item"><a href="musiclist/musiclist.sm" class="list-group-item list-group-item-action"> Music List</a></li>
         	<li class="list-group-item"><a href="concert/concertList.sm" class="list-group-item list-group-item-action"> 콘서트</a></li>
         	<li class="list-group-item"><a href="freeBoard/boardList.sm" class="list-group-item list-group-item-action"> 커뮤니티</a></li>        	
@@ -98,7 +98,7 @@
         <div class="carousel-item active">
           <p align="middle">
           	<h2><i class='fab fa-youtube' style='font-size:24px'></i> 실시간 인기 동영상  <a href="#" class="btn btn-outline-light text-dark"> 더보기</a> </h2><hr>    	
-          <iframe align="center" width="800" height="400" src="https://www.youtube.com/embed/nM0xDI5R50E?rel=0&autoplay=1&amp;loop=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>         
+          <iframe align="center" width="800" height="400" src="https://www.youtube.com/embed/SAdmzjsFVQo?rel=0&autoplay=1&amp;loop=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>         
           </p>
         </div>
       </div>

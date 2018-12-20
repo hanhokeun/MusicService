@@ -58,10 +58,7 @@
 				}
 				else{
 					  $("#contentBody").html("<h2>회원 비밀번호 : "+result +"<h2>");
-				        $("#myModal").modal('show'); 
-					/* alert("회원님의 아이디는 : " +result+"입니다.") */
-					/* $("#idList").append("<h1>"+"회원님의 아이디는 :"+result +"입니다. </h1>") */	
-				
+				        $("#myModal").modal('show');				
 				}
 				
 			}
