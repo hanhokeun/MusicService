@@ -54,6 +54,8 @@
 			<!-- 인터셉터가 발생되는 상황 -->
 			<!-- 통계 글에 댓글 등록할 때 -->
 			<mapping path="/static/staticReplyWrite.sm"/>
+			<mapping path="/musiclist/updateStar.sm"/>
+			<mapping path="/musiclist/rvWriteProc.sm" />
 			<!-- 사용할 인터셉터 클래스를 등록하는 부분 -->
 			<!--  <beans:bean class="com.sound.music.util.LoginCheck"/>-->
 			<beans:ref bean="myinterceptor"/>

@@ -30,6 +30,9 @@ function dProc(){
 }
 //댓글쓰기
 function rwProc(){
+	if("${empty sessionScope.UID}"){
+		alert('로그인을 한 후에 이용해주세요')
+	}
 	if($('#rvBody').val()=='' || $('#rvBody').val()== null){
 		alert('내용을 입력해주세요')
 		return false;
@@ -72,6 +75,9 @@ function rdProc(rno){
 }
 //추천기능
 function likeProc(){
+	if("${empty sessionScope.UID}"){
+		alert('로그인을 한 후에 이용해주세요')
+	}
 	$('#c').submit();
 }
 </script>
