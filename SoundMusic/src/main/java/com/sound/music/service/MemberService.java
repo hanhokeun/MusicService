@@ -21,13 +21,15 @@ public class MemberService {
 		private MemberDAO mDAO;
 		
 		//마이페이지 비밀번호변경처리
-		public void changePw(MemberVO vo,HttpSession session) {
+		public int changePw(MemberVO vo,HttpSession session) {
 			
 			String id = (String)session.getAttribute("UID");
 			vo.setId(id);
-			mDAO.changePw(vo);
-			
+			int result = mDAO.changePw(vo);
+			System.out.println("비번변경 서비스="+result);
+			return result;			
 		}
+		
 		
 		//마이페이지 회원탈퇴
 		public void memberDrop(MemberVO vo,HttpSession session) {

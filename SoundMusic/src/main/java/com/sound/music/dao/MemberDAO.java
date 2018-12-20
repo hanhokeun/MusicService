@@ -17,9 +17,10 @@ public class MemberDAO extends SqlSessionDaoSupport {
 	private SqlSessionTemplate session;	
 	
 	//마이페이지 비밀번호변경
-	public void changePw(MemberVO vo) {
+	public int changePw(MemberVO vo) {
 		/*System.out.println("마이페이지 비밀번호변경DAO");*/
-		session.update("changePw",vo);		
+		return session.update("changePw",vo);
+				
 	}
 	
 	//마이페이지 회원탈퇴

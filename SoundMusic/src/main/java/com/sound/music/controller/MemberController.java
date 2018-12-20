@@ -1,13 +1,15 @@
 package com.sound.music.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.sound.music.dao.MemberDAO;
 import com.sound.music.service.MemberService;
 import com.sound.music.util.PageUtil;
@@ -35,7 +36,7 @@ public class MemberController {
 	//	
 	//마이페이지 비밀번호 변경처리
 	@RequestMapping(value="/ChangePwProc",method= {RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView ChangePw(MemberVO vo,HttpSession session) {
+	public void ChangePw(MemberVO vo,HttpSession session,HttpServletResponse resp) throws IOException {
 		
 		String pw = vo.getPw();
 		String cpw = vo.getCpw();	
@@ -43,13 +44,25 @@ public class MemberController {
 		vo.setPw(pw);
 		vo.setCpw(cpw);		
 		
-		mService.changePw(vo, session);
+		int result = mService.changePw(vo, session);
+		System.out.println("비번변경 컨트롤러="+result);			
+		resp.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = resp.getWriter();
 		
-		ModelAndView mv = new ModelAndView();
-		RedirectView rv = new RedirectView("../member/LoginForm.sm");	
-		mv.setView(rv);
-		return mv;		
+		if(result==1) {	
+			mService.logOut(session);			
+			out.println("<script>");
+			out.println("alert('비밀번호가 성공적으로 변경되었습니다'); location.href='../member/LoginForm.sm';");
+			out.println("</script>");
+			out.close();
+		}
+		else {
 		
+			out.println("<script>");
+			out.println("alert('현재 비밀번호가 맞지 않습니다.'); location.href='../member/ChangePw.sm';");
+			out.println("</script>");
+			out.close();
+		}		
 	}
 	
 	//마이페이지 비밀번호 변경폼요청
