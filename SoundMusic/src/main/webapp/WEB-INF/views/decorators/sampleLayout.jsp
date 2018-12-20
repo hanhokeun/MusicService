@@ -17,6 +17,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <style>
 	body{
 				font-family: 'Poor Story', cursive;
@@ -36,22 +37,22 @@
 	%>
 	<!-- Grey with black text -->
 	<nav class="navbar navbar-expand-sm bg-light navbar-light">
-	  <a class="navbar-brand" href="<%=path%>/main.jsp"><img src="../resources/images/music.png" alt="Logo" style="width:70px;"/></a>
+	  <a class="navbar-brand" href="<%=path%>/main.jsp"><img src="../resources/images/music.png" alt="Logo" style="width:350px; heght:180px;"/></a>
 	  <ul class="navbar-nav">
 	    <li class="nav-item">
-	      <a class="nav-link" href="#">실시간 차트</a>
+	      <a class="nav-link" href="#"><i class="fa fa-signal" style="font-size:20px"></i> 실시간 차트</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link disabled" href="<%=path%>/musiclist/musiclist.sm">음악정보</a>
+	      <a class="nav-link disabled" href="<%=path%>/musiclist/musiclist.sm"><i class='fas fa-headphones' style='font-size:20px'></i> Music List</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href="<%=path%>/freeBoard/boardList.sm">자유게시판</a>
+	      <a class="nav-link" href="<%=path%>/concert/concertList.sm"><i class='fas fa-microphone-alt' style='font-size:24px'></i> 콘서트</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href="<%=path%>/concert/concertList.sm">콘서트</a>
+	      <a class="nav-link" href="<%=path%>/freeBoard/boardList.sm"><i class='fas fa-pencil-alt' style='font-size:24px'></i> 커뮤니티</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link disabled" href="<%=path%>/static/staticList.sm">통계 게시판</a>
+	      <a class="nav-link disabled" href="<%=path%>/static/staticList.sm"><i class='fab fa-r-project' style='font-size:24px'></i> Music BigData</a>
 	    </li>
 	  </ul>
 	<%
@@ -60,8 +61,8 @@
 	<div class="collapse navbar-collapse justify-content-end">
 	    <form class="nav navbar-nav navbar-right">     
 	      <ul class="nav justify-content-end"> 			
-			<li><a href="<%=path%>/member/LoginForm.sm" class="btn btn-outline-secondary btn-sm">로그인</a></li>
-			<li><a href="<%=path%>/member/SignUp.sm" class="btn btn-outline-secondary btn-sm">회원가입</a></li>		
+			<li><a href="<%=path%>/member/LoginForm.sm" class="btn btn-outline-secondary btn-sm"><i class='fas fa-user-check' style='font-size:24px'></i> 로그인</a></li>
+			<li><a href="<%=path%>/member/SignUp.sm" class="btn btn-outline-secondary btn-sm"><i class='fas fa-user-plus' style='font-size:24px'></i> 회원가입</a></li>		
 		</ul>
 	    </form>
 	  </div>
@@ -71,8 +72,8 @@
 	<div class="collapse navbar-collapse justify-content-end">
 	    <form class="nav navbar-nav navbar-right">                  
 	      <ul class="nav justify-content-end">
-	      	<li><a href="<%=path%>/member/MemberList.sm"  class="btn btn-outline-secondary btn-sm">회원관리</a></li>      	
-			<li><a href="<%=path%>/member/LogOut.sm" class="btn btn-outline-secondary btn-sm">로그아웃</a></li>			
+	      	<li><a href="<%=path%>/member/MemberList.sm"  class="btn btn-outline-secondary btn-sm"><i class='fas fa-user-friends' style='font-size:24px'></i> 회원관리</a></li>      	
+			<li><a href="<%=path%>/member/LogOut.sm" class="btn btn-outline-secondary btn-sm"><i class='fas fa-user-times' style='font-size:24px'></i> 로그아웃</a></li>			
 		</ul>
 	    </form> 
 	 </div>   
@@ -82,8 +83,8 @@
 	 <div class="collapse navbar-collapse justify-content-end">
 	    <form class="nav navbar-nav navbar-right">                  
 	      	<ul class="nav justify-content-end">
-	      		<li><a href="<%=path%>/member/Profile.sm"  class="btn btn-outline-secondary btn-sm">회원관리</a></li>      	
-				<li><a href="<%=path%>/member/LogOut.sm" class="btn btn-outline-secondary btn-sm">로그아웃</a></li>			
+	      		<li><a href="<%=path%>/member/Profile.sm"  class="btn btn-outline-secondary btn-sm"><i class='fas fa-portrait' style='font-size:24px'></i> My Page</a></li>      	
+				<li><a href="<%=path%>/member/LogOut.sm" class="btn btn-outline-secondary btn-sm"><i class='fas fa-user-times' style='font-size:24px'></i> 로그아웃</a></li>			
 			</ul>
 	    </form>
 	  </div>
@@ -98,14 +99,14 @@
 	<decorator:body></decorator:body>
 
 
-	<!-- FOOTER -->
-	<footer style="background-color: #4C4C4C; color: #ffffff">
+	<!-- footer-->
+<footer style="background-color: #4C4C4C; color: #ffffff">
 		<div class="container">
 				<br>
 				<div class="row">
 					<div class="col-sm-4" style="text-align: center;"><h6>copyright &copy; 2018</h6><br><h8>구로 IT경영기술 개발원</h8><br>2018.06.29~2019.01.02<br>마지막 프로젝트</div>
-					<div class="col-sm-4" style="text-align: center;"><h6>팀소개</h6><br>김대현 한호근 유남기 장수경 이현정</h6><br>302호<br>푸터는 아무도 보지 않는다.<br>푸터보고 오시면 츄파츕스 드릴께요.</div>
-					<div class="col-sm-4" style="text-align: center;"><h6>개발목표</h6><br>음악정보지원서비스는 음악사이트별 차트 비교 및 전반적인 음악에 대한 정보를 제공하며 음악 정보데데이터를 통하여 빅데이터 분석 음악에 대한 추세와 사용자간의 관심분야에 대해 인사이트를 추출한다.</div>						
+					<div class="col-sm-4" style="text-align: center;"><h6>팀소개</h6><br>김대현 한호근 유남기 장수경 이현정</h6><br>302호 드림팀<br>어렵게 한자리에 모였습니다.<br>이 순간이 지나면 백수가 된다는것을.</div>
+					<div class="col-sm-4" style="text-align: center;"><h6>개발목표</h6><br>음악정보지원서비스는 음악사이트별 차트 비교 및 전반적인 음악에 대한 정보를 제공하며 음악 빅데이터 분석 음악에 대한 추세와 사용자간의 관심분야에 대해 인사이트를 추출</div>						
 				</div>							
 		</div>	
 	
