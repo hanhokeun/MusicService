@@ -79,6 +79,7 @@
   </ul></br></br>
   <form method="post" action="../member/ChangePwProc.sm" id="cFrm">      
   <table class="table table-bordered">
+  <h2>비밀번호 변경</h2>
     <tbody>
     	<tr>
   			<th>현재 비밀번호</th>

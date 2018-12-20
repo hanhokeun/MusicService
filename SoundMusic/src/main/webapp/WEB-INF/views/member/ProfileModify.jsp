@@ -76,6 +76,7 @@
   </ul></br></br>
   <form method="post" action="../member/ProfileProc.sm" id="pFrm">      
   <table class="table table-bordered">
+  <h2>회원정보 수정</h2>
     <tbody>
   		<tr>
   			<th>아이디</th>
