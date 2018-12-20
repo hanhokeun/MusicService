@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+				"-//mybatis.org//DTD Mapper 3.0//EN" 
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="concert">
+
+	<!-- 검색 -->
+	<sql id="searchCondition">
+		<if test='target eq "artist"'>
+		c_artist LIKE '%' || #{word} || '%'
+		</if>
+		<if test='target eq "title"'>
+		c_title	 LIKE '%' || #{word} || '%'
+		</if>
+		<if test='target eq "both"'>
+		(c_artist LIKE '%' || #{word} || '%' OR c_title LIKE '%' || #{word} || '%')
+		</if>
+	</sql>
+	
+	<sql id="isShow">
+		UPPER(c_isshow) = 'Y'
+	</sql>
+	
+	<!-- 해당 페이지에 보여줄 게시물 정보 구하기 질의 -->
+	<select id="concertList" resultType="concert" parameterType="concert">
+	SELECT 
+		*
+	FROM
+	
+		(SELECT
+			c_cno		AS CNO,
+			c_imgSrc	AS IMG,
+			c_title		AS TITLE,
+			c_genre		AS GENRE,
+			c_date		AS DAY,
+			c_loc		AS LOC,
+			c_artist	AS ARTIST,
+			ROW_NUMBER() OVER(ORDER BY c_cno ASC) AS RNO
+		FROM
+			Concert
+		WHERE
+			UPPER(c_isshow) = 'Y')
+	WHERE 
+		RNO BETWEEN #{start} AND #{end}	
+	</select>
+	
+	<!-- 게시물 개수 구하기 -->
+	<select id="totalCount" resultType="int">
+	SELECT 
+		COUNT(*) AS CNT
+	FROM
+		Concert
+	WHERE	
+		UPPER(c_isshow) = 'Y'
+	</select>
+	
+	<!-- 상세보기 질의 명령 -->
+	<select id="concertView" resultType="concert" parameterType="int">
+	SELECT
+		c_cno		AS CNO,
+		c_imgSrc	AS IMG,
+		c_title		AS TITLE,
+		c_genre		AS GENRE,
+		c_date		AS DAY,
+		c_loc		AS LOC,
+		c_artist	AS ARTIST,
+		ROW_NUMBER() OVER(ORDER BY c_cno ASC) AS RNO
+	FROM
+		Concert
+	WHERE
+		c_cno = #{cno}
+	</select>
+	
+	<!-- 관련콘서트 질의 명령 -->
+	<select id="relationConcert" resultType="concert" parameterType="concert">
+	SELECT 
+		*
+		FROM	
+			(SELECT
+				c_cno		AS CNO,
+				c_imgSrc	AS IMG,
+				c_title		AS TITLE,
+				c_genre		AS GENRE,
+				c_date		AS DAY,
+				c_loc		AS LOC,
+				c_artist	AS ARTIST,
+				ROW_NUMBER() OVER(ORDER BY c_cno ASC) AS RNO
+			FROM
+				Concert
+			WHERE
+				UPPER(c_isshow) = 'Y')
+	WHERE
+		ARTIST = #{artist}
+	</select>
+	
+	<!-- 검색 결과 데이터 개수 구하기 질의 명령  -->
+	<select id="searchCount" resultType="int" parameterType="concert">
+ 	SELECT
+		COUNT(*)	AS	cnt
+	FROM
+		Concert
+	WHERE
+		<include refid="searchCondition"/>
+		AND
+		<include refid="isShow" />
+	</select>
+	
+	<!-- 검색어에 따른 데이터 검색 질의 명령 -->
+	<select id="concertSearch" parameterType="concert" resultType="concert">
+	SELECT
+		*
+	FROM
+		(SELECT
+			c_cno		AS CNO,
+			c_imgSrc	AS IMG,
+			c_title		AS TITLE,
+			c_genre		AS GENRE,
+			c_date		AS DAY,
+			c_loc		AS LOC,
+			c_artist	AS ARTIST,
+			ROW_NUMBER() OVER(ORDER BY c_cno ASC) AS RNO
+		FROM
+			Concert
+		WHERE <include refid="isShow" />
+		AND <include refid="searchCondition" />)
+	WHERE
+		RNO BETWEEN #{start} AND #{end}	
+		</select>
+		
+	<!-- 개막예정 콘서트 목록보기 -->
+	<select id="concertSchedule" resultType="concert">
+	SELECT 
+		c_cno		AS CNO,
+		c_title 	AS TITLE,
+		c_artist	AS ARTIST, 
+		c_imgsrc 	AS IMG
+	FROM 
+		concert 
+	WHERE 
+		rownum <![CDATA[ < ]]> 5
+	ORDER BY 
+		c_date
+	</select>
+	
+</mapper>
