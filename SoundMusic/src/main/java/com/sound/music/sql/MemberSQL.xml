@@ -79,7 +79,7 @@
 	<!-- 비밀번호 찾기 쿼리 -->
 	<select id="pwSearch" parameterType="mVO" resultType="String">
 		SELECT
-		 	m_Pw AS pw
+		 	RPAD(substr(m_pw,1,length(m_pw)-2),length(m_pw),'*') AS pw
 		FROM
 			MEMBER
 		WHERE
@@ -96,7 +96,7 @@
 	<!-- 아이디 찾기 쿼리 -->
 	<select id="idSearch" parameterType="mVO" resultType="String">
 		SELECT
-		 	m_Id AS id
+		 	RPAD(substr(m_id,1,length(m_id)-2),length(m_id),'*') AS id
 		FROM
 			MEMBER
 		WHERE
