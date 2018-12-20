@@ -3,14 +3,23 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<title>Document</title>
+<style>
+a {text-decoration:none;}
+a.genre:link{color:white;}
+a.genre:visited{color:#4444FF;}
+a.genre:hover{color:#1FDA11;}
+a.music:link{color:brown;}
+a.music:visited{color:blue;}
+a.music:hover{color:black;}
+</style>
 <script>
 $(document).ready(function(){
 	//음악 추가 폼
@@ -22,6 +31,7 @@ $(document).ready(function(){
 	$('#rcList').click(function(){
 		$(location).attr('href','../musiclist/musicrecycle.sm');
 	})
+	
 });
 function getSearchValue(){
 		if($('#svalue').val()=='' || $('#svalue').val()== null ){
@@ -29,33 +39,25 @@ function getSearchValue(){
 			return false;
 		}
 		$('#sForm').submit();
-};
-function getView(nowPage,no,genre){
+}
+function goView(nowPage, no, genre){
 	$('#no').val(no);
 	$('#nowPage').val(nowPage);
 	$('#genre').val(genre)
 	$('#mView').submit();
-};
+}
 function gMain(){
 	$(location).attr('href','../main.jsp');
 }
-</script>
-<style>
-a {text-decoration:none;}
-a.genre:link{color:white;}
-a.genre:visited{color:#4444FF;}
-a.genre:hover{color:#1FDA11;}
-a.music:link{color:brown;}
-a.music:visited{color:blue;}
-a.music:hover{color:black;}
-</style>	
+</script>	
 </head>
 <body>
 <img src = "../resources/images/mMainlogo.png" />
 <div class="container">
 <% String path = "http://localhost:80/music/musiclist";	 %>
   <!-- 검색창  -->
-<form id="sForm" method="post" action="<%=path%>/musiclist.sm?nowPage=${PINFO.nowPage}&genre=${GENRE}">
+<form id="sForm" method="get" 
+	action="<%=path%>/musiclist.sm?nowPage=${PINFO.nowPage}&genre=${GENRE}&sub=${SUB}&svalue=${SVALUE}">
 	<table width="930px" cellpadding="0px" align="center">
 		<tr>
 			<td><br/></td>
@@ -136,8 +138,8 @@ a.music:hover{color:black;}
  	<c:forEach var="test" items="${LIST}">
  	 	<tr>
 	 		<td><img src="${test.path}" width="50px" height="50px"></td>
-	 		<td>
-	 			<a class="music" href="javascript:void(0);" onclick="javascript:getView('${PINFO.nowPage}','${test.no}','${GENRE}')">${test.title}</a>
+	 		<td><!-- javascript:getView('${PINFO.nowPage}','${test.no}','${GENRE}'); -->
+	 			<a class="music" href="javascript:goView('${PINFO.nowPage}','${test.no}','${GENRE}');">${test.title}</a>
 	 		</td>
 	 		<td>${test.artist}</td>
 	 		<td>${test.album}</td>
@@ -156,13 +158,15 @@ a.music:hover{color:black;}
 			</c:if>
 			<c:if test="${PINFO.startPage ne 1}">
 				<li class="page-item">
-				<a class="page-link" href="<%=path%>/musiclist.sm?nowPage=${PINFO.nowPage-1}&genre=${GENRE}">이전</a>
+				<a class="page-link" 
+				href="<%=path%>/musiclist.sm?nowPage=${PINFO.nowPage-1}&genre=${GENRE}&sub=${SUB}&svalue=${SVALUE}">이전</a>
 				</li>
 			</c:if>
 			<%-- [1][2][3]링크만들기 --%>
 			<c:forEach var="page" begin="${PINFO.startPage}" end="${PINFO.endPage}">
 				<li class="page-item">
-					<a class="page-link" href="<%=path%>/musiclist.sm?nowPage=${page}&genre=${GENRE}">${page}</a>
+					<a class="page-link" 
+					href="<%=path%>/musiclist.sm?nowPage=${page}&genre=${GENRE}&sub=${SUB}&svalue=${SVALUE}">${page}</a>
 				</li>
 			</c:forEach>	
 			<%-- 다음 링크 만들기 --%>
@@ -173,7 +177,8 @@ a.music:hover{color:black;}
 			</c:if>
 			<c:if test="${PINFO.endPage ne PINFO.totalPage}">
 				<li class="page-item">
-				<a class="page-link" href="<%=path%>/musiclist.sm?nowPage=${PINFO.nowPage+1}&genre=${GENRE}">다음</a>
+				<a class="page-link" 
+				href="<%=path%>/musiclist.sm?nowPage=${PINFO.nowPage+1}&genre=${GENRE}&sub=${SUB}&svalue=${SVALUE}">다음</a>
 				</li>
 			</c:if>
 		</ul>

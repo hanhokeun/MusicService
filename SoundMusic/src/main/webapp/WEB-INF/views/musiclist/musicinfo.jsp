@@ -11,7 +11,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<title>Document</title>
-</head>
 <script>
 $(document).ready(function(){
 	//목록보기
@@ -32,6 +31,7 @@ function dProc(){
 function rwProc(){
 	if("${empty sessionScope.UID}"){
 		alert('로그인을 한 후에 이용해주세요')
+		return false;
 	}
 	if($('#rvBody').val()=='' || $('#rvBody').val()== null){
 		alert('내용을 입력해주세요')
@@ -74,27 +74,30 @@ function rdProc(rno){
 	$('#rvdFrm_'+rno).submit();
 }
 //추천기능
-function likeProc(){
+function likeProc(no){
 	if("${empty sessionScope.UID}"){
-		alert('로그인을 한 후에 이용해주세요')
+		alert('로그인을 한 후에 이용해주세요');
 	}
 	$('#c').submit();
 }
 </script>
+</head>
 <body>
 <div class="container">
+<!-- 음악 삭제시 넘길것 -->
 <% String path = "http://localhost:80/music/musiclist";	 %>
 <form id="d" method="POST" action="../musiclist/musiclistdelete.sm?nowPage=${NOWPAGE}&mNo=${INFO.no}">
 <input type="hidden" id="dNo" name="dNo" value="${INFO.no}" />
 </form>
+<!-- 추천하기 누를시 넘어갈 것들 -->
 <form id="c" method="POST" action="../musiclist/updateStar.sm">
-<input type="hidden" id="starNo" name="starNo" value="${INFO.no}" />
+<input type="hidden" id="starNo" name="starNo" value="${INFO.no}"/>
 <input type="hidden" id="starId" name="starId" value="${list.writer}" />
 <input type="hidden" id="sNowPage" name="sNowPage" value="${NOWPAGE}" />
 <input type="hidden" id="sGenre" name="sGenre" value="${GENRE}" />
 </form>
-  	<!-- 이곳은 음악의 상세 정보를 표시하는 창
-  	VO로부터 파라미터를 가져와서 표시할 예정  -->
+ 
+<!-- 음악내용 수정시 넘길 것들  -->  	
 <form id="a" method="POST" action="../musiclist/musiclistmodify.sm?nowPage=${NOWPAGE}&mNo=${INFO.no}">
 <input type="hidden" id="mNo" name="mNo" value="${INFO.no}" />
 <input type="hidden" id="genre" name="genre" value="${GENRE}" />
@@ -105,6 +108,8 @@ function likeProc(){
 <input type="hidden" id="lyrics" name="lyrics" value="${INFO.lyrics}" />
 <input type="hidden" id="nowPage" name="nowPage" value="${NOWPAGE}" />
 
+ 	<!-- 이곳은 음악의 상세 정보를 표시하는 창
+  	VO로부터 파라미터를 가져와서 표시할 예정  -->
 <span class="title">
 	<h1 style="color:#3a3635;">${INFO.title}</h1>
 </span>
@@ -123,7 +128,7 @@ function likeProc(){
 		<td colspan="3">
 			<br/>
 			<br/>
-			<input type="button" class="btn btn-info" id="goList" name="goList" value="목록으로">
+			<input type="button" class="btn btn-info" id="goList" value="목록으로">
 			<input type="button" class="btn btn-success" id="like" name="like" 
 			onclick="javascript:likeProc('${INFO.no}')" value="추천하기 ${INFO.star}">
 			<c:if test="${ID eq 'admin'}">

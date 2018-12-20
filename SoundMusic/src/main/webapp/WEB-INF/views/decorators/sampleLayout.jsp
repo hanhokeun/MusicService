@@ -16,6 +16,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
 	body{
 		font-family: 'Sunflower', sans-serif;
@@ -35,7 +36,7 @@
 	%>
 	<!-- Grey with black text -->
 	<nav class="navbar navbar-expand-sm bg-light navbar-light">
-	  <a class="navbar-brand" href="<%=path%>/main.jsp"><img src="music.png" alt="Logo" style="width:70px;"/></a>
+	  <a class="navbar-brand" href="<%=path%>/main.jsp"><img src="../resources/images/music.png" alt="Logo" style="width:70px;"/></a>
 	  <ul class="navbar-nav">
 	    <li class="nav-item">
 	      <a class="nav-link" href="#">실시간 차트</a>

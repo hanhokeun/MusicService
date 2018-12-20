@@ -37,8 +37,7 @@ public class MusicListController {
 	@RequestMapping("/musiclist")
 	public ModelAndView MusicList(@RequestParam(value="nowPage",defaultValue="1") int nowPage,
 						@RequestParam(value="genre",defaultValue="") String genre, HttpServletRequest req,
-						MusicInfoVO mvo, 
-						ModelAndView mv1, HttpSession session) throws Exception {
+						MusicInfoVO mvo, ModelAndView mv1, HttpSession session) throws Exception {
 		String id = (String)session.getAttribute("UID");
 		String sub = req.getParameter("sub");
 		String sValue = req.getParameter("svalue");
@@ -54,6 +53,8 @@ public class MusicListController {
 		PageUtil pInfo= musicInfoService.getPageInfo(nowPage,mvo);
 		//뿌리기
 		List<MusicInfoVO> vo1 = (List<MusicInfoVO>)musicInfoService.mList(pInfo,mvo);
+		mv1.addObject("SUB", sub);
+		mv1.addObject("SVALUE",sValue);
 		mv1.addObject("ID", id);
 		mv1.addObject("GENRE",genre);
 		mv1.addObject("PINFO",pInfo);
@@ -74,6 +75,8 @@ public class MusicListController {
 		String id = (String)session.getAttribute("UID");
 		String strNo = req.getParameter("no");
 		int no = Integer.parseInt(strNo);
+		String sub = req.getParameter("isub");
+		String sValue = req.getParameter("isvalue");
 		//2.서비스위임(비즈니스로직)
 		vo2 = musicInfoService.info(no);
 		//페이징 기능
@@ -81,6 +84,8 @@ public class MusicListController {
 		List<MusicInfoVO> vo3 = (List<MusicInfoVO>)musicInfoService.rvList(rPage,no);
 		//3.모델
 		//4.뷰
+		mv2.addObject("SUB", sub);
+		mv2.addObject("SVALUE", sValue);
 		mv2.addObject("ID", id);
 		mv2.addObject("GENRE",genre);
 		mv2.addObject("NOWPAGE",nowPage);
@@ -207,7 +212,8 @@ public class MusicListController {
 		//서비스
 		musicInfoService.rvWrite(vo);
 		//모델,뷰
-		RedirectView rv = new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+oriNo+"&genre="+genre);
+		RedirectView rv = 
+		new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+oriNo+"&genre="+genre);
 		mv.setView(rv);
 		return mv;
 	}
