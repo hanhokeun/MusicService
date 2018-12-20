@@ -16,7 +16,8 @@
   <style> 
 	  body{
 		font-family: 'Poor Story', cursive;  
-		font-size: 20px;
+		font-size: 27px;
+		font-weight: bold;
 	  }
 	  
 	/*   hr.new1{
@@ -35,8 +36,8 @@
   <!--해더 로고 및 로그인버튼-->
   <div class="row">   
     <div class="col-md-12">
-      <div class="header" style="background-color:coral;">      	
-      	<img src="./resources/images/logo.png" alt="list">
+      <div class="header">      	
+      	<img src="./resources/images/music.png" alt="logo">
       	<div>
 	 		<ul class="nav justify-content-end">
       	<%
@@ -96,8 +97,8 @@
        <div class="carousel-inner">
         <div class="carousel-item active">
           <p align="middle">
-          	<h4><i class='fab fa-youtube' style='font-size:24px'></i> 실시간 인기 동영상  <a href="#" class="btn btn-outline-light text-dark"> 더보기</a> </h4><hr>    	
-          <iframe align="center" width="800" height="400" src="https://www.youtube.com/embed/SAdmzjsFVQo?rel=0&autoplay=1&amp;loop=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>         
+          	<h2><i class='fab fa-youtube' style='font-size:24px'></i> 실시간 인기 동영상  <a href="#" class="btn btn-outline-light text-dark"> 더보기</a> </h2><hr>    	
+          <iframe align="center" width="800" height="400" src="https://www.youtube.com/embed/nM0xDI5R50E?rel=0&autoplay=1&amp;loop=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>         
           </p>
         </div>
       </div>
@@ -108,7 +109,7 @@
   <div class="row">
   	<!-- 실시간 차트 -->
     <div class="col-md-3">
-        <h3><i class="fa fa-signal" style="font-size:30px"></i>실시간 차트 <a href="#" class="btn btn-outline-light text-dark"> 더보기</a></h3><hr>
+        <h2><i class="fa fa-signal" style="font-size:30px"></i>실시간 차트 <a href="#" class="btn btn-outline-light text-dark"> 더보기</a></h2><hr>
         <div id="demo" class="carousel slide" data-ride="carousel">
 
   <!-- Indicators -->
@@ -144,7 +145,7 @@
     <!-- 뮤직리스트-->
     <div class="col-md-9">
     	<div>
-        <h3><i class='fas fa-headphones' style='font-size:24px'></i> Music List <a href="musiclist/musiclist.sm" class="btn btn-outline-light text-dark"> 더보기</a></h3><hr>
+        <h2><i class='fas fa-headphones' style='font-size:24px'></i> Music List <a href="musiclist/musiclist.sm" class="btn btn-outline-light text-dark"> 더보기</a></h2><hr>
         	<img src="./resources/images/musiclist.png" class="img-thumbnail" alt="music list" width="900" height="600">
     	</div>
     </div>
@@ -154,7 +155,7 @@
   <!-- 콘서트 -->
   <div class="row">
     <div class="col-md-12">
-      <h3><i class='fas fa-microphone-alt' style='font-size:24px'></i> 콘서트 <a href="concert/concertList.sm" class="btn btn-outline-light text-dark"> 더보기</a></h3><hr>
+      <h2><i class='fas fa-microphone-alt' style='font-size:24px'></i> 콘서트 <a href="concert/concertList.sm" class="btn btn-outline-light text-dark"> 더보기</a></h2><hr>
       <img src="./resources/images/consert.png" class="img-thumbnail" alt="consert"  width="1100">
     </div>
   </div> 
