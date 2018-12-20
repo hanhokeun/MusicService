@@ -102,17 +102,17 @@
 			  		</tbody>
 			  	</table>
 			<%-- 글쓰기(기타기능) 관리자만 가능하게 한다--%>
-		  	<%-- <c:if test="${sessionScope.UID eq 'admin'}">--%>
-			  	<form id="wForm"  method="get">
-				  	<table align="center" class="table table-hover">
-				  		<tr>
-				  			<td align="center"> 
-				  				<button type="button" class="btn btn-light btn-block" id="wBtn">글쓰기</button>
-				  			</td>
-				  		</tr>
-				  	</table>
-				 </form>
-			<%--</c:if>--%>
+		  		<c:if test="${sessionScope.UID eq 'admin'}">
+				  	<form id="wForm"  method="get">
+					  	<table align="center" class="table table-hover">
+					  		<tr>
+					  			<td align="center"> 
+					  				<button type="button" class="btn btn-light btn-block" id="wBtn">글쓰기</button>
+					  			</td>
+					  		</tr>
+					  	</table>
+					</form>
+				</c:if>
 		  	<%-- 페이지 이동기능 --%>
 		  	<div class="text-center" >
 		  		<ul class="pagination justify-content-center">			
