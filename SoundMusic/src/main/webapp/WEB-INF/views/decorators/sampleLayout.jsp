@@ -42,7 +42,7 @@
 	      <a class="nav-link" href="#">실시간 차트</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link disabled" href="#">공지사항</a>
+	      <a class="nav-link disabled" href="<%=path%>/musiclist/musiclist.sm">음악정보</a>
 	    </li>
 	    <li class="nav-item">
 	      <a class="nav-link" href="<%=path%>/freeBoard/boardList.sm">자유게시판</a>
