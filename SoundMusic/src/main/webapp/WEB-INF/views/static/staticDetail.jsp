@@ -251,7 +251,7 @@
 			  			<tr>
 			  				<th>내용</th>
 			  				<td colspan="2">${reply.brBody}</td>
-			  			<c:if test="${sessionScope.UID eq (reply.mId || 'admin') }">
+			  			<c:if test="${sessionScope.UID eq reply.mId or sessionScope.UID eq 'admin' }">
 			  				<td align="center">
 			  					<input type="button" class="rmBtn" value="수정" param="${reply.no}"/>
 			  					<input type="button" class="rdBtn" value="삭제" param="${reply.no}"/>

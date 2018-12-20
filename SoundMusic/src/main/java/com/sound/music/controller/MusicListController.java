@@ -289,6 +289,7 @@ public class MusicListController {
 		//1. 만약 없다면
 		//그 유저의 추천곡 리스트를 가져오자
 		//추천수 증가와 유저의 추천곡 목록 수정
+		
 		boolean permit = resVo.isPermit();
 		if(permit==true) {
 			res = res+strNo+"/";
@@ -297,14 +298,15 @@ public class MusicListController {
 		}
 		//2. 만약 있다면..
 		else {
-			
 			resp.setContentType("text/html; charset=UTF-8");
+			resp.setContentType(" pageEncoding='UTF-8'");
 			PrintWriter out = resp.getWriter();
 			out.println("<script>");
-			out.println("alert('이미 추천한 곡입니다!');");
+			out.println("alert('You Already Recommended!');");
 			out.println("history.back();");
 			out.println("</script>");
-			out.close();	
+			out.close();
+			
 		}
 		//모델, 뷰
 		RedirectView rv = new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+no+"&genre="+genre);

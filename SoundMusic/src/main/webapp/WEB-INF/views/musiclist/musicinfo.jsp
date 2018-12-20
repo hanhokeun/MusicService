@@ -29,7 +29,8 @@ function dProc(){
 }
 //댓글쓰기
 function rwProc(){
-	if("${empty sessionScope.UID}"){
+	var id = '${sessionScope.UID}';
+	if(id == ''){
 		alert('로그인을 한 후에 이용해주세요')
 		return false;
 	}
@@ -75,8 +76,10 @@ function rdProc(rno){
 }
 //추천기능
 function likeProc(no){
-	if("${empty sessionScope.UID}"){
-		alert('로그인을 한 후에 이용해주세요');
+	var id = '${sessionScope.UID}';
+	if(id == ''){
+		alert('로그인을 한 후에 이용해주세요')
+		return false;
 	}
 	$('#c').submit();
 }
@@ -194,7 +197,7 @@ function likeProc(no){
 	</td>
 	<!-- 수정 버튼 -->
 	<td>
-	<c:if test="${list.writer eq (ID || 'admin')}">
+	<c:if test="${list.writer eq ID or list.writer eq 'admin'}">
 	<button type="button" class="btn btn-primary" id="rmBtn_${list.rno}" name="rmBtn" 
 	onclick="javascript:rmBtn('${list.rno}')">수정</button>
 	<form id="rvdFrm_${list.rno}" method="POST" action="../musiclist/rvDelete.sm">
