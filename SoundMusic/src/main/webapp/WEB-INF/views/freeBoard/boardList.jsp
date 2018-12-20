@@ -78,7 +78,7 @@
   					${data.title}</a>--%>
   				</td>
   				<td>${data.id}</td>
-  				<td>${data.wday}</td>
+  				<td>${data.date}</td>
   				<td>${data.hit}</td>
   				<td>${data.filecount}</td>
   			</tr>
@@ -93,25 +93,21 @@
   		<td align="center">
   			<!-- [<][1][2][3][4][5][>] -->
   			<%--이전페이지 [<] --%>
-  			<c:if test="${PINFO.nowPage eq 1}">
-  			 	[<]
-  			 </c:if>
-  			 <c:if test="${PINFO.nowPage ne 1}">
-  			 <a href="../freeBoard/boardList.sm?nowPage=${PINFO.nowPage-1}">[<]</a>
+  			<c:if test="${PINFO.nowPage eq 1}">[이전]</c:if>
+  			 <c:if test="${PINFO.nowPage ne 1}"><a href="../freeBoard/boardList.sm?nowPage=${PINFO.nowPage-1}">[이전]</a>
   			 </c:if>
   				
   			<%-- [1][2][3][4][5] --%>
   			<c:forEach var="page" begin="${PINFO.startPage}"
-  			 end="${PINFO.endPage}" 
-  			 >
+  			 end="${PINFO.endPage}">
   				<a href="../freeBoard/boardList.sm?nowPage=${page}">[${page}]</a>
   			</c:forEach>
   			<%--다음 페이지 현재 보고 있는 페이지가 마지막페이지까지 갔으면 --%>
   			 <c:if test="${PINFO.nowPage eq PINFO.totalPage}">
-  			 	[>]
+  			 	[다음]
   			 </c:if>
   			 <c:if test="${PINFO.nowPage ne PINFO.totalPage}">
-  			 <a href="../freeBoard/boardList.sm?nowPage=${PINFO.nowPage+1}">[>]</a>
+  			 <a href="../freeBoard/boardList.sm?nowPage=${PINFO.nowPage+1}">[다음]</a>
   			 </c:if>
   			
   		</td>

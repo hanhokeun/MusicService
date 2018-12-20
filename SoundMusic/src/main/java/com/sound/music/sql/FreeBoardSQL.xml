@@ -58,7 +58,7 @@
 		FROM
 			(SELECT 
 			 <include refid="selectField" />, 
-				ROW_NUMBER() OVER(ORDER BY frb_NO ASC) AS RNO,
+				ROW_NUMBER() OVER(ORDER BY frb_NO DESC) AS RNO,
 				NVL(t1.CNT, 0)		AS FILECOUNT
 			FROM
 				FreeBoard,

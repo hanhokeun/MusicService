@@ -4,9 +4,13 @@
 <html lang="en">
 <head>
   <title>수정하기</title>
-	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 		<script>
 		$(document).ready(function(){
 			var count=1; //업로드할 파일의 개수
@@ -60,48 +64,50 @@
 	</script>
 </head>
 <body>
-  <h1>글수정 폼(modifyForm.jsp)</h1>
-  <form id="mForm" method="POST" action="../freeBoard/modifyProc.sm"
-  			encType="multipart/form-data">
-  	<input type="hidden" name="oriNo" value="${VIEW.no}"/>
-  	<input type="hidden" name="nowPage" value="${nowPage}"/>		
-  	<table border="1" width="700" align="center">
-	  	<tr>
-	  		<th>작성자</th>
-	  		<td>${sessionScope.UID}</td>
-	  	</tr>
-	  	<tr>
-	  		<th>제목</th>
-	  		<td>
-	  			<input type="text" name="title" id="title" value="${VIEW.title}"/>
-	  		</td>
-	  	</tr>
-	  	<tr>
-	  		<th>내용</th>
-	  		<td>
-	  			<textarea name="body" id="body" cols="80" rows="5">${VIEW.body}</textarea>
-	  		</td>
-	  	</tr>
-	  	
-	  	<tr>
-	  		<th>첨부파일</th>
-	  		<td>
-	  			<input type="button" id="aBtn" value="추가" />
-	  			<input type="button" id="dBtn" value="삭제" />
-	  		</td>
-	  	</tr>
-	  	<tr>
-	  		<th>첨부파일</th>
-	  		<td>
-	  			<input type="file" name="files" id="files"/>
-	  		</td>
-	  	</tr>
-	  	<tr id="copy">
-	  		<td colspan="2" align="center">
-	  			<input type="button" id="mBtn" value="수정하기" />
-	  		</td>
-	  	</tr>
-	  </table>		
-  </form>  
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<hr>
+
+				<form id="mForm" method="POST" action="../freeBoard/modifyProc.sm"
+					encType="multipart/form-data">
+					<input type="hidden" name="oriNo" value="${VIEW.no}" /> <input
+						type="hidden" name="nowPage" value="${nowPage}" />
+
+					<table class="table table-bordered">
+						<tr>
+							<th>작성자</th>
+							<td>${sessionScope.UID}</td>
+						</tr>
+						<tr>
+							<th>제목</th>
+							<td><input type="text" name="title" id="title"
+								value="${VIEW.title}" /></td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td><textarea name="body" id="body" cols="80" rows="5">${VIEW.body}</textarea>
+							</td>
+						</tr>
+
+						<tr>
+							<th>첨부파일</th>
+							<td><input type="button" id="aBtn" value="추가" /> <input
+								type="button" id="dBtn" value="삭제" /></td>
+						</tr>
+						<tr>
+							<th>첨부파일</th>
+							<td><input type="file" name="files" id="files" /></td>
+						</tr>
+						<tr id="copy">
+							<td colspan="2" align="center"><input type="button"
+								id="mBtn" value="수정하기" /></td>
+						</tr>
+					</table>
+
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

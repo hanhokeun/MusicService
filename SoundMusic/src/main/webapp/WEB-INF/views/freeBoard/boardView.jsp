@@ -149,7 +149,7 @@
 								<th>글쓴이</th>
 								<td>${reply.id}</td>
 								<th>작성일</th>
-								<th>${reply.wday}</th>
+								<th>${reply.date}</th>
 							</tr>
 							<tr>
 								<th>내용</th>
@@ -181,19 +181,19 @@
 					<table align="center" class="table">
 						<tr>
 							<td align="center">
-								<%--이전링크 만들기--%> <c:if test="${RPAGE.startPage eq 1}">[<]</c:if>
+								<%--이전링크 만들기--%> <c:if test="${RPAGE.startPage eq 1}">[이전]</c:if>
 								<c:if test="${RPAGE.startPage ne 1}">
 									<a
-										href="../freeBoard/boardView.sm?rvPage=${RPAGE.rvPage-1}&nowPage=${nowPage}&oriNo=${VIEW.no}">[<]</a>
+										href="../freeBoard/boardView.sm?rvPage=${RPAGE.rvPage-1}&nowPage=${nowPage}&oriNo=${VIEW.no}">[이전]</a>
 								</c:if> <c:forEach var="page" begin="${RPAGE.startPage}"
 									end="${RPAGE.endPage}">
 									<a
 										href="../freeBoard/boardView.sm?rvPage=${page}&nowPage=${nowPage}&oriNo=${VIEW.no}">[${page}]</a>
 								</c:forEach> <%--다음링크 만들기--%> <c:if
-									test="${RPAGE.endPage eq RPAGE.totalPage}">[>]</c:if> <c:if
+									test="${RPAGE.endPage eq RPAGE.totalPage}">[다음]</c:if> <c:if
 									test="${RPAGE.endPage ne RPAGE.totalPage}">
 									<a
-										href="../freeBoard/boardView.sm?rvPage=${RPAGE.rvPage+1}&nowPage=${nowPage}&oriNo=${VIEW.no}">[>]</a>
+										href="../freeBoard/boardView.sm?rvPage=${RPAGE.rvPage+1}&nowPage=${nowPage}&oriNo=${VIEW.no}">[다음]</a>
 								</c:if>
 							</td>
 						</tr>
