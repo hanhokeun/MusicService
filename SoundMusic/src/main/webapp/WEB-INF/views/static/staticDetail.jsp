@@ -73,9 +73,8 @@
 				})
 			}
 		})
-	</script>
-	<script>
-		(function($) {
+		//(function($) {
+		$(document).ready(function(){	
 		    $.fn.bmdIframe = function( options ) {
 		        var self = this;
 		        var settings = $.extend({
@@ -85,26 +84,22 @@
 		        }, options );
 		      
 		        $(settings.classBtn).on('click', function(e) {
-		          var allowFullscreen = $(this).attr('data-bmdVideoFullscreen') || false;
+		          	var allowFullscreen = $(this).attr('data-bmdVideoFullscreen') || false;
 		          
-		          var dataVideo = {
-		            'src': $(this).attr('src'),
-		            'height': $(this).attr('data-bmdHeight') || settings.defaultH,
-		            'width': $(this).attr('data-bmdWidth') || settings.defaultW
-		          };
+		          	var dataVideo = {
+			            'src': $(this).attr('src'),
+			            'height': $(this).attr('data-bmdHeight') || settings.defaultH,
+			            'width': $(this).attr('data-bmdWidth') || settings.defaultW
+		         	 };
 		          
 		          if ( allowFullscreen ) dataVideo.allowfullscreen = "";
-		          $(self).find("iframe").attr(dataVideo);
-		        });
-		        this.on('hidden.bs.modal', function(){
-		          $(this).find('iframe').html("").attr("src", "");
-		        });
-		        return this;
+		          		$(self).find("iframe").attr(dataVideo);
+		        	});
+		          this.on('hidden.bs.modal', function(){
+		          		$(this).find('iframe').html("").attr("src", "");
+		       	 });
+		       	 return this;
 		    };
-		})(jQuery);
-	</script>
-	<script>
-		$(document).ready(function(){
 			$("#myModal").bmdIframe();
 			//목록보기
 			$('#lBtn').click(function(){
@@ -161,7 +156,7 @@
 				}
 				$('#wrFrm').submit();
 			});
-		})
+		});	
 	</script>
 </head>
 <body>

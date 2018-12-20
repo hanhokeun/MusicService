@@ -19,9 +19,9 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
 	body{
-		font-family: 'Sunflower', sans-serif;
-		font-size: 15px;
-	}
+				font-family: 'Poor Story', cursive;
+				font-size: 20px;
+			}
 </style>
 <body>
 <% String path = "http://localhost:80/music"; %>
