@@ -38,11 +38,8 @@
 				//추가할 폼
 				var tr = "<tr><th>첨부파일</th>"+
 											"<td><input type='file' name='files' id='files"+count+"'/>"+
-											"</td></tr>";
-				
-				//원하는 위치에 추가한다
-				// 원하는 위치 -> id가 copy인 element => <tr>~~</tr>
-				// 추가
+											"</td></tr>";				
+			
 				$("#copy").before(tr);
 			});
 			
@@ -65,14 +62,13 @@
 	</script>
 </head>
 <body>
-	<%-- 글쓰기 폼을 보여주자 
-			파일 업로드가 포함.. 스트림방식으로 처리할 수 있도록
-			encType="multipart/form-data"를 지정해야 한다
-	--%>
+<div class="container">
+	<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
   <h1>글쓰기 폼(wirteForm.jsp)</h1>
-  <form id="wForm" method="POST" action="../freeBoard/writeProc.sm"
-  			encType="multipart/form-data">
-  	<table border="1" width="700" align="center">
+  <form id="wForm" method="POST" action="../freeBoard/writeProc.sm" encType="multipart/form-data">
+  	<table class="table table-hover">
 	  	<tr>
 	  		<th>작성자</th>
 	  		<td>${sessionScope.UID}</td>
@@ -111,6 +107,10 @@
 	  	</tr>
 	  </table>		
   </form>
+  </div>
+  <div class="col-md-2"></div>
+  </div>
+</div>
 </body>
 </html>
 

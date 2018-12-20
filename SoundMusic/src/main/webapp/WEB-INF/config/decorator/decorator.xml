@@ -6,7 +6,7 @@
 		<pattern>/musiclist/*</pattern>
 		<pattern>/static/*</pattern>
 		<pattern>/freeBoard/*</pattern>
-		<pattern>/consert/*</pattern>
+		<pattern>/concert/*</pattern>
 	</decorator>
 	
 

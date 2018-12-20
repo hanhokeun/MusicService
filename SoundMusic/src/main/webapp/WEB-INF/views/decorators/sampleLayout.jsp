@@ -40,7 +40,7 @@
 	  <a class="navbar-brand" href="<%=path%>/main.jsp"><img src="../resources/images/music.png" alt="Logo" style="width:350px; heght:180px;"/></a>
 	  <ul class="navbar-nav">
 	    <li class="nav-item">
-	      <a class="nav-link" href="#"><i class="fa fa-signal" style="font-size:20px"></i> 실시간 차트</a>
+	      <a class="nav-link" href="<%=path%>/freeBoard/onChart.sm"><i class="fa fa-signal" style="font-size:20px"></i> 실시간 차트</a>
 	    </li>
 	    <li class="nav-item">
 	      <a class="nav-link disabled" href="<%=path%>/musiclist/musiclist.sm"><i class='fas fa-headphones' style='font-size:20px'></i> Music List</a>
