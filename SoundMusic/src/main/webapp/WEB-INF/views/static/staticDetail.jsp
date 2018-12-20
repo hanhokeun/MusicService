@@ -82,15 +82,14 @@
 		            defaultW: 1000,
 		            defaultH: 500
 		        }, options );
-		      
-		        $(settings.classBtn).on('click', function(e) {
-		          	var allowFullscreen = $(this).attr('data-bmdVideoFullscreen') || false;
+		     $(settings.classBtn).on('click', function(e) {
+		          var allowFullscreen = $(this).attr('data-bmdVideoFullscreen') || false;
 		          
-		          	var dataVideo = {
+		          var dataVideo = {
 			            'src': $(this).attr('src'),
 			            'height': $(this).attr('data-bmdHeight') || settings.defaultH,
 			            'width': $(this).attr('data-bmdWidth') || settings.defaultW
-		         	 };
+		          };
 		          
 		          if ( allowFullscreen ) dataVideo.allowfullscreen = "";
 		          		$(self).find("iframe").attr(dataVideo);
