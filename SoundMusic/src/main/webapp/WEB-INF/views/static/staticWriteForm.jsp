@@ -86,7 +86,7 @@
 		<div class="row">
 		<div class="col-lg-1"></div>
 			<div class="col-lg-10">
-			  	<h1 align="center">통계 페이지 글 작성하기</h1>
+			  	<h2 align="center">Music Bigdata 글 작성하기</h2>
 			  		<form id="wForm"  method="post"  action="../static/staticWriteProc.sm"
 			  			encType="multipart/form-data">
 			  			<table class="table">
@@ -102,7 +102,7 @@
 					  		</tr>
 					  		<tr>
 					  			<th>본문</th>
-					  			<td colspan="3"><textarea name="body" id="body" cols="80" rows="5" class="form-control"></textarea></td>
+					  			<td colspan="3"><textarea name="body" id="body" cols="80" rows="5" class="form-control" style="resize:none;"></textarea></td>
 					  		</tr>
 					  		<tr>
 					  			<th>첨부파일</th>

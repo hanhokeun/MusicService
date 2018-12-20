@@ -51,7 +51,7 @@
 		<div class="row">
 			<div class="col-lg-1"></div>
 			<div class="col-lg-10">
-			  	<h1 align="center">통계 게시판</h1>
+			  	<h3 align="center">Music Bigdata</h3>
 			  	<%-- 검색 기능 --%>
 			  	<form id="sForm" method="post"  action="../static/staticList.sm">
 			  		<div class="dropdown">

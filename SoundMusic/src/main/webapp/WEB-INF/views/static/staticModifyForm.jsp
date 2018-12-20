@@ -89,7 +89,7 @@
 		<div class="row">
 			<div class="col-lg-1"></div>
 			<div class="col-lg-10">
-			  <h1 align="center">통계 페이지 글 수정하기</h1>
+			  <h2 align="center">Music Bigdata 글 수정하기</h2>
 			  <form id="wForm"  method="post"  action="../static/staticModifyProc.sm"
 			  			encType="multipart/form-data">
 			  		<input type="hidden" name="nowPage" value="${nowPage}"/>

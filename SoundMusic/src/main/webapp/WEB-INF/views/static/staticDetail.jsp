@@ -156,6 +156,9 @@
 					$('#pw').focus();
 					return;
 				}
+				if("${empty sessionScope.UID}"){
+					alert('로그인을 한 후에 이용해주세요')
+				}
 				$('#wrFrm').submit();
 			});
 		})
@@ -166,53 +169,54 @@
 		<div class="row">
 			<div class="col-lg-1"></div>
 			<div class="col-lg-10">
+				<h3 align="center">Music Bigdata 상세보기</h3>
   			<%--상세보기 내용 출력 --%>
-			  <table align="center" class="table">
-			  	<tbody>
-			  		<tr align="center">
-			  			<td align="center"><b>글번호</b></td>
-			  			<td>${VIEW.no}</td>
-			  			<td align="center"><b>조회수</b></td>
-			  			<td>${VIEW.hit}</td>
-			  			<td align="center"><b>작성일/수정일</b></td>
-			  			<td>${VIEW.date}</td>
-			  		</tr>
-			  		<tr>
-			  			<td align="center"><b>노래 제목</b></td>
-			  			<td colspan="3"  align="center">${VIEW.song}</td>
-			  			<td align="center"><b>가수 이름</b></td>
-			  			<td align="center">${VIEW.artist}</td>
-			  		</tr>
-			  		<tr>
-			  			<td align="center"><b>제목</b></td>
-			  			<td colspan="4" >${VIEW.title}</td>
-			  			<td align="center">
-			  				<div class="container">
-			        			<div class="row">
-			        				<div class="col-xs-12">
-			         				 	<div class="page">
-			            						<button type="button" id="youtube" class="bmd-modalButton" data-toggle="modal"  data-bmdWidth="600" data-bmdHeight="400" data-target="#myModal"  data-bmdVideoFullscreen="true">${VIEW.song} 영상보기</button>           
-			      						</div>
-			        				</div>
-			      				</div>
-			      			</div>
-			      		</td>
-			  		</tr>
-			  		<tr>
-			  			<td align="center"><b>내용</b></td>
-			  			<td colspan="6">${VIEW.brBody}</td>
-			      	</tr>
-			   	</tbody>
-			  </table>
+			  	<table align="center" class="table">
+				  	<tbody>
+				  		<tr align="center">
+				  			<td align="center"><b>글번호</b></td>
+				  			<td>${VIEW.no}</td>
+				  			<td align="center"><b>조회수</b></td>
+				  			<td>${VIEW.hit}</td>
+				  			<td align="center"><b>작성일/수정일</b></td>
+				  			<td>${VIEW.date}</td>
+				  		</tr>
+				  		<tr>
+				  			<td align="center"><b>노래 제목</b></td>
+				  			<td colspan="3"  align="center">${VIEW.song}</td>
+				  			<td align="center"><b>가수 이름</b></td>
+				  			<td align="center">${VIEW.artist}</td>
+				  		</tr>
+				  		<tr>
+				  			<td align="center"><b>제목</b></td>
+				  			<td colspan="4" >${VIEW.title}</td>
+				  			<td align="center">
+				  				<div class="container">
+				        			<div class="row">
+				        				<div class="col-xs-12">
+				         				 	<div class="page">
+				            						<button type="button" id="youtube" class="bmd-modalButton" data-toggle="modal"  data-bmdWidth="600" data-bmdHeight="400" data-target="#myModal"  data-bmdVideoFullscreen="true">${VIEW.song} 영상보기</button>           
+				      						</div>
+				        				</div>
+				      				</div>
+				      			</div>
+				      		</td>
+				  		</tr>
+				  		<tr>
+				  			<td align="center"><b>내용</b></td>
+				  			<td colspan="6">${VIEW.brBody}</td>
+				      	</tr>
+				   	</tbody>
+			  	</table>
 			  <%-- 첨부파일 내용 출력 --%>
-			  <table align="center" class="table">
-			  	<c:forEach items="${FILE}" var="info">
-			  		<tr>
-			  			<td><img src="../upload/${info.saveName}" width="500" height="300" class="mx-auto d-block"/></td>
-			  			<td><a href="../static/staticDownloadCount.sm?fileNo=${info.no}">${info.oriName}<br/>(${info.cnt}회 다운)</a></td>
-			  		</tr>
-			  	</c:forEach>
-			  </table>
+				  <table align="center" class="table">
+				  	<c:forEach items="${FILE}" var="info">
+				  		<tr>
+				  			<td><img src="../upload/${info.saveName}" width="500" height="300" class="mx-auto d-block"/></td>
+				  			<td><a href="../static/staticDownloadCount.sm?fileNo=${info.no}">${info.oriName}<br/>(${info.cnt}회 다운)</a></td>
+				  		</tr>
+				  	</c:forEach>
+				  </table>
 			 <%-- 기타기능.. 목록보기 --%>
 			 <div class="container">
 				  <table align="center" class="table-borderless">
@@ -307,7 +311,7 @@
 					  	<th>글내용</th>
 				  		<td colspan="2">
 				  			<div class="form-group">
-				  				<textarea  class="form-control" rows="5" name="body" id="body" style="resize:none"></textarea>
+				  				<textarea  class="form-control" name="body" id="body"></textarea>
 				  			</div>
 				  		</td>
 					</tr>
