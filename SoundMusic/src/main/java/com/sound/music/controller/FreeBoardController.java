@@ -305,7 +305,7 @@ public class FreeBoardController {
 			int oriNo = vo.getOriNo();
 			frService.updateReply(vo);
 			ModelAndView mv = new ModelAndView();
-			RedirectView rv=new RedirectView("../freeBoard/boardDetail.sm");
+			RedirectView rv=new RedirectView("../freeBoard/boardView.sm");
 			rv.addStaticAttribute("nowPage", nowPage);
 			rv.addStaticAttribute("oriNo", oriNo);
 			mv.setView(rv);
@@ -318,7 +318,7 @@ public class FreeBoardController {
 			String nowPage=req.getParameter("nowPage");
 			int oriNo = vo.getOriNo();
 			frService.deleteReply(vo);
-			RedirectView rv = new RedirectView("../freeBoard/boardDetail.sm");
+			RedirectView rv = new RedirectView("../freeBoard/boardView.sm");
 			rv.addStaticAttribute("nowPage", nowPage);
 			rv.addStaticAttribute("oriNo", oriNo);
 			mv.setView(rv);
