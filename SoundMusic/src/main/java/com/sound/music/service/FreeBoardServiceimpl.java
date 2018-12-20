@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.sound.music.dao.FreeBoardDAO;
 import com.sound.music.util.PageUtil;
+import com.sound.music.util.RVPage;
 import com.sound.music.vo.FreeBoardVO;
+import com.sound.music.vo.StaticVO;
 
 @Service
 public class FreeBoardServiceimpl implements FreeBoardService {
@@ -62,8 +64,8 @@ public class FreeBoardServiceimpl implements FreeBoardService {
 	}
 	// 상세보기 함수
 	@Override
-	public FreeBoardVO getBoardView(int oriNo) throws Exception{
-		FreeBoardVO vo = frDAO.getBoardView(oriNo);
+	public FreeBoardVO getBoardView(int no) throws Exception{
+		FreeBoardVO vo = frDAO.getBoardView(no);
 		return vo;
 	}
 	// 파일 상세보기 함수
@@ -75,19 +77,19 @@ public class FreeBoardServiceimpl implements FreeBoardService {
 	}
 	// 조회수 증가 함수
 	@Override
-	public void updateHit(int oriNo, HttpSession session) throws Exception{
+	public void updateHit(int no, HttpSession session) throws Exception{
 		boolean isHit = false;// 조회수 증가를 할지 말지 기억할 변수.
 		ArrayList hitList = (ArrayList)session.getAttribute("HIT");
 		
 		if(hitList==null||hitList.size()==0){//첫방문
 			hitList = new ArrayList();
-			hitList.add(oriNo);
+			hitList.add(no);
 			isHit=true;
 			session.setAttribute("HIT", hitList);
 			
-		}else if(!hitList.contains(oriNo)){//첫방문은 아니지만 해당 글은 처음
+		}else if(!hitList.contains(no)){//첫방문은 아니지만 해당 글은 처음
 			
-			hitList.add(oriNo);
+			hitList.add(no);
 			isHit=true;
 			session.setAttribute("HIT", hitList);
 			
@@ -95,7 +97,7 @@ public class FreeBoardServiceimpl implements FreeBoardService {
 			isHit = false;
 		}
 		if(isHit == true) {
-			frDAO.updateHit(oriNo);
+			frDAO.updateHit(no);
 		}
 	}
 	//파일 다운로드 함수
@@ -129,6 +131,47 @@ public class FreeBoardServiceimpl implements FreeBoardService {
 		int cnt = frDAO.deleteBoard(oriNo);
 		System.out.println("서비스 종료");
 		return cnt;
+	}
+	//댓글 페이징 처리
+	@Override
+	public RVPage getRvPageInfo(int rvPage, int oriNo) throws Exception {
+		int rvCount = frDAO.getRvTotalCount(oriNo);
+		System.out.println("rvCount="+rvCount);
+		System.out.println("rvPage"+rvPage);
+		RVPage rPage = new RVPage(rvPage,rvCount,5,3);
+		System.out.println(rPage.getListCount());
+		return rPage;
+	}
+	//댓글 조회하기
+	@Override
+	public ArrayList selectReply(RVPage rPage,int oriNo) throws Exception {
+		//시작 = (현재페이지-1)*(한 페이지에 보여줄 게시물 수)
+		int start=(rPage.getRvPage()-1)*rPage.getListCount()+1;
+		//끝 = 시작페이지 + 그 페이지에서 보여줄 게시물수-1
+		int end=start + rPage.getListCount()-1;
+		FreeBoardVO vo = new FreeBoardVO();
+		vo.setStart(start);
+		System.out.println("start"+start);
+		vo.setEnd(end);
+		System.out.println("end"+end);
+		vo.setOriNo(oriNo);
+		ArrayList list = frDAO.selectReply(vo);
+		return list;
+	}
+	//댓글 등록
+	@Override
+	public void insertReply(FreeBoardVO vo) throws Exception {
+		frDAO.insertReply(vo);
+	}
+	//댓글 수정
+	@Override
+	public void updateReply(FreeBoardVO vo) throws Exception {
+		frDAO.updateReply(vo);
+	}
+	//댓글 삭제
+	@Override
+	public void deleteReply(FreeBoardVO vo) throws Exception {
+		frDAO.deleteReply(vo);
 	}
 	
 }

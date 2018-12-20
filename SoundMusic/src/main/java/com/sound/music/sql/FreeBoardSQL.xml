@@ -119,7 +119,7 @@
 	<!-- 상세보기 질의 명령 -->
 	<select id="boardView" resultMap="clobView" parameterType="int">
 		SELECT
-			frb_Body, 
+			frb_Body as body, 
       <include refid="selectField" />  
 		FROM
 			FreeBoard, Member
@@ -142,7 +142,7 @@
 			SET
 				frb_Hit = frb_Hit + 1
 			WHERE
-				frb_No = #{oriNo}
+				frb_No = #{no}
 	</update>
 	<!-- 다운로드 파일정보 검색 질의 -->
 	<select id="download" parameterType="int" resultType="freeBoard">
@@ -173,16 +173,73 @@
 				frb_isshow = 'N'
 			where frb_no = #{oriNo}
 	</update>
+	<!-- 댓글 총 개수 구하기 질의 -->
+	<select id="selectTotalReply" parameterType="int" resultType="int">
+		select 
+			count(*) as cnt 
+		from 
+			freeBoardReply 
+		where 
+			fr_IsShow='Y' 
+		and 
+			fr_rno = #{oriNo}
+	</select>
+	<!-- 댓글등록 질의 -->
+	<insert id="insertReply" parameterType="freeBoard">
+		<selectKey order="BEFORE" resultType="int"  keyProperty="no">
+			select 
+				NVL(max(fr_No),0)+1 
+			from 
+				freeboardReply 
+			where 
+				fr_IsShow='Y'
+		</selectKey>
+		insert 
+			into 
+		freeboardReply 
+			values 
+		(#{no},#{oriNo},#{id},#{body},sysdate,'Y')
+	</insert>
+	<!-- 댓글수정 질의 -->
+	<update id="updateReply" parameterType="freeBoard">
+		update 
+			freeboardReply 
+		set 
+			fr_Body=#{body} 
+			
+		where 
+			fr_No=#{no} 
+		and 
+			fr_rno=#{oriNo}
+	</update>
+	<!-- 댓글삭제 질의 -->
+	<update id="deleteReply" parameterType="int">
+		update 
+			freeboardReply  
+		set 
+			fr_IsShow='N' 
+		where 
+			fr_No=#{no} 			
+	</update>
+	<!-- 댓글 조회 질의 -->
+	<select id="selectReply" parameterType="freeBoard" resultType="freeBoard">
+		SELECT 
+				*
+		FROM	
+			(SELECT
+				fr_No as no, 
+				fr_rNo as oriNo, 
+				m_Id as id, 
+				fr_Date as wday, 
+				fr_Body as body,
+				ROW_NUMBER() OVER(ORDER BY fr_No DESC) AS rno
+			 FROM
+				FreeBoardReply
+			 WHERE
+				UPPER(fr_ISSHOW)='Y' 
+				AND fr_rNo = #{oriNo}
+			)	 
+		WHERE 
+			rno BETWEEN #{start} AND #{end}
+	</select>
 </mapper>				
-
-
-
-
-
-
-
-
-
-
-
-

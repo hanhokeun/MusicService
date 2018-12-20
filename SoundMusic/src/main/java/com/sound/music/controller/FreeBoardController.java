@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.sound.music.service.FreeBoardService;
 import com.sound.music.util.FileUtil;
 import com.sound.music.util.PageUtil;
+import com.sound.music.util.RVPage;
 import com.sound.music.vo.FreeBoardVO;
 import com.sound.music.vo.StaticVO;
 
@@ -47,9 +48,9 @@ public class FreeBoardController {
 	public String writeForm(HttpSession session) throws Exception{
 		//할일
 		//글쓰기 폼을 보여줄 거야
-		session.setAttribute("UID", "bros");
-		session.setAttribute("UNICK", "bros");
 		//인터셉터를 이용하여 로그인처리했기 때문에 딱히 할일이 없다
+//		session.setAttribute("UID","admin");
+//		session.setAttribute("NICK", "bros");
 		System.out.println("writeForm.sm요청컨트롤러~~~");
 		return "/freeBoard/writeForm";
 	}
@@ -108,7 +109,7 @@ public class FreeBoardController {
 			System.out.println(strNo);
 			int oriNo = Integer.parseInt(strNo);
 			String nowPage = (String)req.getParameter("nowPage");//릴레이용
-			System.out.println("oriNo="+oriNo);
+			System.out.println("no="+oriNo);
 			//로직..서비스위임
 			//조회수 증가처리
 			//db를 이용하여 조회수 무한 증가되는것을 방지하는 방법을 사용.
@@ -127,26 +128,35 @@ public class FreeBoardController {
 		
 		//상세보기 요청 처리 함수
 		@RequestMapping("/boardView")
-		public ModelAndView boardView(HttpServletRequest req)throws Exception {
+		public ModelAndView boardView(HttpServletRequest req,
+				@RequestParam(value="nowPage")int nowPage,
+				@RequestParam(value="rvPage", defaultValue="1")int rvPage
+			)throws Exception {
 			//파라미터 받고
+			
 			String strNo = req.getParameter("oriNo");
 			int oriNo = Integer.parseInt(strNo);
-			String nowPage = req.getParameter("nowPage");
+			System.out.println(oriNo);
+//			String nowPage = req.getParameter("nowPage");
 			// 매개변수의 의미
 			// oriNo는 해당글번호에 정보,파일정보 검색위한
 			// nowPage 릴레이용
 			
 			//서비스(비지니스로직)
 			  //1.상세보기 내용검색
-			FreeBoardVO vo=frService.getBoardView(oriNo);
-					
+			FreeBoardVO vo = new FreeBoardVO();
+			vo=frService.getBoardView(oriNo); //글 내용
+			RVPage rPage = frService.getRvPageInfo(rvPage,oriNo);		
+			ArrayList replyList = frService.selectReply(rPage,oriNo); //댓글 정보
 			  //2.파일정보 검색	
 			ArrayList list = (ArrayList)frService.getFileInfo(oriNo);
 			//모델
 			ModelAndView mv = new ModelAndView();
 			mv.addObject("VIEW", vo);		  	//내용
 			mv.addObject("LIST",list);			//첨부파일 정보
-			mv.addObject("nowPage", nowPage); 	//릴레이용
+			mv.addObject("nowPage", nowPage);	//릴레이용
+			mv.addObject("RPAGE", rPage);
+			mv.addObject("REPLY",replyList);	//댓글
 
 			//뷰
 			mv.setViewName("freeBoard/boardView");
@@ -262,6 +272,57 @@ public class FreeBoardController {
 
 			return mv;
 			
+		}
+		
+		//댓글 등록하기
+		@RequestMapping("/freeBoardRe.sm")
+		public ModelAndView staticReplyWrite(HttpServletRequest req, 
+				ModelAndView mv,HttpSession session,FreeBoardVO vo) throws Exception {
+			int oriNo=vo.getOriNo();
+			String body = vo.getBody();
+			System.out.println("body="+body);
+			System.out.println("oriNo"+oriNo);
+			String nowPage=req.getParameter("nowPage");
+			session = req.getSession();
+			String id = (String)session.getAttribute("UID");
+			System.out.println("id = "+id);
+//			String mId="hongid";
+			//VO에 id값 담아주기
+			vo.setId(id);
+			//vo.setOriNo(oriNo);
+			//비즈니스로직-댓글등록
+			frService.insertReply(vo);
+			RedirectView rv = new RedirectView("../freeBoard/boardView.sm");
+			rv.addStaticAttribute("nowPage", nowPage);
+			rv.addStaticAttribute("oriNo", oriNo);
+			mv.setView(rv);
+			return mv;
+		}
+		//댓글 수정하기
+		@RequestMapping("/freeBoardRM.sm")
+		public ModelAndView staticReplyModify(FreeBoardVO vo, HttpServletRequest req) throws Exception {
+			String nowPage=req.getParameter("nowPage");
+			int oriNo = vo.getOriNo();
+			frService.updateReply(vo);
+			ModelAndView mv = new ModelAndView();
+			RedirectView rv=new RedirectView("../freeBoard/boardDetail.sm");
+			rv.addStaticAttribute("nowPage", nowPage);
+			rv.addStaticAttribute("oriNo", oriNo);
+			mv.setView(rv);
+			return mv;
+		}
+		//댓글 삭제하기
+		@RequestMapping("/freeBoardRD.sm")
+		public ModelAndView staticReplyDelete(FreeBoardVO vo,
+				HttpServletRequest req, ModelAndView mv) throws Exception {
+			String nowPage=req.getParameter("nowPage");
+			int oriNo = vo.getOriNo();
+			frService.deleteReply(vo);
+			RedirectView rv = new RedirectView("../freeBoard/boardDetail.sm");
+			rv.addStaticAttribute("nowPage", nowPage);
+			rv.addStaticAttribute("oriNo", oriNo);
+			mv.setView(rv);
+			return mv;
 		}
 			
 		}

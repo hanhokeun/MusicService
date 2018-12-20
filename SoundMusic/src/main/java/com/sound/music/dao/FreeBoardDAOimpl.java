@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sound.music.vo.FreeBoardVO;
+import com.sound.music.vo.StaticVO;
 
 @Service
 public class FreeBoardDAOimpl implements FreeBoardDAO {
@@ -54,8 +55,8 @@ public class FreeBoardDAOimpl implements FreeBoardDAO {
 	}
 	// 조회수 증가
 	@Override
-	public void updateHit(int oriNo) throws Exception{
-		session.update("freeBoard.updateHit",oriNo);	
+	public void updateHit(int no) throws Exception{
+		session.update("freeBoard.updateHit",no);	
 	}
 	// 파일 다운로드
 	@Override
@@ -84,5 +85,31 @@ public class FreeBoardDAOimpl implements FreeBoardDAO {
 		System.out.println("DAO 종료");
 		return cnt;
 	}
-
+	//댓글 총 개수 구하기
+	@Override
+	public int getRvTotalCount(int oriNo) throws Exception {
+		int totalCount = session.selectOne("freeBoard.selectTotalReply",oriNo);
+		return totalCount;
+	}
+	//댓글 조회하기
+	@Override
+	public ArrayList selectReply(FreeBoardVO vo) throws Exception {
+		ArrayList list=(ArrayList)session.selectList("freeBoard.selectReply",vo);
+		return list;
+	}
+	//게시글 댓글 등록
+	@Override
+	public void insertReply(FreeBoardVO vo) throws Exception {
+		session.insert("freeBoard.insertReply",vo);
+	}
+	//게시글 댓글 수정하기
+	@Override
+	public void updateReply(FreeBoardVO vo) throws Exception {
+		session.update("freeBoard.updateReply", vo);
+	}
+	//게시글 댓글 삭제하기
+	@Override
+	public void deleteReply(FreeBoardVO vo) throws Exception {
+		session.update("freeBoard.deleteReply", vo);
+	}
 }

@@ -9,12 +9,7 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script>
 		$(function(){
-			$("#sBtn").click(function(){
-				//무결성검사하고..				
-				//넘기기
-				//"#sForm"
-				$("#sForm").submit();
-			})
+			
 			//글쓰기 버튼
 			$("#wBtn").click(function(){
 				//글쓰기(폼보여줘)요청
@@ -42,27 +37,8 @@
 	<input type="hidden" id="oriNo" name="oriNo" />
 	<input type="hidden" id="nowPage" name="nowPage" />
 </form>
-  <h1> 여기에 내가 boardList를 뿌릴 것이다. 언젠가는</h1>
-  <%-- 검색기능 --%>
-  <form id="sForm" method="post" action="">
-  	<table border="1"width="700"align="center">
-  		<tr>
-  			<td align="center">
-  			<%-- 검색 대상 --%>
-  			<select name="target" id="target">
-  				<option value="title">제목</option>
-  				<option value="body">내용</option>
-  				<option value="writer">작성자</option>
-  				<option value="both">제목+내용</option>
-  			</select>
-  			<!-- 검색 단어 -->
-  			<input type="text" name="word" id="word"/>
-  			<!-- 검색 버튼 -->
-  			<input type="button" id="sBtn" value="search"/>
-  			</td>
-  		</tr>
-  	</table>
-  </form>
+  <h1> </h1>
+  
   <%-- 게시판 목록보기 
   req.setAttribute("LIST", list);--%>
   <table border="1"width="700"align="center">
@@ -80,12 +56,12 @@
   		<c:forEach var="data" items="${LIST}">
   			<tr>
   				<td>${data.no}</td>
-  				<%-- <td>
-  					조회수 증가<a href="../freeBoard/hitProc.sm?oriNo=${data.no}&nowPage=${PINFO.nowPage}">${data.title}</a>
-  				</td> --%>
   				<td>
+  					<a href="../freeBoard/hitProc.sm?oriNo=${data.no}&nowPage=${PINFO.nowPage}">${data.title}</a>
+  				</td>
+  				<%-- <td>
   					<a class="list" href="javascript:void(0);" onclick="javascript:getView('${data.no}','${PINFO.nowPage}')">
-  					${data.title}</a>
+  					${data.title}</a>--%>
   				</td>
   				<td>${data.id}</td>
   				<td>${data.wday}</td>
@@ -138,5 +114,6 @@
 			</tr>
 		</table>
 	</form>
+	
 </body>
 </html>

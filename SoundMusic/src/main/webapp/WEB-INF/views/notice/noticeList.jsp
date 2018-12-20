@@ -12,17 +12,6 @@
 <h1>게시글 목록</h1>
 <script>
 		$(function(){
-			$("#sBtn").click(function(){
-				//무결성검사하고..
-				if($('#word'.val()=='')){
-					alert('검색어를 입력하세요.')
-				}
-				//넘기기
-				//"#sForm"
-				$("#sForm").submit();
-			})
-			
-			
 			 //글쓰기 버튼
 			$("#wBtn").click(function(){
 				//글쓰기(폼보여줘)요청
@@ -35,34 +24,14 @@
 				
 			}) 
 			$("#hBtn").click(function(){
-				$(location).attr("href","../index.sm");
+				$(location).attr("href","#");
 			})
 		})
 	</script>
 	</head>
 <body>
-  <h1> 여기에 내가 boardList를 뿌릴 것이다. 언젠가는</h1>
-  <%-- 검색기능 --%>
-  <form id="sForm" method="post" action="">
-  	<table border="1"width="700"align="center">
-  		<tr>
-  			<td align="center">
-  			<%-- 검색 대상 --%>
-  			<select name="target" id="target">
-  				<option value="title">제목</option>
-  				<option value="body">내용</option>
-  				<option value="writer">작성자</option>
-  				<option value="both">제목+내용</option>
-  			</select>
-  			<!-- 검색 단어 -->
-  			<input type="text" name="word" id="word"/>
-  			<!-- 검색 버튼 -->
-  			<input type="button" id="sBtn" value="search"/>
-  			</td>
-  		</tr>
-  	</table>
-  </form>
-  <%-- 게시판 목록보기 --%>
+  
+   <%-- 게시판 목록보기 --%>
   <table border="1"width="700"align="center">
   	<thead>
   		<tr>
@@ -71,7 +40,7 @@
   			<th>작성자</th>
   			<th>작성일</th>
   			<th>조회수</th>
-  			<th>첨부파일</th>
+  			
   		</tr>
   	</thead>
   	<tbody>
@@ -82,7 +51,7 @@
   			<td>${temp.writer}</td>
   			<td>${temp.regdate}</td>
   			<td>${temp.viewcnt}</td>
-  			<td>{}</td>
+  			
   		</tr>
   	</c:forEach>
   	</tbody>
@@ -99,6 +68,37 @@
 			</tr>
 		</table>
 	</form>
+	 <%-- 페이지 이동기능 
+  req.setAttribute("PINFO", pInfo);		--%>
+  <table border="1"width="700"align="center">
+  	<tr>
+  		<td align="center">
+  			<!-- [<][1][2][3][4][5][>] -->
+  			<%--이전페이지 [<] --%>
+  			<c:if test="${PINFO.nowPage eq 1}">
+  			 	[<]
+  			 </c:if>
+  			 <c:if test="${PINFO.nowPage ne 1}">
+  			 <a href="../notice/noticeList.sm?nowPage=${PINFO.nowPage-1}">[<]</a>
+  			 </c:if>
+  				
+  			<%-- [1][2][3][4][5] --%>
+  			<c:forEach var="page" begin="${PINFO.startPage}"
+  			 end="${PINFO.endPage}" 
+  			 >
+  				<a href="../notice/noticeList.sm?nowPage=${page}">[${page}]</a>
+  			</c:forEach>
+  			<%--다음 페이지 현재 보고 있는 페이지가 마지막페이지까지 갔으면 --%>
+  			 <c:if test="${PINFO.nowPage eq PINFO.totalPage}">
+  			 	[>]
+  			 </c:if>
+  			 <c:if test="${PINFO.nowPage ne PINFO.totalPage}">
+  			 <a href="../notice/noticeList.sm?nowPage=${PINFO.nowPage+1}">[>]</a>
+  			 </c:if>
+  			
+  		</td>
+  	</tr>
+  </table>
 
   
 </body>

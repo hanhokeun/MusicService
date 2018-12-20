@@ -9,8 +9,39 @@ public class NoticeVO {
 	private String writer;	//작성자
 	private Date regdate;	//작성일
 	private int viewcnt;	//조회수
+	private int start;
+	private int end;	
+	private int nowPage;
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
+	}
+	public int getEnd() {
+		return end;
+	}
+	public void setEnd(int end) {
+		this.end = end;
+	}
+	public int getNowPage() {
+		return nowPage;
+	}
+	public void setNowPage(int nowPage) {
+		this.nowPage = nowPage;
+	}
 	public int getNo() {
 		return no;
 	}
