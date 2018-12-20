@@ -24,56 +24,64 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-		$(function(){
-			$("#lbtn").click(function(){
-				$(location).attr("href","../freeBoard/boardList.sm?nowPage=${nowPage}");
-			})
-			$("#mbtn").click(function(){
-				$(location).attr("href","../freeBoard/modifyForm.sm?nowPage=${nowPage}&oriNo=${VIEW.no}");			})
-			$("#dbtn").click(function(){
-				$('#tform').attr("action","../freeBoard/boardDelete.sm");
-				$('#tform').submit();
-			})
-		
-		//댓글 수정폼 보여주기
-			$('.rmBtn').click(function(){
-				var button = $(this);
-				var table=button.parents('table');
-				var id=table.attr('id');
-				$('#'+id).hide();
-				var formid="frm"+id;
-				$('#'+formid).show();
-			});
-			//댓글 수정처리
-			$('.modifyB').click(function(){
-				var form = $(this).parents("form");
-				$(form).submit();
-			});
-			//댓글 삭제하기
-			$('.rdBtn').click(function(){
-				var reNo = $(this).attr('param');				
-				$('#tempReOriNo').val("${VIEW.no}");				
-				$('#tempReNo').val(reNo);
-				$('#tempRenowPage').val("${nowPage}");
-				$('#tempReFrm').submit();
-			});
-			//댓글 등록하기
-			$('#wrBtn').click(function(){
-				if($('#body').val()==""){
-					alert('내용을 입력해주세요')
-					$('#body').focus();
-					return;
-				}				
-				$('#wrFrm').submit();
-			});
+	$(function() {
+		$("#lbtn").click(
+				function() {
+					$(location).attr("href",
+							"../freeBoard/boardList.sm?nowPage=${nowPage}");
+				})
+		$("#mbtn")
+				.click(
+						function() {
+							$(location)
+									.attr("href",
+											"../freeBoard/modifyForm.sm?nowPage=${nowPage}&oriNo=${VIEW.no}");
+						})
+		$("#dbtn").click(function() {
+			$('#tform').attr("action", "../freeBoard/boardDelete.sm");
+			$('#tform').submit();
 		})
-	</script>
+
+		//댓글 수정폼 보여주기
+		$('.rmBtn').click(function() {
+			var button = $(this);
+			var table = button.parents('table');
+			var id = table.attr('id');
+			$('#' + id).hide();
+			var formid = "frm" + id;
+			$('#' + formid).show();
+		});
+		//댓글 수정처리
+		$('.modifyB').click(function() {
+			var form = $(this).parents("form");
+			$(form).submit();
+		});
+		//댓글 삭제하기
+		$('.rdBtn').click(function() {
+			var reNo = $(this).attr('param');
+			$('#tempReOriNo').val("${VIEW.no}");
+			$('#tempReNo').val(reNo);
+			$('#tempRenowPage').val("${nowPage}");
+			$('#tempReFrm').submit();
+		});
+		//댓글 등록하기
+		$('#wrBtn').click(function() {
+			if ($('#body').val() == "") {
+				alert('내용을 입력해주세요')
+				$('#body').focus();
+				return;
+			}
+			$('#wrFrm').submit();
+		});
+	})
+</script>
 </head>
 <body>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-1"></div>
-			<div class="col-md-10"><br>
+			<div class="col-md-10">
+				<br>
 				<%-- 상세보기 내용 출력 --%>
 				<form id="tform" method="POST" encType="multipart/form-data">
 					<input id="oriNo" name="oriNo" value="${VIEW.no}" type="hidden">
@@ -122,12 +130,12 @@
 						<tr>
 							<td><input type="button" name="lbtn" id="lbtn" value="목록보기" />
 								<!-- 로그인 한사람에게만 수정 삭제 버튼 보이기 --> <c:if
-									test="${sessionScope.UID eq VIEW.id}">
+									test="${sessionScope.UID eq VIEW.id || 'admin'}">
 									<input type="button" name="dbtn" id="dbtn" value="삭제하기" />
 									<input type="button" name="mbtn" id="mbtn" value="수정하기" />
-								</c:if> <c:if test="${sessionScope.UID eq 'admin'}">
+								</c:if> <%-- <c:if test="${sessionScope.UID eq 'admin'}">
 									<input type="button" name="dbn" id="dbtn" value="삭제하기" />
-								</c:if></td>
+								</c:if --%>></td>
 						</tr>
 					</tbody>
 				</table>
@@ -226,6 +234,9 @@
 						name="nowPage" id="tempRenowPage" />
 				</form>
 			</div>
-			<div class="col-md-1"></div>
+		</div>
+	</div>
+
+	<div class="col-md-1"></div>
 </body>
 </html>
