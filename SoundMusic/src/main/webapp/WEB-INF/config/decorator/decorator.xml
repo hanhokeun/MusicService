@@ -5,6 +5,8 @@
 	<decorator name="sampleLayout" page="sampleLayout.jsp">
 		<pattern>/musiclist/*</pattern>
 		<pattern>/static/*</pattern>
+		<pattern>/freeBoard/*</pattern>
+		<pattern>/consert/*</pattern>
 	</decorator>
 	
 

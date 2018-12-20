@@ -66,7 +66,7 @@
 	  	<br>
       	<div>
       		<ul class="nav nav-tabs nav-justified">
-      			<li class="nav-item"><a class="nav-link active" href="#"><i class="fa fa-signal" style="font-size:24px"></i> 실시간차트</a></li>
+      			<li class="nav-item"><a class="nav-link active" href="freeBoard/onChart.sm"><i class="fa fa-signal" style="font-size:24px"></i> 실시간차트</a></li>
     			<li class="nav-item"><a class="nav-link active" href="musiclist/musiclist.sm"><i class='fas fa-headphones' style='font-size:24px'></i> Music List</a></li>    			
     			<li class="nav-item"><a class="nav-link active" href="concert/concertList.sm"><i class='fas fa-microphone-alt' style='font-size:24px'></i> 콘서트</a></li>
     			<li class="nav-item"><a class="nav-link active" href="freeBoard/boardList.sm"><i class='fas fa-pencil-alt' style='font-size:24px'></i> 커뮤니티</a></li>    			
@@ -84,7 +84,7 @@
     <div class="col-md-3">
       <div class="menubar">
       	<ul class="list-group list-group-flush">
-        	<li class="list-group-item"><a href="freeboard/onChart.sm" class="list-group-item list-group-item-action"> 실시간 차트</a></li>
+        	<li class="list-group-item"><a href="freeBoard/onChart.sm" class="list-group-item list-group-item-action"> 실시간 차트</a></li>
         	<li class="list-group-item"><a href="musiclist/musiclist.sm" class="list-group-item list-group-item-action"> Music List</a></li>
         	<li class="list-group-item"><a href="concert/concertList.sm" class="list-group-item list-group-item-action"> 콘서트</a></li>
         	<li class="list-group-item"><a href="freeBoard/boardList.sm" class="list-group-item list-group-item-action"> 커뮤니티</a></li>        	

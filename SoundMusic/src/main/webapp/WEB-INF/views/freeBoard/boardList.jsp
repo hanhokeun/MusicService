@@ -33,15 +33,29 @@
 	</script>
 	</head>
 <body>
+<div class="container">
+	<div class="row">	
+		<div class="col-md-2"></div>		
+			<div class="col-md-8"><br><br>			
+	
 <form id="a" method="POST" action="../freeBoard/hitProc.sm">
 	<input type="hidden" id="oriNo" name="oriNo" />
 	<input type="hidden" id="nowPage" name="nowPage" />
 </form>
-  <h1> </h1>
+  <h1>커뮤니티</h1>
   
+   <%-- 글쓰기 (기타기능)--%>  
+		<table class="table table">
+			<tr>
+				<td align="right">
+					<input type="button" id="wBtn" value="글쓰기" />
+					<input type="button" name="hBtn" id="hBtn" value="홈으로"/>
+				</td>
+			</tr>
+		</table>
   <%-- 게시판 목록보기 
   req.setAttribute("LIST", list);--%>
-  <table border="1"width="700"align="center">
+  <table class="table table-striped">
   	<thead>
   		<tr>
   			<th>번호</th>
@@ -71,9 +85,10 @@
   		</c:forEach>
   	</tbody>
   </table>
+  <br>
   <%-- 페이지 이동기능 
   req.setAttribute("PINFO", pInfo);		--%>
-  <table border="1"width="700"align="center">
+  <table class="table">
   	<tr>
   		<td align="center">
   			<!-- [<][1][2][3][4][5][>] -->
@@ -101,19 +116,10 @@
   			
   		</td>
   	</tr>
-  </table>
-  
-  <%-- 글쓰기 (기타기능)--%>
-  <form id="wForm" method="get" action="">
-		<table border="1" width="700" align="center">
-			<tr>
-				<td align="center">
-					<input type="button" id="wBtn" value="글쓰기" />
-					<input type="button" name="hBtn" id="hBtn" value="홈으로"/>
-				</td>
-			</tr>
-		</table>
-	</form>
-	
+  </table>  
+ 	
+	</div>
+	<div class="col-md-2"></div>
+</div>
 </body>
 </html>
