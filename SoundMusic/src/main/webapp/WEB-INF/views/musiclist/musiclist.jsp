@@ -51,7 +51,7 @@ a.music:hover{color:black;}
 </style>	
 </head>
 <body>
-<img src = "../resources/images/musiclist.png" />
+<img src = "../resources/images/mMainlogo.png" />
 <div class="container">
 <% String path = "http://localhost:80/music/musiclist";	 %>
   <!-- 검색창  -->

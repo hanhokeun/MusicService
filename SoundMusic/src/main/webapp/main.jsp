@@ -63,11 +63,11 @@
       	<div>
       		<ul class="nav nav-tabs nav-justified">
       			<li class="nav-item"><a class="nav-link active" href="#">실시간차트</a></li>
-    			<li class="nav-item"><a class="nav-link active" href="#">Music List</a></li>    			
+    			<li class="nav-item"><a class="nav-link active" href="./musiclist/musiclist.sm">Music List</a></li>    			
     			<li class="nav-item"><a class="nav-link active" href="#">콘서트</a></li>
     			<li class="nav-item"><a class="nav-link active" href="#">커뮤니티</a></li>
     			<li class="nav-item"><a class="nav-link active" href="#">공지사항</a></li>
-    			<li class="nav-item"><a class="nav-link active" href="static/staticList.sm">Music BigData</a></li>	    			
+    			<li class="nav-item"><a class="nav-link active" href="./static/staticList.sm">Music BigData</a></li>	    			
   			</ul>			
   		</div>	
       </div>

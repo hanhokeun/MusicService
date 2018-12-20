@@ -307,7 +307,7 @@
 					  	<th>글내용</th>
 				  		<td colspan="2">
 				  			<div class="form-group">
-				  				<textarea  class="form-control" name="body" id="body"></textarea>
+				  				<textarea  class="form-control" rows="5" name="body" id="body" style="resize:none"></textarea>
 				  			</div>
 				  		</td>
 					</tr>
