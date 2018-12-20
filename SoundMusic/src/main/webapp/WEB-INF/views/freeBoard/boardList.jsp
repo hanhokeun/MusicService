@@ -35,8 +35,8 @@
 <body>
 <div class="container">
 	<div class="row">	
-		<div class="col-md-2"></div>		
-			<div class="col-md-8"><br><br>			
+		<div class="col-md-1"></div>		
+			<div class="col-md-10"><br><br>			
 	
 <form id="a" method="POST" action="../freeBoard/hitProc.sm">
 	<input type="hidden" id="oriNo" name="oriNo" />
@@ -119,7 +119,7 @@
   </table>  
  	
 	</div>
-	<div class="col-md-2"></div>
+	<div class="col-md-1"></div>
 </div>
 </body>
 </html>
