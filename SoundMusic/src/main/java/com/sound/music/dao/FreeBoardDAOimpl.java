@@ -37,7 +37,7 @@ public class FreeBoardDAOimpl implements FreeBoardDAO {
 	//글 목록보기
 	@Override
 	public ArrayList getBoardList(FreeBoardVO vo)throws Exception {
-		System.out.println("목록 가져오기 시작");
+//		System.out.println("목록 가져오기 시작");
 		return (ArrayList)session.selectList("freeBoard.boardList",vo);
 		
 	}
@@ -80,9 +80,9 @@ public class FreeBoardDAOimpl implements FreeBoardDAO {
 	}
 	@Override
 	public int deleteBoard(int oriNo) {
-		System.out.println("DAO 시작");
+//		System.out.println("DAO 시작");
 		int cnt = session.update("freeBoard.deleteBoard",oriNo);
-		System.out.println("DAO 종료");
+//		System.out.println("DAO 종료");
 		return cnt;
 	}
 	//댓글 총 개수 구하기

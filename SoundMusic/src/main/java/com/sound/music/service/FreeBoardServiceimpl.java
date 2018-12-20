@@ -27,7 +27,7 @@ public class FreeBoardServiceimpl implements FreeBoardService {
 		String id = (String)session.getAttribute("UID");
 		vo.setId(id);
 		frDAO.insertBoard(vo,"board");
-		System.out.println("질의문 실행 후 no 변수 값="+ vo.getNo() );
+//		System.out.println("질의문 실행 후 no 변수 값="+ vo.getNo() );
 		for(int i=0; i<list.size() ; i++) {
 			
 			vo.setOriNo(vo.getNo());
@@ -52,15 +52,15 @@ public class FreeBoardServiceimpl implements FreeBoardService {
 	// 보드 리스트 가져오는 함수
 	@Override
 	public ArrayList getBoardList(PageUtil pInfo)throws Exception {
-		System.out.println("보드리스트 시작");
+//		System.out.println("보드리스트 시작");
 		int start = (pInfo.getNowPage()-1)*pInfo.getListCount()+1;
 		int end =  start + pInfo.getListCount()-1;
 		FreeBoardVO vo = new FreeBoardVO();
 		vo.setStart(start);
 		vo.setEnd(end);
 		ArrayList list = frDAO.getBoardList(vo);
-		System.out.println("리스트 내용"+list);
-		System.out.println("보드리스트 끝");
+//		System.out.println("리스트 내용"+list);
+//		System.out.println("보드리스트 끝");
 		return list;
 	}
 	// 상세보기 함수
@@ -115,7 +115,7 @@ public class FreeBoardServiceimpl implements FreeBoardService {
 		for(int i=0;i<list.size();i++) {
 			//파일에 대한 정보를 list가 가지고 있고 파일 한개당 정보는 Map이 가지고 있음
 			//map의 정보를 활용해서 vo에 담아 실행시켜 줄 수 있도록 함
-			System.out.println("list size:"+list.size());
+//			System.out.println("list size:"+list.size());
 			vo.setOriNo(vo.getOriNo());
 			HashMap map = (HashMap)list.get(i);
 			vo.setPath((String)map.get("path"));
@@ -128,19 +128,19 @@ public class FreeBoardServiceimpl implements FreeBoardService {
 	//글 삭제 명령 실행함수
 	@Override
 	public int deleteBoard(int oriNo) {
-		System.out.println("서비스 시작");
+//		System.out.println("서비스 시작");
 		int cnt = frDAO.deleteBoard(oriNo);
-		System.out.println("서비스 종료");
+//		System.out.println("서비스 종료");
 		return cnt;
 	}
 	//댓글 페이징 처리
 	@Override
 	public RVPage getRvPageInfo(int rvPage, int oriNo) throws Exception {
 		int rvCount = frDAO.getRvTotalCount(oriNo);
-		System.out.println("rvCount="+rvCount);
-		System.out.println("rvPage"+rvPage);
+//		System.out.println("rvCount="+rvCount);
+//		System.out.println("rvPage"+rvPage);
 		RVPage rPage = new RVPage(rvPage,rvCount,5,3);
-		System.out.println(rPage.getListCount());
+//		System.out.println(rPage.getListCount());
 		return rPage;
 	}
 	//댓글 조회하기
@@ -152,9 +152,9 @@ public class FreeBoardServiceimpl implements FreeBoardService {
 		int end=start + rPage.getListCount()-1;
 		FreeBoardVO vo = new FreeBoardVO();
 		vo.setStart(start);
-		System.out.println("start"+start);
+//		System.out.println("start"+start);
 		vo.setEnd(end);
-		System.out.println("end"+end);
+//		System.out.println("end"+end);
 		vo.setOriNo(oriNo);
 		ArrayList list = frDAO.selectReply(vo);
 		return list;
@@ -180,7 +180,7 @@ public class FreeBoardServiceimpl implements FreeBoardService {
 		@Override
 		public ArrayList mnetchart(PageUtil pInfo)throws Exception {
 			
-			System.out.println("보드리스트 시작");
+//			System.out.println("보드리스트 시작");
 			int start = (pInfo.getNowPage()-1)*pInfo.getListCount()+1;
 			int end =  start + pInfo.getListCount()-1;
 			FreeBoardVO vo = new FreeBoardVO();

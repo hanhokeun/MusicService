@@ -37,7 +37,7 @@ public class FreeBoardController {
 		PageUtil pInfo = frService.getPageInfo(nowPage);
 		// 게시물꺼내오기
 		ArrayList list = frService.getBoardList(pInfo);
-		System.out.println("게시물수 = "+list.size()); 
+//		System.out.println("게시물수 = "+list.size()); 
 		//3.모델
 		req.setAttribute("PINFO", pInfo);
 		req.setAttribute("LIST",list);
@@ -50,13 +50,13 @@ public class FreeBoardController {
 		//인터셉터를 이용하여 로그인처리했기 때문에 딱히 할일이 없다
 //		session.setAttribute("UID","admin");
 //		session.setAttribute("NICK", "bros");
-		System.out.println("writeForm.sm요청컨트롤러~~~");
+//		System.out.println("writeForm.sm요청컨트롤러~~~");
 		return "/freeBoard/writeForm";
 	}
 	//글쓰기
 		@RequestMapping("/writeProc")
 		public ModelAndView writeProc(FreeBoardVO vo, HttpSession session) throws Exception{
-			System.out.println("writeProc.sm요청컨트롤러~~~");
+//			System.out.println("writeProc.sm요청컨트롤러~~~");
 				
 			//1.파라미터받기				
 			String path = "E:\\upload";			
@@ -75,7 +75,7 @@ public class FreeBoardController {
 					vo.getFiles()[i].transferTo(file);
 				} catch (Exception e) {
 					e.printStackTrace();
-					System.out.println("강제 복사 에러 = "+e);
+//					System.out.println("강제 복사 에러 = "+e);
 				}			
 				HashMap map = new HashMap();
 				map.put("path",path);
@@ -105,10 +105,10 @@ public class FreeBoardController {
 			//할일
 			//파라미터받고
 			String strNo= (String)req.getParameter("oriNo");
-			System.out.println(strNo);
+//			System.out.println(strNo);
 			int oriNo = Integer.parseInt(strNo);
 			String nowPage = (String)req.getParameter("nowPage");//릴레이용
-			System.out.println("no="+oriNo);
+//			System.out.println("no="+oriNo);
 			//로직..서비스위임
 			//조회수 증가처리
 			//db를 이용하여 조회수 무한 증가되는것을 방지하는 방법을 사용.
@@ -135,7 +135,7 @@ public class FreeBoardController {
 			
 			String strNo = req.getParameter("oriNo");
 			int oriNo = Integer.parseInt(strNo);
-			System.out.println(oriNo);
+//			System.out.println(oriNo);
 //			String nowPage = req.getParameter("nowPage");
 			// 매개변수의 의미
 			// oriNo는 해당글번호에 정보,파일정보 검색위한
@@ -209,9 +209,9 @@ public class FreeBoardController {
 			ArrayList list=new ArrayList(); //파일 정보를 하나로 묶는 list
 			for(int i =0; i<vo.getFiles().length;i++) {
 				//파일의 실제이름
-				System.out.println("파일의 길이length:"+vo.getFiles().length);
+//				System.out.println("파일의 길이length:"+vo.getFiles().length);
 				String oriName=vo.getFiles()[i].getOriginalFilename();
-				System.out.println("oriName:"+oriName);
+//				System.out.println("oriName:"+oriName);
 				if(oriName==null||oriName.length()==0) {
 					continue; //파일 업로드되지 않은 부분 건너뛰기
 				}
@@ -220,7 +220,7 @@ public class FreeBoardController {
 				try {
 					vo.getFiles()[i].transferTo(file);
 				}catch(Exception e) {
-					System.out.println("강제 복사 에러:"+e);
+//					System.out.println("강제 복사 에러:"+e);
 				}
 				//파일 업로드 완료 -> 업로드된 파일의 정보를 Map으로 묶어보내기
 				HashMap map = new HashMap();
@@ -244,12 +244,12 @@ public class FreeBoardController {
 		@RequestMapping("/boardDelete")
 		public ModelAndView boardDelete(
 				 ModelAndView mv,HttpServletRequest req) {
-			System.out.println("게시판 삭제 시작");
+//			System.out.println("게시판 삭제 시작");
 			//1. 파라미터
 			String nowPage = req.getParameter("nowPage");
 			String strNo = req.getParameter("oriNo");
 			int oriNo = Integer.parseInt(strNo);
-			System.out.println("oriNo = "+oriNo);
+//			System.out.println("oriNo = "+oriNo);
 			int cnt = frService.deleteBoard(oriNo);
 			//뷰
 			RedirectView rv = null;
@@ -267,7 +267,7 @@ public class FreeBoardController {
 			
 			mv.setView(rv);
 			
-			System.out.println("게시판 삭제 마감");
+//			System.out.println("게시판 삭제 마감");
 
 			return mv;
 			
@@ -279,12 +279,12 @@ public class FreeBoardController {
 				ModelAndView mv,HttpSession session,FreeBoardVO vo) throws Exception {
 			int oriNo=vo.getOriNo();
 			String body = vo.getBody();
-			System.out.println("body="+body);
-			System.out.println("oriNo"+oriNo);
+//			System.out.println("body="+body);
+//			System.out.println("oriNo"+oriNo);
 			String nowPage=req.getParameter("nowPage");
 			session = req.getSession();
 			String id = (String)session.getAttribute("UID");
-			System.out.println("id = "+id);
+//			System.out.println("id = "+id);
 //			String mId="hongid";
 			//VO에 id값 담아주기
 			vo.setId(id);
