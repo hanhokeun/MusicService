@@ -25,8 +25,8 @@ public class StaticDAO implements StaticDAOInter {
 	}
 	//댓글 조회하기
 	@Override
-	public ArrayList<StaticVO> selectReply(int oriNo) throws Exception {
-		return (ArrayList)session.selectList("Static.selectReply",oriNo);
+	public ArrayList<StaticVO> selectReply(StaticVO vo) throws Exception {
+		return (ArrayList)session.selectList("Static.selectReply",vo);
 	}
 	//게시글 검색 후 총 개수 구하기
 	@Override

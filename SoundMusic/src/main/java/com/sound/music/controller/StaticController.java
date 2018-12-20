@@ -179,7 +179,7 @@ public class StaticController {
 		ArrayList fileList = sService.selectFileInfo(vo.getOriNo()); //파일 정보
 		System.out.println("fileList의 size"+fileList.size());
 		RVPage rPage = sService.getRvPageInfo(rvPage,vo.getOriNo());
-		ArrayList replyList = sService.selectReply(vo.getOriNo()); //댓글 정보
+		ArrayList replyList = sService.selectReply(rPage,vo.getOriNo()); //댓글 정보
 		//댓글 페이징 처리
 		
 		ModelAndView mv = new ModelAndView(); 

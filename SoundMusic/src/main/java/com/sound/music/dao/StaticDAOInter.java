@@ -32,7 +32,7 @@ public interface StaticDAOInter {
 	//댓글 총 개수 구하기
 	public int getRvTotalCount(int no) throws Exception;
 	//댓글 조회
-	public ArrayList<StaticVO> selectReply(int no) throws Exception;
+	public ArrayList<StaticVO> selectReply(StaticVO vo) throws Exception;
 	//댓글 등록
 	public void insertReply(StaticVO vo) throws Exception;
 	//댓글 수정

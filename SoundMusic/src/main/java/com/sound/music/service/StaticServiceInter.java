@@ -33,7 +33,7 @@ public interface StaticServiceInter {
 	//게시글 댓글 페이징 처리
 	public RVPage getRvPageInfo(int rvPage, int no) throws Exception;
 	//댓글 조회
-	public ArrayList<StaticVO> selectReply(int no) throws Exception;
+	public ArrayList<StaticVO> selectReply(RVPage rPage,int no) throws Exception;
 	//댓글 등록
 	public void insertReply(StaticVO vo) throws Exception;
 	//댓글 수정

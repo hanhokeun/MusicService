@@ -55,8 +55,15 @@ public class StaticService implements StaticServiceInter {
 	}
 	//댓글 조회하기
 	@Override
-	public ArrayList selectReply(int oriNo) throws Exception {
-		ArrayList list = sDAO.selectReply(oriNo);
+	public ArrayList selectReply(RVPage rPage,int oriNo) throws Exception {
+		//시작
+		int start=(rPage.getRvPage()-1)*rPage.getListCount()+1;
+		int end=start+rPage.getListCount()-1;
+		StaticVO vo = new StaticVO();
+		vo.setStart(start);
+		vo.setEnd(end);
+		vo.setOriNo(oriNo);		
+		ArrayList list = sDAO.selectReply(vo);
 		return list;
 	}
 	//댓글 등록

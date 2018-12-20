@@ -94,10 +94,12 @@
 		update StaticReply set sr_IsShow='N' where sr_No=#{no} and sr_Pw=#{pw}
 	</update>
 	<!-- 댓글 조회 질의 -->
-	<select id="selectReply" parameterType="int" resultType="static">
-		select sr_No as no, s_No as oriNo, m_Id as mId, sr_Body as body,
-		sr_Pw as pw, sr_Date as wday from staticReply 
-		where sr_IsShow='Y' and s_No=#{no}
+	<select id="selectReply" parameterType="static" resultType="static">
+		select * from (select sr_No as no, s_No as oriNo, m_Id as mId,
+		sr_Body as body, sr_Pw as pw, sr_Date as wday, 
+		ROW_NUMBER() OVER(order by sr_No desc) as rno from staticReply 
+		where sr_IsShow='Y' and s_No=#{oriNo}) 
+		where rno between #{start} and #{end}
 	</select>
 	<!-- 파일 정보 검색 질의 ->삭제시 정보검색, 다운로드시 정보검색 -->
 	<select id="DfileInfo" parameterType="int" resultType="static">

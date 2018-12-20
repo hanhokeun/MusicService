@@ -289,14 +289,14 @@
 					  			<%--이전링크 만들기--%>
 					  			<c:if test="${RPAGE.startPage eq 1}">[<]</c:if>
 					  			<c:if test="${RPAGE.startPage ne 1}">
-					  				<a href="../static/staticDetail.sm?rvPage=${RPAGE.nowPage-1}&nowPage=${nowPage}&oriNo=${VIEW.no}">[<]</a></c:if>
+					  				<a href="../static/staticDetail.sm?rvPage=${RPAGE.rvPage-1}&nowPage=${nowPage}&oriNo=${VIEW.no}">[<]</a></c:if>
 					  			<c:forEach var="page" begin="${RPAGE.startPage}" end="${RPAGE.endPage}">
 					  				<a href="../static/staticDetail.sm?rvPage=${page}&nowPage=${nowPage}&oriNo=${VIEW.no}">[${page}]</a>
 					  			</c:forEach>
 					  			<%--다음링크 만들기--%>
 					  			<c:if test="${RPAGE.endPage eq RPAGE.totalPage}">[>]</c:if>
 					  			<c:if test="${RPAGE.endPage ne RPAGE.totalPage}">
-					  				<a href="../static/staticDetail.sm?rvPage=${RPAGE.endPage+1}&nowPage=${nowPage}&oriNo=${VIEW.no}">[>]</a>
+					  				<a href="../static/staticDetail.sm?rvPage=${RPAGE.rvPage+1}&nowPage=${nowPage}&oriNo=${VIEW.no}">[>]</a>
 					  			</c:if>
 					  		</td>
 				  		</tr>

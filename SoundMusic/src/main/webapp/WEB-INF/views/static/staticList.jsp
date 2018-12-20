@@ -116,7 +116,7 @@
 				  			<%--다음링크 만들기--%>
 				  			<c:if test="${PINFO.endPage eq PINFO.totalPage}">[>]</c:if>
 				  			<c:if test="${PINFO.endPage ne PINFO.totalPage}">
-				  				<a href="../static/staticList.sm?nowPage=${PINFO.endPage+1}&searchOption=${SEARCHOPTION}&keyword=${KEYWORD}">[>]</a>
+				  				<a href="../static/staticList.sm?nowPage=${PINFO.nowPage+1}&searchOption=${SEARCHOPTION}&keyword=${KEYWORD}">[>]</a>
 				  			</c:if>
 				  		</td>
 			  		</tr>
