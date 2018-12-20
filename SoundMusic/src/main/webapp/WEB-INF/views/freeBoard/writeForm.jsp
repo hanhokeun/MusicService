@@ -15,7 +15,7 @@
 			$("#sBtn").click(function(){
 				//무결성검사하고
 				if($("#title").val == ""){
-					alert('제목을 입력하')
+					alert('제목을 입력하...')
 				}
 				
 				$("#wForm").submit();
@@ -75,7 +75,7 @@
   	<table border="1" width="700" align="center">
 	  	<tr>
 	  		<th>작성자</th>
-	  		<td>${sessionScope.UNICK}</td>
+	  		<td>${sessionScope.UID}</td>
 	  	</tr>
 	  	<tr>
 	  		<th>제목</th>

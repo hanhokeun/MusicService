@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.sound.music.dao.FreeBoardDAO;
 import com.sound.music.util.PageUtil;
 import com.sound.music.util.RVPage;
+import com.sound.music.vo.ConcertVO;
 import com.sound.music.vo.FreeBoardVO;
 import com.sound.music.vo.StaticVO;
 
@@ -173,6 +174,38 @@ public class FreeBoardServiceimpl implements FreeBoardService {
 	public void deleteReply(FreeBoardVO vo) throws Exception {
 		frDAO.deleteReply(vo);
 	}
+	
+		
+		//엠넷 차트
+		@Override
+		public ArrayList mnetchart(PageUtil pInfo)throws Exception {
+			
+			System.out.println("보드리스트 시작");
+			int start = (pInfo.getNowPage()-1)*pInfo.getListCount()+1;
+			int end =  start + pInfo.getListCount()-1;
+			FreeBoardVO vo = new FreeBoardVO();
+			vo.setStart(start);
+			vo.setEnd(end);					
+			//질의 실행
+			ArrayList list = frDAO.mnetchart(vo);			
+			return list;
+		}
+		//벅스차트
+		@Override
+		public ArrayList bugschart(PageUtil pInfo) throws Exception{
+				
+				int start=(pInfo.getNowPage()-1)*pInfo.getListCount()+1;
+				//끝페이지= 시작페이지 + 그 페이지에서 보여줄 게시물수-1
+				int end=start + pInfo.getListCount()-1;
+				FreeBoardVO vo = new FreeBoardVO();
+				vo.setStart(start);
+				vo.setEnd(end);
+				ArrayList list = frDAO.bugschart(vo);
+				
+			return list;
+		}
+		
+		
 	
 }
 

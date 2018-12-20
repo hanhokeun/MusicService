@@ -112,4 +112,16 @@ public class FreeBoardDAOimpl implements FreeBoardDAO {
 	public void deleteReply(FreeBoardVO vo) throws Exception {
 		session.update("freeBoard.deleteReply", vo);
 	}
+	//mnet 차트 가져오기
+	@Override
+	public ArrayList mnetchart(FreeBoardVO vo) throws Exception {
+		ArrayList list=(ArrayList)session.selectList("freeBoard.mnetCraw",vo);
+		return list;
+	}
+	//bugs chart가져오기
+	@Override
+	public ArrayList bugschart(FreeBoardVO vo) throws Exception {
+		ArrayList list=(ArrayList)session.selectList("freeBoard.bugsCraw",vo);
+		return list;
+	}
 }

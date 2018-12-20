@@ -19,7 +19,6 @@ import com.sound.music.util.FileUtil;
 import com.sound.music.util.PageUtil;
 import com.sound.music.util.RVPage;
 import com.sound.music.vo.FreeBoardVO;
-import com.sound.music.vo.StaticVO;
 
 @Controller
 @RequestMapping("/freeBoard")
@@ -324,8 +323,37 @@ public class FreeBoardController {
 			mv.setView(rv);
 			return mv;
 		}
+		
+
+		//실시간 차트 보기 페이지
+		@RequestMapping("/onChart")
+		public ModelAndView onchart(@RequestParam(value="nowPage", defaultValue="1") int nowPage,
+				HttpServletRequest req, ModelAndView mv)throws Exception {		
 			
+				//페이지 이동 기능
+				PageUtil pInfo = frService.getPageInfo(nowPage);
+				
+				//mnet 목록 보기
+				ArrayList list2 = frService.mnetchart(pInfo);
+				//벅스차트 목록 보기
+				ArrayList list = frService.bugschart(pInfo);
+//				System.out.println("콘서트 수= "+list.size());
+				
+				//모델
+				req.setAttribute("PINFO", pInfo);
+				req.setAttribute("LIST", list);
+				req.setAttribute("LIST2", list2);
+				
+				mv.setViewName("freeBoard/onChart");
+				return mv;
 		}
+			
+
+		
+		
+		
+}
+
 		
 		
 	

@@ -242,4 +242,30 @@
 		WHERE 
 			rno BETWEEN #{start} AND #{end}
 	</select>
+	<select id="bugsCraw" resultType="freeBoard">
+		SELECT 
+			 on_rank as rank,
+			 on_imgsrc as imgsrc,
+			 on_title as title,
+			 on_singer as singer,
+			 on_album as album  			 
+		FROM 
+			ONCHART
+	    WHERE
+	    	on_site = 1	
+	    ORDER BY on_rank asc
+	</select>
+	<select id="mnetCraw" resultType="freeBoard">
+		SELECT 
+			 on_rank as rank,
+			 on_imgsrc as imgsrc,
+			 on_title as title,
+			 on_singer as singer,
+			 on_album as album  			 
+		FROM 
+			ONCHART
+	    WHERE
+	    	on_site = 2	
+	    ORDER BY on_rank asc
+	</select>
 </mapper>				

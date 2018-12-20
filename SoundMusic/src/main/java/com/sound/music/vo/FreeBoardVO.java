@@ -31,6 +31,15 @@ public class FreeBoardVO {
 	private int end;
 	
 	private int nowPage;
+	private int rank;
+	private int site;
+	private String imgsrc;
+	
+	private String album;
+	private String singer;
+	
+	
+	
 	
 	//날짜를 wed dec 05 14:48:53 KST 2018
 	//yyyy-MM-dd hh시 mm분 ss초
@@ -205,6 +214,35 @@ public class FreeBoardVO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	public int getSite() {
+		return site;
+	}
+	public void setSite(int site) {
+		this.site = site;
+	}
+	public String getImgsrc() {
+		return imgsrc;
+	}
+	public void setImgsrc(String imgsrc) {
+		this.imgsrc = imgsrc;
+	}
+	public String getAlbum() {
+		return album;
+	}
+	public void setAlbum(String album) {
+		this.album = album;
+	}
+	public String getSinger() {
+		return singer;
+	}
+	public void setSinger(String singer) {
+		this.singer = singer;
+	}
 
 }

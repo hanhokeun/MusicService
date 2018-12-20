@@ -43,6 +43,9 @@ public interface FreeBoardService {
 	//다운로드 파일정보 검색질의 실행함수
 	public FreeBoardVO getDownloadFile(int fileNo) throws Exception;
 	
+	public ArrayList mnetchart(PageUtil pInfo)throws Exception;
+	public ArrayList bugschart(PageUtil pInfo)throws Exception;
+	
 
 
 

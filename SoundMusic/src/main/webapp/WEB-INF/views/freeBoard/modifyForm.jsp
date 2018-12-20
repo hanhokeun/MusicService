@@ -68,7 +68,7 @@
   	<table border="1" width="700" align="center">
 	  	<tr>
 	  		<th>작성자</th>
-	  		<td>${sessionScope.UNICK}</td>
+	  		<td>${sessionScope.UID}</td>
 	  	</tr>
 	  	<tr>
 	  		<th>제목</th>

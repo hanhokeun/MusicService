@@ -37,4 +37,8 @@ public interface FreeBoardDAO {
 		public void updateReply(FreeBoardVO vo) throws Exception;
 		//댓글 삭제
 		public void deleteReply(FreeBoardVO vo) throws Exception;
+
+		public ArrayList mnetchart(FreeBoardVO vo)throws Exception;
+
+		public ArrayList bugschart(FreeBoardVO vo)throws Exception;
 }
