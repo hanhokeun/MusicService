@@ -292,7 +292,7 @@ public class StaticController {
 			map.put("saveName",saveName);
 			map.put("len",file.length());
 			list.add(map);			
-			//System.out.println(path);
+			System.out.println(path);
 			//System.out.println(oriName);
 			//System.out.println(saveName);
 			//System.out.println(file.length());
