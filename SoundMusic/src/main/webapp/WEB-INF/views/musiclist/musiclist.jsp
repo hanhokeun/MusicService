@@ -13,7 +13,7 @@
 <title>Document</title>
 <style>
 a {text-decoration:none;}
-a.genre:link{color:white;}
+a.genre:link{color:black;}
 a.genre:visited{color:#4444FF;}
 a.genre:hover{color:#1FDA11;}
 a.music:link{color:brown;}
