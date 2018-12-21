@@ -40,7 +40,10 @@ public class ConcertDAO{
 	//관련콘서트 질의 명령 실행 함수
 	public ArrayList relationConcert(String artist) {
 		//스테이트먼트 구하기 -> 질의실행
-		return (ArrayList) session.selectList("concert.relationConcert",artist);
+		System.out.println("dao 에서의 artist : "+artist);
+		ArrayList list = (ArrayList) session.selectList("concert.relationConcert",artist);
+		System.out.println("연관검색개수="+list.size());
+		return list;
 	}
 	
 	//검색 결과 데이터 개수 구하기 질의 명령 실행함수

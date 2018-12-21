@@ -93,9 +93,9 @@ public class ConcertController {
 			p = pb.start();
 			BufferedReader bfr = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			String line = "";
-			System.out.println("Running Python starts: " + line);
+			//System.out.println("Running Python starts: " + line);
 			line = bfr.readLine();
-			System.out.println("First Line: " + line);
+			//System.out.println("First Line: " + line);
 			while((line = bfr.readLine()) !=null) {
 				System.out.println("Python Output: " + line);
 			}
@@ -116,7 +116,7 @@ public class ConcertController {
 		
 		//상세보기 내용검색
 		ConcertVO vo = cService.getConcertView(oriNo);
-		
+		//System.out.println("conertView 에서의 artist : "+artist);
 		//관련콘서트 내용검색
 		ArrayList list = cService.getrelationConcert(artist);
 		

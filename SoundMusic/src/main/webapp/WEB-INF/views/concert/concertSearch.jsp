@@ -17,6 +17,9 @@
 				$('#word').focus();
 				return; 
 			}	
+   		$('#artist').val('');
+   		$('#oriNo').val('');
+
 		$("#sForm").submit();
    		});
    
@@ -25,12 +28,63 @@
 	   		$(location).attr("href","../concert/concertList.sm?nowPage=${1}");
 	   	});
    	});
+   function goView(oriNo){
+   		$('#oriNo').val(oriNo);
+   		
+   		$('#sForm').attr('action','../concert/concertView.sm');
+   		$('#sForm').submit();
+   	}
    </script>
+   <style>
+   input {
+			vertical-align: middle;
+		}
+	
+	input.form-text{
+			border: 6px solid #d82e84;
+			border-radius: 40px 40px;
+			width: 300px;
+			height: 28px;
+		}
+		
+   input.img-button{
+			background:url("../resources/images/searchicon.png") no-repeat;
+			border: none;
+			width: 50px;
+			height: 50px;
+			cursor: pointer;
+		}
+		
+	input.img-button2{
+			background:url("../resources/images/list.png") no-repeat;
+			border: none;
+			width: 50px;
+			height: 50px;
+			cursor: pointer;
+		}
+	
+	input.form-text{
+			border: 6px solid #d82e84;
+			border-radius: 40px 40px;
+			width: 300px;
+			height: 50px;
+		}
+		
+	#target {border: 6px solid #d82e84; border-radius: 40px 40px; width: 300px; height: 41px; background-color: #ffffff;}
+		
+   </style>
 </head>
 <body>
   <%-- 검색기능  --%>
+  <!-- 콘서트번호, 현재페이지, word로 받은 아티스트 -->
+	<tr>
+		<td><br/></td>
+	</tr>
   		<form id="sForm" method="post" action="../concert/concertSearch.sm">
-	    <table border="1" width="700" align="center">
+  		<input type="hidden" id="artist" name="artist" value="${word}"/>
+  		<input type="hidden" id="oriNo" name="oriNo"/>
+  		<input type="hidden" id="nowPage" name="nowPage" value="${PINFO.nowPage}"/>
+	    <table border="0" width="700" align="center" align="center">
 	  	<tr>
 	  		<td align="center">
 	  			<!-- 검색대상 -->
@@ -40,19 +94,22 @@
 	  				<option value="artist">가수</option>
 	  			</select>
 	  			<!-- 검색단어 -->
-	  			<input type="text" name="word" id="word" />
+	  			<input type="text" name="word" id="word" class="form-text"/>
 	  			<!-- 검색버튼 -->
-	  				<input type="button" id="sBtn" value="search" />
+	  				<input type="button" id="sBtn" class="img-button" />
 	  			<!-- 전체보기버튼 -->
-	  				<input type="button" id="lBtn" value="list" />
+	  				<input type="button" id="lBtn" class="img-button2"/>
 	  		</td>
 	  	</tr>
 	  </table>
 	  </form>
   	<%-- 검색결과 출력   mv.addObject("LIST",list); --%>
-    <table border="1" width="700" align="center">
+  	<tr>
+		<td><br/></td>
+	</tr>
+    <table border="0" width="1000" align="center" cellpadding="5px">
 		<thead>
-			<tr>
+			<tr style="border-bottom:1px dashed  #cccccc; color: #e6005c;">
 				<th>CNO</th>
 				<th>IMG</th>
 				<th>TITLE</th>
@@ -62,17 +119,18 @@
 				<th>ARTIST</th>
 			</tr>
 		</thead>
+		
 		<tbody>
 			<c:forEach var="data" items="${LIST}">
-				<tr>
+				<tr style="border-bottom:1px dashed  #cccccc;">
 					<td>${data.rno}</td>
-					<td>
-						<a href="../concert/concertView.sm?oriNo=${data.cno}&nowPage=${PINFO.nowPage}&artist=${data.artist}">
-						<img src="${data.img}" width="50px" height="50px"/>
+					<td><!-- ../concert/concertView.sm?oriNo=${data.cno}&nowPage=${PINFO.nowPage}&artist=${data.artist} -->
+						<a href="javascript:void(0);" onclick="javascript:goView('${data.cno}');">
+						<img src="${data.img}" width="100px" height="140px"/>
 						</a>
 					</td>
 					<td>
-						<a href="../concert/concertView.sm?oriNo=${data.cno}&nowPage=${PINFO.nowPage}&artist=${data.artist}">
+						<a href="javascript:void(0);" onclick="javascript:goView('${data.cno}');">
 						${data.title}
 						</a>
 					</td>
@@ -84,16 +142,20 @@
 			</c:forEach>
 		</tbody>	
 	</table>
+	
   	  <%-- 페이지 이동기능 --%>
 	  <%-- 모델 req.setAttribute("PINFO", pInfo); 사용 --%>
-	  <table border="1" width="700" align="center">
+	  <table border="0" width="700" align="center">
+	  <tr>
+		<td><br/></td>
+	</tr>
 	  	<tr>
 	  		<td align="center">
 	  		<%-- [<][1][2][3][4][5][>] --%>
 	  		<%-- 이전페이지 [<] --%>
 	  		<%-- 현재페이지가 1인경우 --%>
 	  		<c:if test="${PINFO.nowPage eq 1}">
-	  			[<]
+	  			이전
 	  		</c:if>
 	  		
 	  		<%-- 현재페이지가 1이 아닌 경우 --%>
@@ -109,7 +171,7 @@
 	  		<%-- 다음페이지 [>] --%>
 	  		<%-- 현재 보고있는페이지가 마지막페이지까지 갔으면 --%>
 	  		<c:if test="${PINFO.nowPage eq PINFO.totalPage}">
-	 			[>]
+	 			다음
 	  		</c:if>
 	  		
 	  		<c:if test="${PINFO.nowPage ne PINFO.totalPage}">
@@ -117,6 +179,9 @@
 	  		</c:if>
 	  		</td>
 	  	</tr>
+	  	<tr>
+			<td><br/></td>
+		</tr>
 	  </table>
 </body>
 </html>

@@ -11,7 +11,7 @@
    		$(document).ready(function(){
    			//목록으로 돌아가기
    			$("#lBtn").click(function(){
-   				$(location).attr("href","../concert/concertList.sm?nowPage=${nowPage}")
+   				$(location).attr("href","../concert/concertList.sm?nowPage=${nowPage}&artist=${artist}")
    			});
    		});
    </script>
@@ -67,22 +67,21 @@
   <!-- 관련콘서트 목록 -->
   <table width="700" border="1" align="center">
   	<tbody>
+	<tr>
   		<c:forEach var="rera" items="${RERA}">
-  		<tr>
-  			<th width="100">CNO</th>
+   		<tr>
   			<td width="600">${rera.cno}</td>
-  		</tr>
+  		</tr> 
   		<tr>
-  			<th>IMG</th>
   			<td>
 			<img src="${rera.img}" width="50px" height="50px"/>
 			</td>
   		</tr>
    		<tr>
-  			<th>TITLE</th>
   			<td>${rera.title}</td>
   		</tr>
-  		<tr>
+  	</tr>
+  		<%-- <tr>
   			<th>GENRE</th>
   			<td>${rera.genre}</td>
   		</tr>
@@ -97,7 +96,7 @@
   		<tr>
   			<th>ARTIST</th>
   			<td>${rera.artist}</td>
-  		</tr>
+  		</tr> --%>
   		</c:forEach>		 		  		 		
   	</tbody> 
   </table>

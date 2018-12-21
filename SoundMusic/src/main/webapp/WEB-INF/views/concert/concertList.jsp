@@ -82,6 +82,8 @@
 		}
 		#list{
 			text-align: center;
+			padding-top: 50px;
+			margin-top: 50px;
 		}
 	</style>
 </head>
@@ -168,24 +170,27 @@
 			</tr>
 		</c:forEach>
 	</table>		
-  
+  	
 	<!-- 콘서트 목록보기 -->
 	<!-- 모델 req.setAttribute("LIST",list); 사용 -->
-	<table id="list" border="1" width="1000" align="center" cellpadding="5px" padding="10px">
+	<table id="list" border="0" width="1000" align="center" cellpadding="5px">
 		<thead>
 			<tr>
-				<th>CNO</th>
-				<th>IMG</th>
-				<th>TITLE</th>
-				<th>GENRE</th>
-				<th>DATE</th>
-				<th>LOC</th>
-				<th>ARTIST</th>
+				<td><br/></td>
+			</tr>
+			<tr style="border-bottom:1px dashed  #cccccc;">
+				<th>&nbsp;&nbsp;&nbsp;</th>
+				<th>&nbsp;&nbsp;&nbsp;</th>
+				<th><img src="../resources/images/weekly.png" alt="weekly" style="width: 200px; align: center;"></th>
+				<th>&nbsp;&nbsp;&nbsp;</th>
+				<th>&nbsp;&nbsp;&nbsp;</th>
+				<th>&nbsp;&nbsp;&nbsp;</th>
+				<th>&nbsp;&nbsp;&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="data" items="${LIST}">
-				<tr>
+				<tr style="border-bottom:1px dashed  #cccccc;">
 					<td>${data.rno}</td>
 					<td>
 						<a href="../concert/concertView.sm?oriNo=${data.cno}&nowPage=${PINFO.nowPage}&artist=${data.artist}">
@@ -207,19 +212,19 @@
 	
 	<%-- 페이지 이동기능 --%>
 	  <%-- 모델 req.setAttribute("PINFO", pInfo); 사용 --%>
-	  <table border="1" width="700" align="center">
+	  <table border="0" width="700" align="center">
 	  	<tr>
 	  		<td align="center">
 	  		<%-- [<][1][2][3][4][5][>] --%>
 	  		<%-- 이전페이지 [<] --%>
 	  		<%-- 현재페이지가 1인경우 --%>
 	  		<c:if test="${PINFO.nowPage eq 1}">
-	  			[<]
+	  			이전
 	  		</c:if>
 	  		
 	  		<%-- 현재페이지가 1이 아닌 경우 --%>
 	  		<c:if test="${PINFO.nowPage ne 1}">
-	  			<a href="../concert/concertList.sm?nowPage=${PINFO.nowPage-1}">[<]</a>
+	  			<a href="../concert/concertList.sm?nowPage=${PINFO.nowPage-1}"></a>
 	  		</c:if>
 	  		
 	  		<%-- [1][2][3][4][5] --%>
@@ -234,7 +239,7 @@
 	  		</c:if>
 	  		
 	  		<c:if test="${PINFO.nowPage ne PINFO.totalPage}">
-	 			<a href="../concert/concertList.sm?nowPage=${PINFO.nowPage+1}">[>]</a>
+	 			<a href="../concert/concertList.sm?nowPage=${PINFO.nowPage+1}">다음</a>
 	  		</c:if>
 	  	
 	  		</td>
@@ -243,7 +248,7 @@
 	  
 	<!-- 최신 목록으로 업데이트 -->
 	<form action="../concert/concertUpdate.sm">
-	<table border="1" width="700" align="center">
+	<table border="0" width="700" align="center">
 		<tr>
 		<td align="center">
 			<input type="submit" id="uBtn" value="concertListUpdate">

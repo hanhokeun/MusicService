@@ -61,6 +61,7 @@ public class ConcertService {
 	
 	//관련콘서트 보기 처리 함수
 	public ArrayList getrelationConcert(String artist) {
+		System.out.println("service 에서의 artist : "+artist);
 		ArrayList list = cDAO.relationConcert(artist);
 		return list;
 	}

@@ -88,9 +88,11 @@
 			FROM
 				Concert
 			WHERE
-				UPPER(c_isshow) = 'Y')
-	WHERE
-		ARTIST = #{artist}
+				UPPER(c_isshow) = 'Y'
+				AND
+				c_artist LIKE '%' || #{artist} || '%')
+	
+		
 	</select>
 	
 	<!-- 검색 결과 데이터 개수 구하기 질의 명령  -->
