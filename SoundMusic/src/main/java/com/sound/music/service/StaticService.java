@@ -90,7 +90,7 @@ public class StaticService implements StaticServiceInter {
 		for(int i=0;i<list.size();i++) {
 			//파일에 대한 정보를 list가 가지고 있고 파일 한개당 정보는 Map이 가지고 있음
 			//map의 정보를 활용해서 vo에 담아 실행시켜 줄 수 있도록 함
-			System.out.println("list size:"+list.size());
+			//System.out.println("list size:"+list.size());
 			vo.setOriNo(vo.getNo());
 			HashMap map = (HashMap)list.get(i);
 			vo.setPath((String)map.get("path"));
@@ -104,10 +104,10 @@ public class StaticService implements StaticServiceInter {
 	@Override
 	public void update(StaticVO vo,ArrayList list) throws Exception {
 		sDAO.update(vo,"static");
-		System.out.println("title:"+vo.getTitle());
-		System.out.println("body:"+vo.getBody());
-		System.out.println("artist:"+vo.getArtist());
-		System.out.println("song:"+vo.getSong());
+		//System.out.println("title:"+vo.getTitle());
+		//System.out.println("body:"+vo.getBody());
+		//System.out.println("artist:"+vo.getArtist());
+		//System.out.println("song:"+vo.getSong());
 		for(int i=0;i<list.size();i++) {
 			//파일에 대한 정보를 list가 가지고 있고 파일 한개당 정보는 Map이 가지고 있음
 			//map의 정보를 활용해서 vo에 담아 실행시켜 줄 수 있도록 함
@@ -160,8 +160,8 @@ public class StaticService implements StaticServiceInter {
 		int end = start+pInfo.getListCount()-1;
 		vo.setStart(start);
 		vo.setEnd(end);
-		System.out.println("start="+start);
-		System.out.println("end="+end);
+		//System.out.println("start="+start);
+		//System.out.println("end="+end);
 		ArrayList list = sDAO.SearchList(vo);
 		return list;
 	}
@@ -169,8 +169,8 @@ public class StaticService implements StaticServiceInter {
 	@Override
 	public PageUtil totalCount(int nowPage,StaticVO vo) throws Exception {
 		int totalCount = sDAO.totalCount(vo);
-		System.out.println("totalCount="+totalCount);
-		System.out.println("nowPage"+nowPage);
+		//System.out.println("totalCount="+totalCount);
+		//System.out.println("nowPage"+nowPage);
 		PageUtil pInfo = new PageUtil(nowPage,totalCount,6,3);
 		return pInfo;
 	}

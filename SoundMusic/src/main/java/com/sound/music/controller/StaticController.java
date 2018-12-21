@@ -59,7 +59,7 @@ public class StaticController {
 		for(int i=0; i<list.size();i++) {
 			StaticVO vo = new StaticVO();
 			vo= (StaticVO) list.get(i);
-			System.out.println("vo정보:"+vo.getPath()+vo.getSaveName());
+			//System.out.println("vo정보:"+vo.getPath()+vo.getSaveName());
 			File file = new File(vo.getPath(),vo.getSaveName());
 			file.delete(); //물리적 파일 삭제			
 		}
@@ -76,14 +76,14 @@ public class StaticController {
 			StaticVO vo,ModelAndView mv) throws Exception {
 		String nowPage=req.getParameter("nowPage");
 		int oriNo = vo.getOriNo();
-		System.out.println("oriNo="+oriNo);
+		//System.out.println("oriNo="+oriNo);
 		String path=req.getSession().getServletContext().getRealPath("/upload/");
 		ArrayList list=new ArrayList(); //파일 정보를 하나로 묶는 list
 		for(int i =0; i<vo.getFiles().length;i++) {
 			//파일의 실제이름
-			System.out.println("파일의 길이length:"+vo.getFiles().length);
+			//System.out.println("파일의 길이length:"+vo.getFiles().length);
 			String oriName=vo.getFiles()[i].getOriginalFilename();
-			System.out.println("oriName:"+oriName);
+			//System.out.println("oriName:"+oriName);
 			if(oriName==null||oriName.length()==0) {
 				continue; //파일 업로드되지 않은 부분 건너뛰기
 			}
@@ -161,9 +161,9 @@ public class StaticController {
 	@RequestMapping("/staticFileDownload.sm")
 	public ModelAndView fileDownload(@RequestParam(value="fileNo")int fileNo) throws Exception {
 		StaticVO vo = sService.downNDelFile(fileNo);
-		System.out.println("fileNo"+fileNo);
-		System.out.println("vo.getPath():"+vo.getPath());
-		System.out.println("vo.getSaveName():"+vo.getSaveName());
+		//System.out.println("fileNo"+fileNo);
+		//System.out.println("vo.getPath():"+vo.getPath());
+		//System.out.println("vo.getSaveName():"+vo.getSaveName());
 		File file = new File(vo.getPath(),vo.getSaveName()); //다운로드 파일 정보
 		//사용자 다운로드 뷰 호출
 		ModelAndView mv = new ModelAndView("download","downloadFile",file);
@@ -177,7 +177,7 @@ public class StaticController {
 		StaticVO svo = new StaticVO();
 		svo= sService.detail(vo.getOriNo()); //글 내용
 		ArrayList fileList = sService.selectFileInfo(vo.getOriNo()); //파일 정보
-		System.out.println("fileList의 size"+fileList.size());
+		//System.out.println("fileList의 size"+fileList.size());
 		RVPage rPage = sService.getRvPageInfo(rvPage,vo.getOriNo());
 		ArrayList replyList = sService.selectReply(rPage,vo.getOriNo()); //댓글 정보
 		//댓글 페이징 처리
@@ -213,7 +213,7 @@ public class StaticController {
 	public ModelAndView staticReplyWrite(HttpServletRequest req, 
 			ModelAndView mv,HttpSession session,StaticVO vo) throws Exception {
 		int oriNo=vo.getOriNo();
-		System.out.println("oriNo"+oriNo);
+		//System.out.println("oriNo"+oriNo);
 		String nowPage=req.getParameter("nowPage");
 		session = req.getSession();
 		//String mId = (String)session.getAttribute("UID");
@@ -268,12 +268,12 @@ public class StaticController {
 		//StaticVO클래스 이용해 파일의 정보를 받고
 		//업로드된 파일을 원하는 폴더에 실제 업로드를 실행시켜줌
 		String path=req.getSession().getServletContext().getRealPath("/upload/");
-		System.out.println("path:"+path);
+		//System.out.println("path:"+path);
 		ArrayList list=new ArrayList(); //파일 정보를 하나로 묶는 list
 		for(int i =0; i<vo.getFiles().length;i++) {
 			//파일의 실제이름
-			System.out.println("l파일의 길이ength:"+vo.getFiles().length);
-			System.out.println("글번호"+vo.getNo());
+			//System.out.println("l파일의 길이ength:"+vo.getFiles().length);
+			//System.out.println("글번호"+vo.getNo());
 			String oriName=vo.getFiles()[i].getOriginalFilename();
 			if(oriName==null||oriName.length()==0) {
 				continue; //파일 업로드되지 않은 부분 건너뛰기
@@ -283,7 +283,7 @@ public class StaticController {
 			try {
 				vo.getFiles()[i].transferTo(file);
 			}catch(Exception e) {
-				System.out.println("강제 복사 에러:"+e);
+				//System.out.println("강제 복사 에러:"+e);
 			}
 			//파일 업로드 완료 -> 업로드된 파일의 정보를 Map으로 묶어보내기
 			HashMap map = new HashMap();
@@ -292,10 +292,10 @@ public class StaticController {
 			map.put("saveName",saveName);
 			map.put("len",file.length());
 			list.add(map);			
-			System.out.println(path);
-			System.out.println(oriName);
-			System.out.println(saveName);
-			System.out.println(file.length());
+			//System.out.println(path);
+			//System.out.println(oriName);
+			//System.out.println(saveName);
+			//System.out.println(file.length());
 		}
 		//서비스위임
 		//한개의 파일 정보를 Map으로 묶고 여러 개의 파일 정보들이 담긴 Map을 List로 묶어 전달
