@@ -79,7 +79,6 @@ function likeProc(no){
 	var id = '${sessionScope.UID}';
 	if(id == ''){
 		alert('로그인을 한 후에 이용해주세요')
-		return false;
 	}
 	$('#c').submit();
 }

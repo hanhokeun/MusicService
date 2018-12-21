@@ -130,7 +130,7 @@
 						<tr>
 							<td><input type="button" name="lbtn" id="lbtn" value="목록보기" />
 								<!-- 로그인 한사람에게만 수정 삭제 버튼 보이기 --> 
-								<c:if test="${sessionScope.UID eq VIEW.id || 'admin'}">
+								<c:if test="${sessionScope.UID eq VIEW.id or sessionScope.UID eq 'admin'}">
 									<input type="button" name="dbtn" id="dbtn" value="삭제하기" />
 									<input type="button" name="mbtn" id="mbtn" value="수정하기" />
 								</c:if> </td>
