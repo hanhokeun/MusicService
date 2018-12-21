@@ -166,6 +166,7 @@ public class MusicListController {
 		String album = req.getParameter("mAlbum");
 		String path = req.getParameter("mImgpath");
 		String genre = req.getParameter("mGenre");
+		genre = URLEncoder.encode(genre, "UTF-8");
 		String lyrics = req.getParameter("mLyrics");
 		vo.setNo(no);
 		vo.setTitle(title);
@@ -331,6 +332,7 @@ public class MusicListController {
 			@RequestParam(value="genre",defaultValue="") String genre, HttpServletRequest req, 
 			ModelAndView mv1) throws Exception {
 			//페이징 기능
+			
 			PageUtil pInfo= musicInfoService.getrcPageInfo(nowPage,genre);
 			//뿌리기
 			List<MusicInfoVO> vo1 = (List<MusicInfoVO>)musicInfoService.rcList(pInfo,genre);
