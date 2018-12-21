@@ -140,6 +140,10 @@
 			});
 			//댓글 등록하기
 			$('#wrBtn').click(function(){
+				var id = '${sessionScope.UID}'; 
+				if(id == null || id == ''){
+					alert('로그인을 한 후에 이용해주세요')
+				}
 				if($('#body').val()==""){
 					alert('내용을 입력해주세요')
 					$('#body').focus();
@@ -150,9 +154,7 @@
 					$('#pw').focus();
 					return;
 				}
-				if("${empty sessionScope.UID}"){
-					alert('로그인을 한 후에 이용해주세요')
-				}
+
 				$('#wrFrm').submit();
 			});
 		});	
@@ -251,7 +253,7 @@
 			  			<tr>
 			  				<th>내용</th>
 			  				<td colspan="2">${reply.brBody}</td>
-			  			<c:if test="${sessionScope.UID eq reply.mId or sessionScope.UID eq 'admin' }">
+			  			<c:if test="${sessionScope.UID eq (reply.mId || 'admin') }">
 			  				<td align="center">
 			  					<input type="button" class="rmBtn" value="수정" param="${reply.no}"/>
 			  					<input type="button" class="rdBtn" value="삭제" param="${reply.no}"/>
@@ -281,16 +283,16 @@
 				  		<tr>
 				  			<td align="center">
 					  			<%--이전링크 만들기--%>
-					  			<c:if test="${RPAGE.startPage eq 1}">[<]</c:if>
+					  			<c:if test="${RPAGE.startPage eq 1}">이전</c:if>
 					  			<c:if test="${RPAGE.startPage ne 1}">
-					  				<a href="../static/staticDetail.sm?rvPage=${RPAGE.rvPage-1}&nowPage=${nowPage}&oriNo=${VIEW.no}">[<]</a></c:if>
+					  				<a href="../static/staticDetail.sm?rvPage=${RPAGE.rvPage-1}&nowPage=${nowPage}&oriNo=${VIEW.no}">이전</a></c:if>
 					  			<c:forEach var="page" begin="${RPAGE.startPage}" end="${RPAGE.endPage}">
-					  				<a href="../static/staticDetail.sm?rvPage=${page}&nowPage=${nowPage}&oriNo=${VIEW.no}">[${page}]</a>
+					  				<a href="../static/staticDetail.sm?rvPage=${page}&nowPage=${nowPage}&oriNo=${VIEW.no}">${page}</a>
 					  			</c:forEach>
 					  			<%--다음링크 만들기--%>
-					  			<c:if test="${RPAGE.endPage eq RPAGE.totalPage}">[>]</c:if>
+					  			<c:if test="${RPAGE.endPage eq RPAGE.totalPage}">다음</c:if>
 					  			<c:if test="${RPAGE.endPage ne RPAGE.totalPage}">
-					  				<a href="../static/staticDetail.sm?rvPage=${RPAGE.rvPage+1}&nowPage=${nowPage}&oriNo=${VIEW.no}">[>]</a>
+					  				<a href="../static/staticDetail.sm?rvPage=${RPAGE.rvPage+1}&nowPage=${nowPage}&oriNo=${VIEW.no}">다음</a>
 					  			</c:if>
 					  		</td>
 				  		</tr>
