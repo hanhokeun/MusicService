@@ -97,7 +97,7 @@ public class ConcertController {
 			line = bfr.readLine();
 			//System.out.println("First Line: " + line);
 			while((line = bfr.readLine()) !=null) {
-				System.out.println("Python Output: " + line);
+				//System.out.println("Python Output: " + line);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace());

@@ -10,9 +10,8 @@
    </head>
 <body>
 
-	<h1>최신 목록으로 업데이트 완료</h1>
-	<h1>3초 후 콘서트 홈페이지로 이동합니다</h1>
-
+	<h1 text-align="center">최신목록으로 업데이트가 완료되었습니다</h1>
+	<h1 text-align="center">5초 후에 콘서트 리스트로 이동됩니다</h1>
 	<meta name="time" http-equiv="refresh" content="5; url=http://localhost/music/concert/concertList.sm" />
 
 </body>
