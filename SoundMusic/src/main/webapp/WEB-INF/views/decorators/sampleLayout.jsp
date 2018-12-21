@@ -25,7 +25,7 @@
 			}
 </style>
 <body>
-<% String path = "http://localhost:80/music"; %>
+<% String path = "http://192.168.35.142:80/music"; %>
 	<!-- header -->
 	<header>
 		<%
