@@ -87,7 +87,7 @@ function likeProc(no){
 <body>
 <div class="container">
 <!-- 음악 삭제시 넘길것 -->
-<% String path = "http://localhost:80/music/musiclist";	 %>
+<% String path = "http://192.168.35.142/music/musiclist";	 %>
 <form id="d" method="POST" action="../musiclist/musiclistdelete.sm?nowPage=${NOWPAGE}&mNo=${INFO.no}">
 <input type="hidden" id="dNo" name="dNo" value="${INFO.no}" />
 </form>

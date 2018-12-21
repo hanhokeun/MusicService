@@ -38,7 +38,7 @@ a.music:hover{color:black;}
 </head>
 <body>
 <div class="container">
-	<% String path = "http://localhost:80/music/musiclist";	 %>
+	<% String path = "http://192.168.35.142/music/musiclist";	 %>
 <form id="rcFrm" method="POST" action="../musiclist/rcyProc.sm">
 <input type="hidden" id="rcNo" name="rcNo" />
 </form>

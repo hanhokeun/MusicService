@@ -54,7 +54,7 @@ function gMain(){
 <body>
 <img src = "../resources/images/mMainlogo.png" />
 <div class="container">
-<% String path = "http://localhost:80/music/musiclist";	 %>
+<% String path = "http://192.168.35.142/music/musiclist";	 %>
   <!-- 검색창  -->
 <form id="sForm" method="get" 
 	action="<%=path%>/musiclist.sm?nowPage=${PINFO.nowPage}&genre=${GENRE}&sub=${SUB}&svalue=${SVALUE}">
@@ -121,6 +121,7 @@ function gMain(){
 		</td>      
   	</tr>
   </table>
+</form> 
 <form id="mView" method="get" action="../musiclist/musicinfo.sm">
 	<input type="hidden" id="nowPage" name="nowPage"/>
 	<input type="hidden" id="no" name="no" />
