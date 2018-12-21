@@ -248,7 +248,7 @@
 				MUSIC
 			 WHERE
 				UPPER(MU_ISSHOW) = 'N' 
-				<if test="genre != '' and genre != null">
+				<if test="genre != ''">
 					AND MU_GENRE = #{genre}
 				</if>
 				)	
@@ -263,7 +263,7 @@
 			MUSIC
 		WHERE 
 			MU_ISSHOW = 'N' 
-				<if test="genre != '' and value != null " >
+				<if test="genre != '' and genre != null " >
 					AND MU_GENRE = #{genre}
 				</if>
 	</select>

@@ -22,7 +22,7 @@ a.music:hover{color:black;}
 </style>
 <script>
 $(document).ready(function(){
-	//음악 추가 폼
+	//음악 추가 폼~
 	$('#aList').click(function(){
 		$(location).attr('href','../musiclist/musiclistadd.sm');
 	});
