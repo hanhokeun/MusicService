@@ -179,6 +179,7 @@ public class MusicListController {
 		musicInfoService.update(vo);
 		
 		//모델
+		String g = URLEncoder.encode(genre, "UTF-8");
 		RedirectView rv = new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+no+"&genre="+genre);
 		mv.setView(rv);
 		return mv;
@@ -215,8 +216,9 @@ public class MusicListController {
 		//서비스
 		musicInfoService.rvWrite(vo);
 		//모델,뷰
+		String g = URLEncoder.encode(genre, "UTF-8");
 		RedirectView rv = 
-		new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+oriNo+"&genre="+genre);
+		new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+oriNo+"&genre="+g);
 		mv.setView(rv);
 		return mv;
 	}
@@ -245,8 +247,9 @@ public class MusicListController {
 		//서비스
 		musicInfoService.rvModify(rvo);
 		//모델,뷰
+		String g = URLEncoder.encode(genre, "UTF-8");
 		RedirectView rv = new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+oriNo+
-				"&genre="+genre+"&rvPage="+rvPage);
+				"&genre="+g+"&rvPage="+rvPage);
 		mv.setView(rv);
 		return mv;
 	}
@@ -270,8 +273,9 @@ public class MusicListController {
 		//서비스
 		musicInfoService.rvDelete(rvno);
 		//모델,뷰
+		String g = URLEncoder.encode(genre, "UTF-8");
 		RedirectView rv = new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+oriNo+
-				"&genre="+genre+"&rvPage="+rvPage);
+				"&genre="+g+"&rvPage="+rvPage);
 		mv.setView(rv);
 		return mv;
 	}
