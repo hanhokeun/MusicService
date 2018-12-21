@@ -2,6 +2,9 @@ package com.sound.music.controller;
 
 import java.awt.Dimension;
 import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -298,18 +301,22 @@ public class MusicListController {
 		}
 		//2. 만약 있다면..
 		else {
-			resp.setContentType("text/html; charset=UTF-8");
-			resp.setContentType(" pageEncoding='UTF-8'");
+			resp.setContentType("text/html; charset=euc-kr");
+			resp.setContentType(" pageEncoding='euc-kr'");
 			PrintWriter out = resp.getWriter();
 			out.println("<script>");
-			out.println("alert('You Already Recommended!');");
+			out.println("alert('이미 추천하였습니다!');"); // You Already Recommended!
 			out.println("history.back();");
 			out.println("</script>");
 			out.close();
 			
 		}
+		
+		String g = URLEncoder.encode(genre, "UTF-8");
+		String suri = "../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+no+"&genre="+g;
 		//모델, 뷰
-		RedirectView rv = new RedirectView("../musiclist/musicinfo.sm?nowPage="+nowPage+"&no="+no+"&genre="+genre);
+		
+		RedirectView rv = new RedirectView(suri);
 		mv.setView(rv);
 		return mv;
 	}
