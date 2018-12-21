@@ -130,16 +130,18 @@
 	<!-- 개막예정 콘서트 목록보기 -->
 	<select id="concertSchedule" resultType="concert">
 	SELECT 
-		c_cno		AS CNO,
-		c_title 	AS TITLE,
-		c_artist	AS ARTIST, 
-		c_imgsrc 	AS IMG
-	FROM 
-		concert 
-	WHERE 
-		rownum <![CDATA[ < ]]> 5
-	ORDER BY 
-		c_date
+			c_cno		AS CNO,
+			c_title 	AS TITLE,
+			c_artist	AS ARTIST, 
+			c_imgsrc 	AS IMG,
+			c_date		AS DAY,
+			ROW_NUMBER() OVER(ORDER BY c_date ASC) AS RNO
+		FROM 
+			concert 
+		WHERE 
+			rownum <![CDATA[ < ]]> 5
+		ORDER BY 
+			c_date ASC
 	</select>
 	
 </mapper>

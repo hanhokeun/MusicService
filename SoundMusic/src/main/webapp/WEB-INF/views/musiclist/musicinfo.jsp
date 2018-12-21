@@ -32,7 +32,7 @@ function rwProc(){
 	var id = '${sessionScope.UID}';
 	if(id == ''){
 		alert('로그인을 한 후에 이용해주세요')
-		return false;
+//		return false;
 	}
 	if($('#rvBody').val()=='' || $('#rvBody').val()== null){
 		alert('내용을 입력해주세요')

@@ -7,6 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <%--광고판--%>
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    
+    <%-- 기능 --%>
 	<script>
 		$(document).ready(function(){
 			//검색하기
@@ -26,53 +33,145 @@
 			});
 		});
 	</script>
+	
+	<%-- 스타일 --%>
+	<style>
+		
+		input {
+			vertical-align: middle;
+		}
+		
+		input.form-text{
+			border: 6px solid #d82e84;
+			border-radius: 40px 40px;
+			width: 300px;
+			height: 28px;
+		}
+	
+		input.img-button{
+			background:url("../resources/images/searchicon.png") no-repeat;
+			border: none;
+			width: 50px;
+			height: 50px;
+			cursor: pointer;
+		}
+			
+		.carousel-inner img {
+	      width: 100%;
+	      height: 100%;
+	  	}
+	  		  
+	  	#word {border: 6px solid #d82e84; border-radius: 40px 40px; width: 400px; height: 41px;}
+		#target {border: 6px solid #d82e84; border-radius: 40px 40px; width: 80px; height: 41px; background-color: #ffffff;}
+		#tb_1 {float: left; width: 500px; height: 600px;}
+		#img_1 {width: 100%; height: 100%; align: center;}
+		#tb_2 {float: left; width: 30px;}
+		#img_2 {width: 275px; height: 300px; align: center;}
+		#tb_3 {float: left; width: 30px;}
+		#img_3 {width: 274px; height: 300px; align: center;}
+		#tb_4 {float: left; width: 30px;}
+		#img_4 {width: 274px; height: 300px; align: center;}
+		#tab_ranking {
+			background-image: url(../resources/images/coming2.png);
+			border-collapse:separate;
+    		border-radius:6px;
+    		-moz-border-radius:6px;
+		}
+		#ranking_text{
+			text-align: right; 
+		}
+		#list{
+			text-align: center;
+		}
+	</style>
 </head>
-<body>
 
-	<h1>concertList 페이지 입니다</h1>
-	<!-- 개막예정 콘서트 목록보기 -->
-	<table border="1" width="700" align="center">
-		<c:forEach var="data2" items="${LIST2}">
-		<tr>
-			<td>
-				<a href="../concert/concertView.sm?oriNo=${data2.cno}&nowPage=${PINFO.nowPage}&artist=${data2.artist}">
-				<img src="${data2.img}" width="50px" height="50px"/>
-				</a>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<a href="../concert/concertView.sm?oriNo=${data2.cno}&nowPage=${PINFO.nowPage}&artist=${data2.artist}">
-				${data2.title}
-				</a>
-			</td>
-		</tr>
-		</c:forEach>
-	</table>
+<%-- 보여지는 페이지 --%>
+<body>
 	
 	<%-- 검색기능 --%>
 	  <form id="sForm" method="post" action="../concert/concertSearch.sm">
-	    <table border="1" width="700" align="center">
-	  	<tr>
-	  		<td align="center">
+	    <table id="searchtb" border="0" width="600" align="center">
+	  	<tr align="center">
+	  		<td width="100">
 	  			<!-- 검색대상 -->
 	  			<select name="target" id="target">
-	  				<option value="both">전체검색</option>
+	  				<option value="both">전체</option>
 	  				<option value="title">제목</option>
 	  				<option value="artist">가수</option>
 	  			</select>
+	  		</td>
+	  		<td width="100">
 	  			<!-- 검색단어 -->
-	  			<input type="text" name="word" id="word" />
+	  			<input type="text" name="word" id="word" class="form-text" />
+	  		</td>
+	  		<td width="80">	
 	  			<!-- 검색버튼 -->
-	  			<input type="button" id="sBtn" value="search" />
+	  			<input type="button" id="sBtn" class="img-button" />
 	  		</td>
 	  	</tr>
 	  </table>
 	 </form> 
+	 
+	 <%--광고판--%>
+	<div id="demo" class="carousel slide" data-ride="carousel">
+	
+	  <!-- Indicators -->
+	  <ul class="carousel-indicators">
+	    <li data-target="#demo" data-slide-to="0" class="active"></li>
+	    <li data-target="#demo" data-slide-to="1"></li>
+	    <li data-target="#demo" data-slide-to="2"></li>
+	  </ul>
+	  
+	  <!-- The slideshow -->
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	      <img src="../resources/images/ONEOKROCKHeader.jpg" alt="ONE" style="width: 100%;">
+	    </div>
+	    <div class="carousel-item">
+	      <img src="../resources/images/ONEOKROCKHeader.jpg" alt="RBB" style="width: 100%;">
+	    </div>
+	    <div class="carousel-item">
+	      <img src="../resources/images/ONEOKROCKHeader.jpg" alt="New York" style="width: 100%;">
+	    </div>
+	  </div>
+	  
+	  <!-- Left and right controls -->
+	  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+	    <span class="carousel-control-prev-icon"></span>
+	  </a>
+	  <a class="carousel-control-next" href="#demo" data-slide="next">
+	    <span class="carousel-control-next-icon"></span>
+	  </a>
+	</div>
+	 
+	<!-- 개막예정 콘서트 목록보기 -->
+	<c:forEach var="data2" items="${LIST2}">
+		<table id="tb_${data2.rno}" border="0" width="700" align="center">	
+				<tr>
+					<td>
+						<a href="../concert/concertView.sm?oriNo=${data2.cno}&nowPage=${PINFO.nowPage}&artist=${data2.artist}">
+							<img id="img_${data2.rno}" src="${data2.img}"/>
+						</a>
+					</td>
+				</tr>
+		</table>
+	</c:forEach>
+	
+	<table id="tab_ranking" border="0" width="830" height="297" align="left">
+		<c:forEach var="data2" items="${LIST2}">
+			<tr>
+				<td id="ranking_text">
+					<a href="../concert/concertView.sm?oriNo=${data2.cno}&nowPage=${PINFO.nowPage}&artist=${data2.artist}">
+					<img src="../resources/images/star2.png" style="width : 20px;"> ${data2.title} | ${data2.day} &nbsp; &nbsp; &nbsp;</a>
+				</td>
+			</tr>
+		</c:forEach>
+	</table>		
   
 	<!-- 콘서트 목록보기 -->
 	<!-- 모델 req.setAttribute("LIST",list); 사용 -->
-	<table border="1" width="700" align="center">
+	<table id="list" border="1" width="1000" align="center" cellpadding="5px" padding="10px">
 		<thead>
 			<tr>
 				<th>CNO</th>
@@ -90,7 +189,7 @@
 					<td>${data.rno}</td>
 					<td>
 						<a href="../concert/concertView.sm?oriNo=${data.cno}&nowPage=${PINFO.nowPage}&artist=${data.artist}">
-						<img src="${data.img}" width="50px" height="50px"/>
+						<img src="${data.img}" width="100px" height="140px"/>
 						</a>
 					</td>
 					<td><a href="../concert/concertView.sm?oriNo=${data.cno}&nowPage=${PINFO.nowPage}&artist=${data.artist}">
