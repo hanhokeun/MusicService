@@ -30,12 +30,17 @@
 			//업데이트
 			$("#uBtn").click(function(){
 				alert('최신목록으로 업데이트하시겠습니까?');
+				$("#uForm").submit();
 			});
 		});
 	</script>
 	
 	<%-- 스타일 --%>
 	<style>
+	
+		a:link {color:black;}
+		a:hover {color:red;}
+		a:visited {color:black;}	 
 		
 		input {
 			vertical-align: middle;
@@ -79,11 +84,19 @@
 		}
 		#ranking_text{
 			text-align: right; 
+			text-decoration: none;
 		}
 		#list{
 			text-align: center;
 			padding-top: 50px;
 			margin-top: 50px;
+		}
+		#uBtn{
+			background: url(../resources/images/up2.png);
+			border: none;
+			width: 300px;
+			height: 100px;
+			cursor: pointer;
 		}
 	</style>
 </head>
@@ -165,7 +178,7 @@
 			<tr>
 				<td id="ranking_text">
 					<a href="../concert/concertView.sm?oriNo=${data2.cno}&nowPage=${PINFO.nowPage}&artist=${data2.artist}">
-					<img src="../resources/images/star2.png" style="width : 20px;"> ${data2.title} | ${data2.day} &nbsp; &nbsp; &nbsp;</a>
+					<img src="../resources/images/star2.png" style="width : 20px; text-decoration:none;"> ${data2.title} | ${data2.day} &nbsp; &nbsp; &nbsp;</a>
 				</td>
 			</tr>
 		</c:forEach>
@@ -197,7 +210,7 @@
 						<img src="${data.img}" width="100px" height="140px"/>
 						</a>
 					</td>
-					<td><a href="../concert/concertView.sm?oriNo=${data.cno}&nowPage=${PINFO.nowPage}&artist=${data.artist}">
+					<td><a href="../concert/concertView.sm?oriNo=${data.cno}&nowPage=${PINFO.nowPage}&artist=${data.artist}" style="text-decoration:none;">
 						${data.title}
 						</a>
 					</td>
@@ -247,11 +260,11 @@
 	  </table>
 	  
 	<!-- 최신 목록으로 업데이트 -->
-	<form action="../concert/concertUpdate.sm">
+	<form id="uForm" action="../concert/concertUpdate.sm">
 	<table border="0" width="700" align="center">
 		<tr>
 		<td align="center">
-			<input type="submit" id="uBtn" value="concertListUpdate">
+			<input type="button" id="uBtn">
 		</td>
 		</tr>
 	</table>	

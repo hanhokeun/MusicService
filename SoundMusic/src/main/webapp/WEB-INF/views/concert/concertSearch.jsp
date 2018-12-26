@@ -130,7 +130,7 @@
 						</a>
 					</td>
 					<td>
-						<a href="javascript:void(0);" onclick="javascript:goView('${data.cno}');">
+						<a href="javascript:void(0);" onclick="javascript:goView('${data.cno}');" style="text-decoration:none;">
 						${data.title}
 						</a>
 					</td>

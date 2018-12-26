@@ -15,30 +15,46 @@
    			});
    		});
    </script>
-   </head>
+   <style>
+   
+ 	 input.img-button{
+			background:url("../resources/images/back.png") no-repeat;
+			border: none;
+			width: 500px;
+			height: 100px;
+			cursor: pointer;
+		}
+	a:link {color:black;}
+	a:hover {color:red;}
+	a:visited {color:black;}	 
+   </style> 
+</head>
 <body>
 	<!-- 상세보기 내용 출력 -->
-	<table width="700" border="1" align="center">
+	<tr>
+				<td><br/></td>
+	</tr>
+	<table width="700" border="0" align="center" cellpadding="10px">
   	<tbody>
-  		<tr>
-  			<th width="100">CNO</th>
+  		<tr style="border-bottom:1px dashed  #cccccc; color: #e6005c";">
+  			<th width="100">NO</th>
   			<td width="600">${VIEW.cno}</td>
   		</tr>
-  		<tr>
+  		<tr style="border-bottom:1px dashed  #cccccc;">
   			<th>IMG</th>
   			<td>
-			<img src="${VIEW.img}" width="50px" height="50px"/>
+			<img src="${VIEW.img}" width="300px" height="300px"/>
 			</td>
   		</tr>
-   		<tr>
+   		<tr style="border-bottom:1px dashed  #cccccc; color: #e6005c;">
   			<th>TITLE</th>
   			<td>${VIEW.title}</td>
   		</tr>
-  		<tr>
+  		<tr style="border-bottom:1px dashed  #cccccc;">
   			<th>GENRE</th>
   			<td>${VIEW.genre}</td>
   		</tr>
-   		<tr>
+   		<tr style="border-bottom:1px dashed  #cccccc;">
   			<th>DATE</th>
   			<td>${VIEW.day}</td>
   		</tr>
@@ -46,7 +62,7 @@
   			<th>LOC</th>
   			<td>${VIEW.loc}</td>
   		</tr>
-  		<tr>
+  		<tr style="border-bottom:1px dashed  #cccccc;">
   			<th>ARTIST</th>
   			<td>${VIEW.artist}</td>
   		</tr>		 		  		 		
@@ -54,51 +70,35 @@
   </table>
   
   <%-- 기타기능.. 목록보기 --%>
-  <table width="700" border="1" align="center">
+  <table width="700" border="0" align="center" cellpadding="10px">
   	<tbody>
   		<tr>
   			<td align="center">
-  				<input type="button" id="lBtn" value="Back"/>
+  				<input type="button" id="lBtn" class="img-button" />
   			</td>
   		</tr>
   	</tbody>
   </table>	
   
   <!-- 관련콘서트 목록 -->
-  <table width="700" border="1" align="center">
+  <tr>
+				<td><br/></td>
+  </tr>
+  <table width="700" border="0" align="center" cellpadding="10px">
   	<tbody>
-	<tr>
   		<c:forEach var="rera" items="${RERA}">
-   		<tr>
-  			<td width="600">${rera.cno}</td>
-  		</tr> 
-  		<tr>
-  			<td>
-			<img src="${rera.img}" width="50px" height="50px"/>
-			</td>
-  		</tr>
-   		<tr>
-  			<td>${rera.title}</td>
-  		</tr>
-  	</tr>
-  		<%-- <tr>
-  			<th>GENRE</th>
-  			<td>${rera.genre}</td>
-  		</tr>
-   		<tr>
-  			<th>DATE</th>
-  			<td>${rera.day}</td>
-  		</tr>
-    	<tr>
-  			<th>LOC</th>
-  			<td>${rera.loc}</td>
-  		</tr>
-  		<tr>
-  			<th>ARTIST</th>
-  			<td>${rera.artist}</td>
-  		</tr> --%>
-  		</c:forEach>		 		  		 		
-  	</tbody> 
+  		<tr style="border-bottom:1px dashed  #cccccc; color: #e6005c">
+  		<td width="600">
+  			${rera.cno} &nbsp;
+			<img src="${rera.img}" width="100px" height="100px"/>
+			<a href="../concert/concertView.sm?oriNo=${data.cno}&nowPage=${PINFO.nowPage}&artist=${data.artist}" style="text-decoration:none;">
+			&nbsp; ${rera.title}
+			</a>
+		</td>
+		</tr>
+  		</c:forEach>		 			 		
+  	</tbody>
   </table>
+  <br/>
 </body>
 </html>

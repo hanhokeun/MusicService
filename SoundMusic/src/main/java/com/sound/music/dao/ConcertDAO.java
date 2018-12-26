@@ -32,7 +32,6 @@ public class ConcertDAO{
 	
 	//상세보기 질의 명령 실행 함수
 	public ConcertVO getConcertView(String cno) {
-		System.out.println(cno);
 		//스테이먼트 구하기 -> 질의실행
 		return session.selectOne("concert.concertView",cno);
 	}
@@ -40,9 +39,7 @@ public class ConcertDAO{
 	//관련콘서트 질의 명령 실행 함수
 	public ArrayList relationConcert(String artist) {
 		//스테이트먼트 구하기 -> 질의실행
-		System.out.println("dao 에서의 artist : "+artist);
 		ArrayList list = (ArrayList) session.selectList("concert.relationConcert",artist);
-		System.out.println("연관검색개수="+list.size());
 		return list;
 	}
 	

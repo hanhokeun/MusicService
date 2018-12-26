@@ -61,7 +61,6 @@ public class ConcertService {
 	
 	//관련콘서트 보기 처리 함수
 	public ArrayList getrelationConcert(String artist) {
-		System.out.println("service 에서의 artist : "+artist);
 		ArrayList list = cDAO.relationConcert(artist);
 		return list;
 	}
@@ -70,7 +69,6 @@ public class ConcertService {
 	public PageUtil getSearchPage(ConcertVO vo, int nowPage) {
 		//총 데이터 개수구하기
 		int count = cDAO.searchCount(vo);
-		System.out.println("검색 결과 데이터 개수 count = "+count);
 		
 		//페이지이동정보
 		PageUtil pInfo = new PageUtil(nowPage, count, 15, 10);
@@ -91,7 +89,6 @@ public class ConcertService {
 		
 		//DB에서 질의를 실행할 때 필요한 데이터를 주고 결과 받기
 		ArrayList list = cDAO.concertSearch(vo);
-		System.out.println("검색어에 따른 데이터 검색 건수 list = "+list.size());
 		return list;
 	}
 	
