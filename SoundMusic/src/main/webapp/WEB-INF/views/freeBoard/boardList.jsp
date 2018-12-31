@@ -15,6 +15,7 @@
 				var id = '${sessionScope.UID}'; 
 				if(id == null || id == ''){
 					alert('로그인을 한 후에 이용해주세요')
+					return false;
 				}
 				//글쓰기(폼보여줘)요청
 				$(location).attr("href","../freeBoard/writeForm.sm");

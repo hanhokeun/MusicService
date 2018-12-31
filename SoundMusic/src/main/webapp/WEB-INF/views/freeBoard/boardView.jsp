@@ -64,7 +64,7 @@
 			var id = '${sessionScope.UID}'; 
 			if(id == null || id == ''){
 				alert('로그인을 한 후에 이용해주세요')
-			}
+				}
 			if ($('#body').val() == "") {
 				alert('내용을 입력해주세요')
 				$('#body').focus();
@@ -217,8 +217,10 @@
 								</div>
 							</td>
 							<td>
+							<c:if test="${sessionScope.UID eq reply.id}">
 								<button type="button" class="btn btn-outline-secondary btn-sm"
 									id="wrBtn">댓글 등록</button>
+									</c:if>
 							</td>
 						</tr>
 					</table>
