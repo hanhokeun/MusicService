@@ -14,8 +14,15 @@
 			//id="sBtn" value="글쓰기" 
 			$("#sBtn").click(function(){
 				//무결성검사하고
-				if($("#title").val == ""){
-					alert('제목을 입력하...')
+				if($('#title').val()==""){
+					alert('제목을 입력해주세요');
+					$('#title').focus();
+					return; 
+				}
+				if($('#body').val()==""){
+					alert('내용을 입력해주세요');
+					$('#body').focus();
+					return; 
 				}
 				
 				$("#wForm").submit();
