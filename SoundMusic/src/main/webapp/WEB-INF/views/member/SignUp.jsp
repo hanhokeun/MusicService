@@ -25,8 +25,7 @@ function IdCheck(){
 	     	alert("아이디는 영문자로 시작하는 4~15자 영문자 또는 숫자이어야 합니다.");
 	        return false;
 	        }	
-	}
-	
+	}	
 	$.ajax({		
 		async:false,
 		type : 'POST',

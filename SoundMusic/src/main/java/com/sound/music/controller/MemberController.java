@@ -164,15 +164,10 @@ public class MemberController {
 		
 		vo.setName(name);
 		vo.setGender(gender);
-		vo.setEmail(email);			
-		
-		System.out.println("받아온 이름="+vo.getName());
-		System.out.println("받아온 성별="+vo.getGender());
-		System.out.println("받아온 이메일="+vo.getEmail());
+		vo.setEmail(email);	
 		
 		String result = mService.getidSearch(vo);		
-		return result;				
-
+		return result;
 	}
 	
 	//아이디 찾기폼요청

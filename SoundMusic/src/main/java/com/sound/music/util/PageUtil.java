@@ -1,25 +1,17 @@
 package com.sound.music.util;
 
 public class PageUtil {
-//	필수 변수(반드시 개발자가 알려주어야 할 변수)
-	//		현재 보고싶은 페이지, 총 데이터 개수를 알려주어야 한다.
+
 	private		int		nowPage;		//	현재 보고싶은 페이지
 	private		int		totalCount;		//	총 데이터 개수
-	//	필수 변수(계산을 위해서는 꼭 알아야 할 변수)
-	//		한페이지당 몇개의 목록을 보여줄지, 한페이지당 페이지 이동 개수
-	//		(이 변수의 데이터는 개발자가 알려줘도 되고, 하드코딩해도 된다.)
 	private		int		listCount;		//	한페이지에 나타날 게시물 개수
-	private		int		pageCount;		//	한페이지에 나타날 페이지 이동 개수
-	
-	//	계산 변수(계산에 의해서 계산되어야 할 변수)
-	//		총 페이지수, 시작 페이지, 종료 페이지
+	private		int		pageCount;		//	한페이지에 나타날 페이지 이동 개수	
 	private		int		totalPage;		//	총 페이지수
 	private		int		startPage;		//	화면에 표시할 시작 페이지수
 	private		int		endPage;		//	화면에 표시할 마지막 페이지수
 	
 	
-	//페이지 이동 기능을 만드는 장소에서
-	//정보를 받아야 한다
+	
 	public PageUtil(int np, int tc) {
 //		this.nowPage = np;
 //		this.totalCount = tc;

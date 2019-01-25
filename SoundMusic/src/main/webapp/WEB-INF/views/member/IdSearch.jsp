@@ -47,16 +47,10 @@
 				}
 				else{
 					  $("#contentBody").html("<h2>회원 아이디 : "+result +"<h2>");
-				        $("#myModal").modal('show'); 
-					/* alert("회원님의 아이디는 : " +result+"입니다.") */
-					/* $("#idList").append("<h1>"+"회원님의 아이디는 :"+result +"입니다. </h1>") */	
-				
-				}
-				
-			}
-			
-		});		
-		
+				        $("#myModal").modal('show');				
+				}				
+			}			
+		})		
 	}
   
 	//회원가입 버튼 클릭시 회원가입 화면으로 이동
